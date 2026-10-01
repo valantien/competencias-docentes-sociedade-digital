@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Componente — Orbe solar</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  /* =====================================================================
+     ORBE SOLAR — componente guardado a pedido do usuário (2026-09-06)
+     para reuso na TELA DE BIO (última do deck).
+
+     Origem: capa da aula 1. Se a variante com globo WebGL/Canvas for
+     escolhida para a capa, este elemento sai de lá — e é este arquivo
+     que o preserva. Não apagar.
+
+     Uso: copiar os três blocos .orb / .ring / .ring2 e as três divs.
+     Dependências: os tokens --peach-lt, --peach e --orange do deck.
+     Empilhamento: .orb e .ring em z-index 0, .ring2 em 1; o conteúdo
+     de texto precisa ficar em z-index 2 ou acima.
+     ===================================================================== */
+  :root{
+    --ink:#1E1B18; --paper:#EFE3D1; --orange:#C1541F; --orange-deep:#8F3B15;
+    --peach:#F3C7A4; --peach-lt:#FBE4CB; --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+  }
+
+  /* ---------- o componente ---------- */
+  .orb{
+    position:absolute;top:-210px;right:-230px;width:820px;height:820px;border-radius:50%;
+    background:radial-gradient(circle at 60% 66%, var(--peach-lt) 0%, var(--peach) 52%, #E9A472 78%, #DE8B52 100%);
+    z-index:0;
+  }
+  .ring{
+    position:absolute;bottom:-260px;left:-140px;width:560px;height:560px;border-radius:50%;
+    border:3px solid var(--orange);opacity:.15;z-index:0;
+  }
+  .ring2{
+    position:absolute;top:120px;right:120px;width:420px;height:420px;border-radius:50%;
+    border:2px solid #FFFFFF;opacity:.35;z-index:1;
+  }
+
+  /* ---------- só para esta demonstração ---------- */
+  .nota{
+    position:relative;z-index:2;padding:64px 92px;max-width:560px;
+    font-size:.94rem;line-height:1.55;color:var(--ink);
+  }
+  .nota h1{font-size:1.5rem;color:var(--orange-deep);margin-bottom:14px}
+  .nota code{background:rgba(193,84,31,.10);padding:1px 6px;border-radius:4px;font-size:.86em}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="orb"></div>
+  <div class="ring"></div>
+  <div class="ring2"></div>
+
+  <div class="nota">
+    <h1>Orbe solar</h1>
+    <p>Componente guardado para a <b>tela de BIO</b>, a última do deck.</p>
+    <p style="margin-top:12px">São três elementos: <code>.orb</code> (o disco com gradiente radial, canto superior direito),
+    <code>.ring2</code> (o anel branco por dentro dele) e <code>.ring</code> (o anel terracota discreto, canto inferior esquerdo).</p>
+    <p style="margin-top:12px">O conteúdo de texto precisa ficar em <code>z-index: 2</code> ou acima, senão o anel branco passa por cima.</p>
+  </div>
+</div>
+
+</body>
+</html>

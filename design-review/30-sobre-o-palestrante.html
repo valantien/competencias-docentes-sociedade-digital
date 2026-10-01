@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>BIO — Sobre o palestrante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  /* Tela de BIO — última do deck. Texto: source/about_me.md (escrito pelo usuário).
+     Camada ACADÊMICA: nada de evento aqui, para a tela servir em qualquer palestra.
+     Fundo: componente componentes/orbe-solar.html (.orb / .ring / .ring2). */
+  :root{
+    --ink:#1E1B18; --paper:#EFE3D1; --orange:#C1541F; --orange-deep:#8F3B15;
+    --peach:#F3C7A4; --peach-lt:#FBE4CB; --deep:#6E2C0F; --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+  }
+
+  /* ---------- orbe solar (componentes/orbe-solar.html) ---------- */
+  .orb{
+    position:absolute;top:-210px;right:-230px;width:820px;height:820px;border-radius:50%;
+    background:radial-gradient(circle at 60% 66%, var(--peach-lt) 0%, var(--peach) 52%, #E9A472 78%, #DE8B52 100%);
+    z-index:0;
+  }
+  .ring{
+    position:absolute;bottom:-260px;left:-140px;width:560px;height:560px;border-radius:50%;
+    border:3px solid var(--orange);opacity:.15;z-index:0;
+  }
+  .ring2{
+    position:absolute;top:120px;right:120px;width:420px;height:420px;border-radius:50%;
+    border:2px solid #FFFFFF;opacity:.35;z-index:1;
+  }
+
+  .content{
+    position:relative;z-index:2;height:100%;
+    padding:56px 92px 118px;display:flex;gap:56px;
+  }
+  .col-main{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:center}
+  .col-side{flex:0 0 400px;display:flex;flex-direction:column;justify-content:center}
+
+  .eyebrow{
+    font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--orange);display:flex;align-items:center;gap:14px;
+  }
+  .eyebrow::before{content:"";width:36px;height:3px;background:var(--orange);display:inline-block}
+
+  .name{
+    margin-top:22px;font-family:var(--serif);font-weight:700;font-optical-sizing:auto;
+    font-size:3rem;line-height:1.05;color:var(--orange-deep);letter-spacing:-.02em;
+  }
+  .rule{height:4px;width:180px;margin:22px 0 26px;border-radius:2px;
+    background:linear-gradient(90deg,var(--deep) 0%,var(--orange) 50%,var(--peach) 100%)}
+
+  .lead{font-size:1.2rem;line-height:1.45;font-weight:500;color:var(--ink);margin-bottom:24px}
+  .creds{list-style:none;display:flex;flex-direction:column;gap:13px}
+  .creds li{display:flex;gap:14px;align-items:baseline;font-size:1.14rem;line-height:1.35;color:var(--ink)}
+  .creds li::before{
+    content:"";flex:0 0 8px;height:8px;border-radius:50%;background:var(--orange);
+    transform:translateY(-2px);
+  }
+  .creds b{font-weight:700;color:var(--orange-deep)}
+  .creds .inst{color:var(--muted);font-weight:500}
+
+  /* cartão da I.A.R.A. sobre o orbe */
+  .card{
+    background:rgba(255,255,255,.72);backdrop-filter:blur(6px);
+    border-radius:14px;padding:26px 28px;
+    box-shadow:0 10px 30px rgba(110,44,15,.14);
+    border-left:4px solid var(--orange);
+  }
+  .card .kicker{
+    font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);
+  }
+  .card .iara{
+    margin-top:8px;font-family:var(--serif);font-weight:700;font-size:1.7rem;line-height:1.1;color:var(--orange-deep);
+  }
+  .card .iara-sub{margin-top:4px;font-size:.98rem;font-weight:600;color:var(--ink)}
+  .card p{margin-top:14px;font-size:.98rem;line-height:1.48;color:var(--ink)}
+  .card .sep{height:1px;background:rgba(110,44,15,.16);margin:18px 0 0}
+  .card .tese-lbl{
+    margin-top:16px;font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  }
+  .card .tese{margin-top:6px}
+  .qr-row{display:flex;align-items:center;gap:14px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(110,44,15,.16)}
+  .qr-code{width:128px;height:128px;flex:0 0 128px;object-fit:contain;background:#fff;padding:5px;border-radius:4px}
+  .qr-copy{font-size:1rem;line-height:1.32;color:var(--ink)}
+  .qr-copy b{display:block;margin-bottom:4px;color:var(--orange-deep);font-size:1rem}
+
+  /* barra de links no rodapé — mesma linguagem da .capa-bar da capa */
+  .bio-bar{
+    position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;
+    background:rgba(255,255,255,.58);backdrop-filter:blur(5px);
+    border-top:1px solid rgba(110,44,15,.16);
+    padding:18px 92px;gap:0;
+  }
+  .bio-bar-col{display:flex;flex-direction:column;gap:5px;min-width:0;padding-right:40px}
+  .bio-bar-col + .bio-bar-col{padding-left:40px;border-left:1px solid rgba(110,44,15,.14)}
+  .bio-bar-label{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .bio-bar-value{font-size:1rem;font-weight:700;color:var(--orange-deep);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="orb"></div>
+  <div class="ring"></div>
+  <div class="ring2"></div>
+
+  <div class="content">
+    <div class="col-main">
+      <div class="eyebrow">Sobre o palestrante</div>
+      <h1 class="name">Prof. Me.<br>Krysamon Cavalcante</h1>
+      <div class="rule"></div>
+
+      <p class="lead">Pesquisador em inteligência artificial aplicada à educação e à inclusão, com ênfase na investigação de como as tecnologias cognitivas podem potencializar as capacidades humanas e reconfigurar os processos de aprendizagem.</p>
+
+      <ul class="creds">
+        <li><span><b>Doutorando</b> em Ciências, Tecnologias e Inclusão <span class="inst">· PGCTIn/UFF</span></span></li>
+        <li><span><b>Mestre</b> em Diversidade e Inclusão <span class="inst">· CMPDI/UFF</span></span></li>
+        <li><span><b>Graduado</b> em Design Gráfico <span class="inst">· UNESA</span></span></li>
+        <li><span><b>Professor</b> e <b>Coordenador de Pesquisa</b> <span class="inst">· FAETEC / Centro de Memória</span></span></li>
+        <li><span><b>Pesquisador</b> do Núcleo de Educação Especial e Inclusiva <span class="inst">· NEEI</span> e <b>editor acadêmico</b> no Selo Hypatia</span></li>
+      </ul>
+    </div>
+
+    <div class="col-side">
+      <div class="card">
+        <div class="kicker">Criador do</div>
+        <div class="iara">Assistente I.A.R.A.</div>
+        <div class="iara-sub">Inteligência Artificial para Raras Assistência</div>
+        <p>Nasceu na pesquisa de mestrado para incluir e disseminar conhecimento sobre doenças, síndromes e condições raras — e agora se amplia no doutorado.</p>
+        <div class="sep"></div>
+        <div class="tese-lbl">Pesquisa doutoral</div>
+        <p class="tese">Como sistemas conversacionais de IA generativa redistribuem agência e promovem inclusão epistêmica e autonomia cognitiva nas condições raras e na neurodiversidade, à luz da tese da Mente Estendida.</p>
+        <div class="qr-row">
+          <img class="qr-code" src="../assets/krysamon_bio_qrcode.png" alt="QR Code para a bio de Krysamon Cavalcante">
+          <div class="qr-copy"><b>Acesse minha bio</b>Aponte a câmera para conhecer o currículo e os projetos.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio-bar">
+    <div class="bio-bar-col"><span class="bio-bar-label">Bio</span><a class="bio-bar-value" href="https://www.iara.me/bio">https://www.iara.me/bio</a></div>
+    <div class="bio-bar-col"><span class="bio-bar-label">Currículo Lattes</span><a class="bio-bar-value" href="https://lattes.cnpq.br/5084695314809486">https://lattes.cnpq.br/5084695314809486</a></div>
+    <div class="bio-bar-col"><span class="bio-bar-label">ORCID</span><a class="bio-bar-value" href="https://orcid.org/0009-0003-7840-2501">https://orcid.org/0009-0003-7840-2501</a></div>
+  </div>
+</div>
+
+</body>
+</html>

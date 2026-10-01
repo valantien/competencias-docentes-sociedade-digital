@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 12 — Conectividade universal e significativa</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:20px}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+  .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  /* ---------- Corpo ---------- */
+  .body{flex:1;display:grid;grid-template-columns:300px 1fr;gap:34px;min-height:0}
+
+  .defs{display:flex;flex-direction:column;gap:32px;justify-content:center}
+  .def{font-size:1.22rem;line-height:1.55;color:var(--ink)}
+  .def b{
+    display:inline-block;color:#fff;background:var(--orange-deep);
+    padding:3px 13px;border-radius:6px;font-weight:700;
+  }
+
+
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:min-content;
+    gap:26px;align-content:center;min-height:0}
+  .cat{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);padding:26px 30px;display:flex;flex-direction:column;
+    position:relative;
+  }
+  .cat-index{
+    position:absolute;top:24px;right:26px;width:38px;height:38px;border-radius:50%;
+    border:3px solid var(--cat-c);color:var(--cat-c);background:#fff;
+    font-size:1.15rem;font-weight:800;display:flex;align-items:center;justify-content:center;
+  }
+  .cat-title{
+    font-size:1.18rem;font-weight:800;color:#fff;background:var(--cat-c);
+    padding:9px 18px;border-radius:9px;align-self:flex-start;margin:0 50px 20px 0;
+  }
+  .cat ul{list-style:disc;padding-left:24px;display:flex;flex-direction:column;gap:15px}
+  .cat li{font-size:1.16rem;line-height:1.4;color:var(--ink);padding-left:2px}
+  .cat li::marker{color:var(--cat-c);font-size:.85em}
+
+  .m-src{
+    margin-top:16px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Conectividade significativa</div>
+    <h1 class="s-title">Conectividade universal e significativa</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="defs">
+      <div class="def"><b>Universal</b> — deve estar disponível a todas as pessoas, de forma equitativa.</div>
+      <div class="def"><b>Significativa</b> — deve estar disponível de forma qualitativa e acessível, para permitir usufruir plenamente das oportunidades.</div>
+    </div>
+
+    <div class="grid2">
+      <div class="cat" style="--cat-c:#C1541F">
+        <span class="cat-index">1</span>
+        <div class="cat-title">Acessibilidade financeira</div>
+        <ul>
+          <li>Custo da conexão domiciliar</li>
+          <li>Plano de celular</li>
+        </ul>
+      </div>
+      <div class="cat" style="--cat-c:#E8A66E">
+        <span class="cat-index">2</span>
+        <div class="cat-title">Acesso a dispositivos</div>
+        <ul>
+          <li>Dispositivos <i>per capita</i></li>
+          <li>Computador no domicílio</li>
+          <li>Uso diversificado de dispositivos</li>
+        </ul>
+      </div>
+      <div class="cat" style="--cat-c:#8F3B15">
+        <span class="cat-index">3</span>
+        <div class="cat-title">Qualidade da conexão</div>
+        <ul>
+          <li>Tipo de conexão domiciliar</li>
+          <li>Velocidade da conexão domiciliar</li>
+        </ul>
+      </div>
+      <div class="cat" style="--cat-c:#6E4A32">
+        <span class="cat-index">4</span>
+        <div class="cat-title">Ambiente de uso</div>
+        <ul>
+          <li>Frequência de uso da Internet</li>
+          <li>Locais de uso diversificados</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: Cetic.br/NIC.br, Pesquisa TIC Educação 2021 — critérios de conectividade universal e significativa. <a href="https://cetic.br/pt/pesquisa/educacao/" style="color:inherit">https://cetic.br/pt/pesquisa/educacao/</a></div>
+</div>
+
+</body>
+</html>

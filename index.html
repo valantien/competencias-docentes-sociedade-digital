@@ -1,0 +1,3601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sociedade digital, docência em transformação — Módulo 5</title>
+<!-- fontes embutidas (Fraunces + Roboto Condensed): o deck funciona sem internet -->
+<link href="assets/fonts/fonts.css" rel="stylesheet">
+
+<style>
+
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:#241B14;overflow:hidden}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .deck-stage{position:relative;flex:0 0 auto;width:1280px;height:720px;transform-origin:center center;
+    border-radius:6px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);background:#EFE3D1}
+  /* font-family na seção: a regra body{font-family:var(--sans)} de cada tela é
+     descartada na fusão; sem esta linha o texto herdaria a fonte do esqueleto. */
+  .slide-sec{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .28s ease;
+    font-family:var(--sans)}
+  .slide-sec.on{opacity:1;visibility:visible}
+  /* FONTE SEMPRE NO RODAPÉ (decisão do usuário, 2026-09-12): mesma posição em todas as telas.
+     !important porque o CSS de cada tela vem escopado por #sNN (especificidade maior).
+     A tela reserva o espaço do rodapé com padding-bottom; o gráfico (flex:1) absorve a diferença. */
+  .slide-sec .m-src{position:absolute!important;left:60px!important;right:60px!important;
+    bottom:18px!important;margin:0!important;z-index:5;
+    font-size:.72rem!important;line-height:1.35!important}
+  .slide-sec .stage:has(.m-src){padding-bottom:62px!important}
+  .slide-sec > .stage{width:100%;height:100%}
+
+  .hud{position:fixed;right:18px;bottom:16px;z-index:40;display:flex;align-items:center;gap:12px;
+    background:rgba(30,27,24,.72);color:#EFE3D1;border-radius:999px;padding:8px 14px;
+    font-size:.8rem;backdrop-filter:blur(6px)}
+  .hud button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:2px 6px;border-radius:6px}
+  .hud button:hover{background:rgba(255,255,255,.14)}
+  .hud .rot{opacity:.72;max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .progress{position:fixed;left:0;top:0;height:3px;background:#C1541F;z-index:50;transition:width .28s ease}
+
+  .drawer{position:fixed;inset:0;z-index:60;background:rgba(30,27,24,.86);backdrop-filter:blur(4px);
+    display:none;padding:44px;overflow:auto}
+  .drawer.on{display:block}
+  .drawer h2{color:#EFE3D1;font-size:.9rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:20px}
+  .drawer ol{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+  .drawer li{color:#EFE3D1}
+  .drawer button{width:100%;text-align:left;background:rgba(255,255,255,.06);border:0;color:inherit;
+    font:inherit;padding:10px 14px;border-radius:8px;cursor:pointer;display:flex;gap:12px}
+  .drawer button:hover{background:rgba(193,84,31,.35)}
+  .drawer button.current{background:#C1541F;color:#FFF7EE;box-shadow:inset 4px 0 0 #F1B77F}
+  .drawer button.current .n{opacity:1}
+  .drawer .n{opacity:.5;min-width:26px}
+  html:fullscreen, html:-webkit-full-screen{width:100%;height:100%;background:#241B14}
+  ::backdrop{background:#241B14}
+  @media print{.hud,.progress,.drawer{display:none!important}}
+
+
+/* ================= telas (CSS escopado por #sNN) ================= */
+@keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+/* ===== 01 · 01-capa ===== */
+#s01{
+    --ink:#1E1B18; --paper:#EFE3D1; --orange:#C1541F; --orange-deep:#8F3B15;
+    --orange-soft:#E8792F; --peach:#F3C7A4; --peach-lt:#FBE4CB; --deep:#6E2C0F;
+    --grid:#DCD1BF; --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s01 *{box-sizing:border-box;margin:0;padding:0}
+#s01 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+  }
+#s01 .orb{
+    position:absolute;top:-210px;right:-230px;width:820px;height:820px;border-radius:50%;
+    background:radial-gradient(circle at 60% 66%, var(--peach-lt) 0%, var(--peach) 52%, #E9A472 78%, #DE8B52 100%);
+    z-index:0;
+  }
+#s01 .ring{
+    position:absolute;bottom:-260px;left:-140px;width:560px;height:560px;border-radius:50%;
+    border:3px solid var(--orange);opacity:.15;z-index:0;
+  }
+#s01 .ring2{
+    position:absolute;top:120px;right:120px;width:420px;height:420px;border-radius:50%;
+    border:2px solid #FFFFFF;opacity:.35;z-index:1;
+  }
+#s01 .content{
+    position:relative;z-index:2;height:100%;
+    padding:52px 92px 132px;display:flex;flex-direction:column;
+  }
+#s01 .eyebrow{
+    font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--orange);display:flex;align-items:center;gap:14px;
+  }
+#s01 .eyebrow::before{content:"";width:36px;height:3px;background:var(--orange);display:inline-block}
+#s01 .title-block{margin-top:auto;max-width:960px}
+#s01 .title{
+    font-family:var(--serif);font-weight:700;font-optical-sizing:auto;
+    font-size:4.4rem;line-height:1.02;color:var(--orange-deep);
+    letter-spacing:-.022em;text-wrap:balance;
+  }
+#s01 .subtitle{
+    margin-top:24px;font-size:1.72rem;line-height:1.3;font-weight:300;
+    color:var(--ink);max-width:680px;  /* em px: medida em ch encolhe com fonte condensada */
+  }
+#s01 .rule{height:4px;width:220px;margin:30px 0 22px;border-radius:2px;
+    background:linear-gradient(90deg,var(--deep) 0%,var(--orange) 50%,var(--peach) 100%)}
+#s01 .meta{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
+#s01 .who .name{font-size:1.24rem;font-weight:700;color:var(--ink);line-height:1.25}
+#s01 .who .role{margin-top:5px;font-size:.94rem;color:var(--muted);line-height:1.4;max-width:42ch}
+#s01 .when{text-align:right;font-size:.86rem;max-width:38ch;color:var(--ink);line-height:1.6}
+#s01 .when .ev{font-weight:700}
+#s01 .when .pl{color:var(--muted)}
+#s01 .capa-bar{
+    position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;
+    background:rgba(255,255,255,.58);backdrop-filter:blur(5px);
+    border-top:1px solid rgba(110,44,15,.16);
+    padding:18px 56px;
+  }
+#s01 .capa-bar-col{flex:1;display:flex;flex-direction:column;gap:5px;min-width:0}
+#s01 .capa-bar-col:nth-child(1){flex:1.15}
+#s01 .capa-bar-col:nth-child(2){flex:.62}
+#s01 .capa-bar-col:nth-child(3){flex:1.28}
+#s01 .capa-bar-col:nth-child(4){flex:1.35}
+#s01 .capa-bar-col:nth-child(5){flex:.6}
+#s01 .capa-bar-col + .capa-bar-col{padding-left:24px;border-left:1px solid rgba(110,44,15,.14)}
+#s01 .capa-bar-label{
+    font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  }
+#s01 .capa-bar-value{font-size:.92rem;font-weight:700;color:var(--orange-deep);line-height:1.3}
+#s01 .logos{margin-bottom:34px;display:flex;align-items:center;gap:16px}
+#s01 .logos-dados{position:absolute;right:64px;bottom:98px;z-index:3;display:flex;align-items:center;gap:14px}
+#s01 .logos-dados .lbl{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+#s01 .logos-dados img{height:112px;width:auto;display:block}
+#s01 .logos .card{
+    background:#fff;border-radius:8px;padding:10px 18px;
+    box-shadow:0 2px 10px rgba(110,44,15,.10);display:flex;align-items:center;
+  }
+#s01 .logos .card img{height:72px;width:auto;display:block}
+#s01 .logos .cap{
+    font-size:.8rem;line-height:1.45;color:var(--muted);max-width:34ch;
+  }
+#s01 .globe-wrap{
+    position:absolute;top:-230px;right:-430px;width:1120px;height:1120px;z-index:0;   /* ampliado a pedido do usuário (2026-09-12) */
+    pointer-events:none;
+  }
+#s01 .globe-glow{
+    position:absolute;inset:120px;border-radius:50%;
+    background:radial-gradient(circle at 58% 62%, var(--peach-lt) 0%, var(--peach) 55%, rgba(233,164,114,0) 72%);
+    opacity:.55;
+  }
+#s01 #globe{position:absolute;inset:0;width:100%;height:100%;display:block}
+#s01 .ph{
+    color:var(--orange);background:rgba(193,84,31,.09);
+    border-bottom:2px dashed rgba(193,84,31,.5);
+    border-radius:3px;padding:0 .16em;
+  }
+#s01 .stage{box-shadow:none;border-radius:0}
+/* ===== 02 · 02-disclaimer ===== */
+#s02{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s02 *{box-sizing:border-box;margin:0;padding:0}
+#s02 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+  }
+#s02 .s-head{position:absolute;top:52px;left:68px;right:68px}
+#s02 .eyebrow{
+    display:flex;align-items:center;gap:12px;margin-bottom:8px;color:var(--orange);
+    font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  }
+#s02 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange)}
+#s02 .s-title{font-family:var(--serif);font-size:2rem;font-weight:500;color:var(--orange-deep);line-height:1.1}
+#s02 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;background:linear-gradient(90deg,var(--orange-deep),var(--orange) 45%,transparent)}
+#s02 .meme-wrap{
+    position:absolute;top:154px;left:60px;right:60px;bottom:54px;display:flex;
+    align-items:center;justify-content:center;
+  }
+#s02 .meme-wrap img{display:block;max-width:100%;max-height:100%;object-fit:contain;border-radius:10px}
+#s02 .stage{box-shadow:none;border-radius:0}
+/* ===== 03 · 03-para-iniciar-a-conversa ===== */
+#s03{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s03 *{box-sizing:border-box;margin:0;padding:0}
+#s03 .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    border-radius:6px;
+  }
+#s03 .refl-circle-fill{
+    position:absolute;top:-120px;left:-140px;
+    width:620px;height:620px;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%, var(--peach-lt) 0%, var(--peach) 62%, #EFBB8E 100%);
+  }
+#s03 .refl-circle-outline{
+    position:absolute;bottom:-210px;right:-90px;
+    width:420px;height:420px;border-radius:50%;
+    border:3px solid var(--orange);
+    opacity:.18;
+  }
+#s03 .refl-grain{
+    position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+#s03 .refl-content{
+    position:relative;z-index:2;
+    height:100%;display:flex;flex-direction:column;justify-content:center;
+    padding:0 96px;max-width:1180px;
+  }
+#s03 .refl-eyebrow{
+    display:flex;align-items:flex-start;gap:14px;margin-bottom:6px;
+  }
+#s03 .refl-eyebrow::before{
+    content:"";width:30px;height:3px;background:var(--orange);flex:0 0 auto;margin-top:14px;
+  }
+#s03 .refl-eyebrow-text{
+    font-size:1.7rem;font-weight:800;line-height:1.12;letter-spacing:-.01em;
+    color:var(--ink);text-transform:uppercase;
+  }
+#s03 .refl-kicker{
+    font-family:var(--sans);font-size:1.7rem;font-weight:400;color:var(--orange);
+    margin:2px 0 34px 44px;letter-spacing:-.01em;
+  }
+#s03 .refl-question{
+    font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:clamp(2.1rem, 3.4vw, 2.7rem);line-height:1.22;color:var(--ink);
+    letter-spacing:-.005em;margin-left:44px;
+  }
+#s03 [data-anim]{opacity:0;animation:riseIn .5s cubic-bezier(.16,.8,.3,1) both}
+#s03 .stage{box-shadow:none;border-radius:0}
+/* ===== 04 · 04-para-refletir ===== */
+#s04{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s04 *{box-sizing:border-box;margin:0;padding:0}
+#s04 .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    border-radius:6px;
+  }
+#s04 .refl-circle-fill{
+    position:absolute;top:-120px;left:-140px;
+    width:620px;height:620px;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%, var(--peach-lt) 0%, var(--peach) 62%, #EFBB8E 100%);
+  }
+#s04 .refl-circle-outline{
+    position:absolute;bottom:-210px;right:-90px;
+    width:420px;height:420px;border-radius:50%;
+    border:3px solid var(--orange);
+    opacity:.18;
+  }
+#s04 .refl-grain{
+    position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+#s04 .refl-content{
+    position:relative;z-index:2;
+    height:100%;display:flex;flex-direction:column;justify-content:center;
+    padding:0 96px;max-width:1180px;
+  }
+#s04 .refl-eyebrow{
+    display:flex;align-items:flex-start;gap:14px;margin-bottom:6px;
+  }
+#s04 .refl-eyebrow::before{
+    content:"";width:30px;height:3px;background:var(--orange);flex:0 0 auto;margin-top:14px;
+  }
+#s04 .refl-eyebrow-text{
+    font-size:1.7rem;font-weight:800;line-height:1.12;letter-spacing:-.01em;
+    color:var(--ink);text-transform:uppercase;
+  }
+#s04 .refl-kicker{
+    font-family:var(--sans);font-size:1.7rem;font-weight:400;color:var(--orange);
+    margin:2px 0 34px 44px;letter-spacing:-.01em;
+  }
+#s04 .refl-question{
+    font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:clamp(2.1rem, 3.4vw, 2.7rem);line-height:1.22;color:var(--ink);
+    letter-spacing:-.005em;margin-left:44px;
+  }
+#s04 [data-anim]{opacity:0;animation:riseIn .5s cubic-bezier(.16,.8,.3,1) both}
+#s04 .stage{box-shadow:none;border-radius:0}
+/* ===== 05 · 05-unesco-2008-fonte ===== */
+#s05{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s05 *{box-sizing:border-box;margin:0;padding:0}
+#s05 .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:56px 68px;display:flex;flex-direction:column;
+  }
+#s05 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:34px;display:flex;align-items:center;gap:12px;
+  }
+#s05 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s05 .fonte-body{flex:1;display:grid;grid-template-columns:360px 1fr;gap:56px;align-items:center;min-height:0}
+#s05 .cover-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+#s05 .cover{
+    width:328px;height:428px;border-radius:6px;
+    background:linear-gradient(155deg,#fff 0%,#fdf9f3 100%);
+    border:1px solid var(--line);
+    box-shadow:0 22px 44px rgba(30,27,24,.28), 0 2px 6px rgba(30,27,24,.10);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+#s05 .cover.placeholder{
+    background:
+      repeating-linear-gradient(135deg, rgba(143,59,21,.06) 0 10px, transparent 10px 20px),
+      linear-gradient(155deg,#fff 0%,#fdf9f3 100%);
+  }
+#s05 .cover.placeholder::before{
+    content:"UNESCO";
+    font-family:var(--serif);font-weight:600;font-size:1.4rem;color:var(--orange-deep);
+    opacity:.35;letter-spacing:.02em;
+  }
+#s05 .cover img{width:100%;height:100%;object-fit:contain}
+#s05 .cover-cap{font-size:.8rem;color:var(--muted);text-align:center;max-width:328px;line-height:1.4}
+#s05 .fonte-title{
+    font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:1.6rem;line-height:1.18;color:var(--ink);letter-spacing:-.005em;
+    margin-bottom:10px;
+  }
+#s05 .fonte-meta{
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+#s05 .fonte-meta .tag{
+    font-size:.8rem;font-weight:700;color:#FBF3E9;background:var(--orange-deep);
+    padding:5px 12px;border-radius:999px;letter-spacing:.02em;
+  }
+#s05 .fonte-meta .yr{font-size:1.05rem;color:var(--muted);font-weight:600}
+#s05 .fonte-desc{font-size:1.32rem;line-height:1.5;color:var(--ink);margin-bottom:26px}
+#s05 .fonte-desc b{color:var(--orange-deep)}
+#s05 .fonte-cite{
+    padding-top:16px;border-top:1px solid var(--line);
+    font-size:.98rem;color:var(--muted);line-height:1.45;
+  }
+#s05 .fonte-cite em{font-style:italic}
+#s05 .stage{box-shadow:none;border-radius:0}
+/* ===== 06 · 06-unesco-2008 ===== */
+#s06{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+#s06 *{box-sizing:border-box;margin:0;padding:0}
+#s06 .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s06 .s-head{margin-bottom:18px}
+#s06 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s06 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s06 .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+#s06 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s06 .matrix{flex:1;display:flex;flex-direction:column;min-height:0;gap:7px}
+#s06 .matrix-cols{
+    display:grid;grid-template-columns:260px repeat(3,1fr);column-gap:10px;row-gap:4px;
+    padding:0 4px 4px;
+  }
+#s06 .matrix-cols .col-h{
+    font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);align-self:end;text-align:center;
+  }
+#s06 .matrix-cols .col-h.spacer{grid-column:1;grid-row:2;visibility:hidden}
+#s06 .matrix-cols .col-h.stage-h{grid-row:2}
+#s06 .matrix-cols .group-h{
+    display:flex;align-items:baseline;gap:7px;font-size:.8rem;font-weight:700;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--orange-deep);line-height:1;
+  }
+#s06 .matrix-cols .group-h strong{font-size:1.32rem;font-weight:800;letter-spacing:0}
+#s06 .matrix-cols .dimensions-h{grid-column:1;grid-row:1;justify-content:flex-start;padding-left:4px}
+#s06 .matrix-cols .stages-h{grid-column:2 / 5;grid-row:1;justify-content:center;color:var(--muted)}
+#s06 .matrix-rows{flex:1;display:flex;flex-direction:column;gap:6px;min-height:0}
+#s06 .m-row{
+    display:grid;grid-template-columns:260px repeat(3,1fr);gap:10px;
+    flex:1;align-items:stretch;min-height:0;
+  }
+#s06 .m-dim{
+    display:flex;align-items:center;padding:0 12px;border-radius:10px;
+    font-size:1.06rem;font-weight:700;letter-spacing:.01em;line-height:1.2;
+  }
+#s06 .m-num{
+    flex:0 0 26px;width:26px;height:26px;margin-right:10px;border-radius:50%;
+    display:grid;place-items:center;background:rgba(255,255,255,.24);
+    border:1px solid rgba(255,255,255,.48);font-size:.88rem;line-height:1;
+  }
+#s06 .m-dim-label{min-width:0}
+#s06 .m-row:nth-child(4) .m-num, #s06 .m-row:nth-child(5) .m-num, #s06 .m-row:nth-child(6) .m-num{
+    background:rgba(30,27,24,.09);border-color:rgba(30,27,24,.2);
+  }
+#s06 .m-cell{
+    position:relative;display:flex;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:0 18px 0 22px;font-size:1.06rem;color:var(--ink);line-height:1.25;
+  }
+#s06 .m-cell::before{
+    content:"";position:absolute;left:0;top:8px;bottom:8px;width:4px;border-radius:3px;
+    background:var(--row-tint);
+  }
+#s06 .m-cell + .m-cell::after{
+    content:"";position:absolute;left:-9px;top:50%;transform:translateY(-50%);
+    width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;
+    border-left:6px solid var(--line);
+  }
+#s06 .m-row:nth-child(1){--row-tint:#8F3B15}
+#s06 .m-row:nth-child(2){--row-tint:#A54A1B}
+#s06 .m-row:nth-child(3){--row-tint:#C1541F}
+#s06 .m-row:nth-child(4){--row-tint:#D97C42}
+#s06 .m-row:nth-child(5){--row-tint:#E8A66E}
+#s06 .m-row:nth-child(6){--row-tint:#F0C093}
+#s06 .m-row:nth-child(1) .m-dim, #s06 .m-row:nth-child(2) .m-dim, #s06 .m-row:nth-child(3) .m-dim{
+    background:var(--row-tint);color:#FBF3E9;
+  }
+#s06 .m-row:nth-child(4) .m-dim, #s06 .m-row:nth-child(5) .m-dim, #s06 .m-row:nth-child(6) .m-dim{
+    background:var(--row-tint);color:var(--ink);
+  }
+#s06 .hl{
+    background:var(--peach-lt);color:var(--orange-deep);
+    padding:1px 8px;border-radius:5px;font-weight:700;
+  }
+#s06 .m-src{
+    margin-top:10px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s06 .stage{box-shadow:none;border-radius:0}
+/* ===== 07 · 07-unesco-2018-fonte ===== */
+#s07{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s07 *{box-sizing:border-box;margin:0;padding:0}
+#s07 .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:56px 68px;display:flex;flex-direction:column;
+  }
+#s07 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:34px;display:flex;align-items:center;gap:12px;
+  }
+#s07 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s07 .fonte-body{flex:1;display:grid;grid-template-columns:360px 1fr;gap:56px;align-items:center;min-height:0}
+#s07 .cover-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+#s07 .cover{
+    width:328px;height:428px;border-radius:6px;
+    background:linear-gradient(155deg,#fff 0%,#fdf9f3 100%);
+    border:1px solid var(--line);
+    box-shadow:0 22px 44px rgba(30,27,24,.28), 0 2px 6px rgba(30,27,24,.10);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+#s07 .cover.placeholder{
+    background:
+      repeating-linear-gradient(135deg, rgba(143,59,21,.06) 0 10px, transparent 10px 20px),
+      linear-gradient(155deg,#fff 0%,#fdf9f3 100%);
+  }
+#s07 .cover.placeholder::before{
+    content:"UNESCO";
+    font-family:var(--serif);font-weight:600;font-size:1.4rem;color:var(--orange-deep);
+    opacity:.35;letter-spacing:.02em;
+  }
+#s07 .cover img{width:100%;height:100%;object-fit:contain}
+#s07 .cover-cap{font-size:.8rem;color:var(--muted);text-align:center;max-width:328px;line-height:1.4}
+#s07 .fonte-title{
+    font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:1.6rem;line-height:1.18;color:var(--ink);letter-spacing:-.005em;
+    margin-bottom:10px;
+  }
+#s07 .fonte-meta{
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+#s07 .fonte-meta .tag{
+    font-size:.8rem;font-weight:700;color:#FBF3E9;background:var(--orange-deep);
+    padding:5px 12px;border-radius:999px;letter-spacing:.02em;
+  }
+#s07 .fonte-meta .yr{font-size:1.05rem;color:var(--muted);font-weight:600}
+#s07 .fonte-desc{font-size:1.32rem;line-height:1.5;color:var(--ink);margin-bottom:26px}
+#s07 .fonte-desc b{color:var(--orange-deep)}
+#s07 .fonte-cite{
+    padding-top:16px;border-top:1px solid var(--line);
+    font-size:.98rem;color:var(--muted);line-height:1.45;
+  }
+#s07 .fonte-cite em{font-style:italic}
+#s07 .stage{box-shadow:none;border-radius:0}
+/* ===== 08 · 08-unesco-2018 ===== */
+#s08{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+#s08 *{box-sizing:border-box;margin:0;padding:0}
+#s08 .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s08 .s-head{margin-bottom:18px}
+#s08 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s08 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s08 .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+#s08 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s08 .matrix{flex:1;display:flex;flex-direction:column;min-height:0;gap:7px}
+#s08 .matrix-cols{
+    display:grid;grid-template-columns:260px repeat(3,1fr);gap:10px;
+    padding:0 4px 4px;
+  }
+#s08 .matrix-cols .col-h{
+    font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);align-self:end;text-align:center;
+  }
+#s08 .matrix-cols .col-h.spacer{visibility:hidden}
+#s08 .matrix-rows{flex:1;display:flex;flex-direction:column;gap:6px;min-height:0}
+#s08 .m-row{
+    display:grid;grid-template-columns:260px repeat(3,1fr);gap:10px;
+    flex:1;align-items:stretch;min-height:0;
+  }
+#s08 .m-row--novo{position:relative;outline:3px solid var(--orange-soft);outline-offset:3px;border-radius:12px}
+#s08 .m-row--novo::after{
+    content:"Não existia em 2008";position:absolute;right:8px;top:-11px;z-index:1;
+    background:var(--orange-soft);color:var(--ink);
+    font-size:.62rem;font-weight:700;letter-spacing:.02em;
+    padding:2px 10px;border-radius:999px;
+  }
+#s08 .m-dim{
+    display:flex;align-items:center;padding:0 16px;border-radius:10px;
+    font-size:1.06rem;font-weight:700;letter-spacing:.01em;line-height:1.2;
+  }
+#s08 .m-cell{
+    position:relative;display:flex;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:0 18px 0 22px;font-size:1.06rem;color:var(--ink);line-height:1.25;
+  }
+#s08 .m-cell::before{
+    content:"";position:absolute;left:0;top:8px;bottom:8px;width:4px;border-radius:3px;
+    background:var(--row-tint);
+  }
+#s08 .m-cell + .m-cell::after{
+    content:"";position:absolute;left:-9px;top:50%;transform:translateY(-50%);
+    width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;
+    border-left:6px solid var(--line);
+  }
+#s08 .m-row:nth-child(1){--row-tint:#8F3B15}
+#s08 .m-row:nth-child(2){--row-tint:#B23A6B}
+#s08 .m-row:nth-child(3){--row-tint:#C1541F}
+#s08 .m-row:nth-child(4){--row-tint:#96700A}
+#s08 .m-row:nth-child(5){--row-tint:#A8241A}
+#s08 .m-row:nth-child(6){--row-tint:#C77D1D}
+#s08 .m-row .m-dim{background:var(--row-tint);color:#FBF3E9}
+#s08 .m-src{
+    margin-top:10px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s08 .stage{box-shadow:none;border-radius:0}
+/* ===== 09 · 09-unesco-2024-fonte ===== */
+#s09{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s09 *{box-sizing:border-box;margin:0;padding:0}
+#s09 .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:56px 68px;display:flex;flex-direction:column;
+  }
+#s09 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:34px;display:flex;align-items:center;gap:12px;
+  }
+#s09 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s09 .fonte-body{flex:1;display:grid;grid-template-columns:360px 1fr;gap:56px;align-items:center;min-height:0}
+#s09 .cover-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+#s09 .cover{
+    width:328px;height:428px;border-radius:6px;
+    background:linear-gradient(155deg,#fff 0%,#fdf9f3 100%);
+    border:1px solid var(--line);
+    box-shadow:0 22px 44px rgba(30,27,24,.28), 0 2px 6px rgba(30,27,24,.10);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+#s09 .cover.placeholder{
+    background:
+      repeating-linear-gradient(135deg, rgba(143,59,21,.06) 0 10px, transparent 10px 20px),
+      linear-gradient(155deg,#fff 0%,#fdf9f3 100%);
+  }
+#s09 .cover.placeholder::before{
+    content:"UNESCO";
+    font-family:var(--serif);font-weight:600;font-size:1.4rem;color:var(--orange-deep);
+    opacity:.35;letter-spacing:.02em;
+  }
+#s09 .cover img{width:100%;height:100%;object-fit:contain}
+#s09 .cover-cap{font-size:.8rem;color:var(--muted);text-align:center;max-width:328px;line-height:1.4}
+#s09 .fonte-title{
+    font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:1.6rem;line-height:1.18;color:var(--ink);letter-spacing:-.005em;
+    margin-bottom:10px;
+  }
+#s09 .fonte-meta{
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+#s09 .fonte-meta .tag{
+    font-size:.8rem;font-weight:700;color:#FBF3E9;background:var(--orange-deep);
+    padding:5px 12px;border-radius:999px;letter-spacing:.02em;
+  }
+#s09 .fonte-meta .yr{font-size:1.05rem;color:var(--muted);font-weight:600}
+#s09 .fonte-desc{font-size:1.32rem;line-height:1.5;color:var(--ink);margin-bottom:26px}
+#s09 .fonte-desc b{color:var(--orange-deep)}
+#s09 .fonte-cite{
+    padding-top:16px;border-top:1px solid var(--line);
+    font-size:.98rem;color:var(--muted);line-height:1.45;
+  }
+#s09 .fonte-cite em{font-style:italic}
+#s09 .stage{box-shadow:none;border-radius:0}
+/* ===== 10 · 10-unesco-2024 ===== */
+#s10{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+#s10 *{box-sizing:border-box;margin:0;padding:0}
+#s10 .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s10 .s-head{margin-bottom:18px}
+#s10 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s10 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s10 .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+#s10 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s10 .matrix{flex:1;display:flex;flex-direction:column;min-height:0;gap:7px}
+#s10 .matrix-cols{
+    display:grid;grid-template-columns:260px repeat(3,1fr);gap:10px;
+    padding:0 4px 4px;
+  }
+#s10 .matrix-cols .col-h{
+    font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);align-self:end;text-align:center;
+  }
+#s10 .matrix-cols .col-h.spacer{visibility:hidden}
+#s10 .matrix-rows{flex:1;display:flex;flex-direction:column;gap:6px;min-height:0}
+#s10 .m-row{
+    display:grid;grid-template-columns:260px repeat(3,1fr);gap:10px;
+    flex:1;align-items:stretch;min-height:0;
+  }
+#s10 .m-dim{
+    display:flex;align-items:center;padding:0 16px;border-radius:10px;
+    font-size:1.06rem;font-weight:700;letter-spacing:.01em;line-height:1.2;
+  }
+#s10 .m-cell{
+    position:relative;display:flex;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:0 18px 0 22px;font-size:1.06rem;color:var(--ink);line-height:1.25;
+  }
+#s10 .m-cell::before{
+    content:"";position:absolute;left:0;top:8px;bottom:8px;width:4px;border-radius:3px;
+    background:var(--row-tint);
+  }
+#s10 .m-cell + .m-cell::after{
+    content:"";position:absolute;left:-9px;top:50%;transform:translateY(-50%);
+    width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;
+    border-left:6px solid var(--line);
+  }
+#s10 .m-row:nth-child(1){--row-tint:#8F3B15}
+#s10 .m-row:nth-child(2){--row-tint:#B23A6B}
+#s10 .m-row:nth-child(3){--row-tint:#C1541F}
+#s10 .m-row:nth-child(4){--row-tint:#96700A}
+#s10 .m-row:nth-child(5){--row-tint:#A8241A}
+#s10 .m-row .m-dim{background:var(--row-tint);color:#FBF3E9}
+#s10 .m-dim--marca{position:relative;outline:3px solid var(--orange-soft);outline-offset:3px}
+#s10 .m-dim--marca::after{
+    content:"Ver guia";position:absolute;right:8px;top:-11px;z-index:1;
+    background:var(--orange-soft);color:var(--ink);
+    font-size:.62rem;font-weight:700;letter-spacing:.02em;
+    padding:2px 10px;border-radius:999px;
+  }
+#s10 .m-insight{
+    margin-top:8px;padding:10px 16px;border-left:3px solid var(--orange);
+    background:#FDF2E9;border-radius:0 8px 8px 0;
+    font-size:1.06rem;color:var(--orange-deep);line-height:1.4;font-weight:600;
+  }
+#s10 .m-src{
+    margin-top:10px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s10 .stage{box-shadow:none;border-radius:0}
+/* ===== 11 · 11-ia-centrada-no-ser-humano ===== */
+#s11{
+    --ink:#1E1B18;--paper:#EFE3D1;--orange:#C1541F;--orange-deep:#8F3B15;
+    --orange-soft:#E8792F;--peach:#F3C7A4;--peach-lt:#FBE4CB;--line:#E6DCD0;--muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s11 *{box-sizing:border-box;margin:0;padding:0}
+#s11 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;padding:54px 68px 62px;
+    display:flex;flex-direction:column;
+  }
+#s11 .eyebrow{
+    display:flex;align-items:center;gap:12px;margin-bottom:8px;color:var(--orange-soft);
+    font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  }
+#s11 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft)}
+#s11 .s-title{font-family:var(--serif);font-size:2.18rem;font-weight:500;line-height:1.15;color:var(--orange-deep)}
+#s11 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;background:linear-gradient(90deg,var(--orange-deep),var(--orange) 45%,var(--peach))}
+#s11 .hai-body{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:14px 0 8px}
+#s11 .hai-figure{width:100%;height:100%;display:flex;align-items:center;justify-content:center;gap:40px}
+#s11 .hai-cover{display:block;height:100%;max-height:456px;width:auto;border-radius:4px;box-shadow:0 22px 44px rgba(30,27,24,.28), 0 2px 6px rgba(30,27,24,.10)}
+#s11 .hai-visual{display:block;flex:1;min-width:0;max-width:1160px;max-height:456px;object-fit:contain;mix-blend-mode:multiply}
+#s11 .m-src{margin-top:10px;padding-top:8px;border-top:1px solid var(--line);font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35}
+#s11 .stage{box-shadow:none;border-radius:0}
+/* ===== 12 · 12-linha-do-tempo-1984-2021 ===== */
+#s12{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s12 *{box-sizing:border-box;margin:0;padding:0}
+#s12 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s12 .s-head{margin-bottom:6px;position:relative;z-index:3}
+#s12 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s12 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s12 .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+#s12 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s12 .wm{position:absolute;font-family:var(--serif);font-weight:600;color:var(--orange-deep);
+    opacity:.06;line-height:1;pointer-events:none;user-select:none;z-index:0}
+#s12 .wm.wm-start{left:52px;bottom:18px;font-size:9rem;opacity:.16}
+#s12 .wm.wm-end{right:40px;bottom:18px;font-size:9rem;opacity:.16}
+#s12 .tl-area{height:380px;flex:none;margin-top:150px;position:relative;z-index:5}
+#s12 .tl-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#s12 .tl-dot{position:absolute;border-radius:50%;transform:translate(-50%,-50%);
+    border:3px solid var(--paper);z-index:3}
+#s12 .tl-stem{position:absolute;width:2px;transform:translateX(-50%);z-index:2;
+    background:repeating-linear-gradient(180deg,var(--stem-c) 0 4px,transparent 4px 8px)}
+#s12 .tl-flag{
+    position:absolute;transform:translate(-50%,-100%);border-radius:10px;
+    box-shadow:0 10px 24px rgba(30,27,24,.22);z-index:4;
+  }
+#s12 .tl-flag .yr{font-family:var(--serif);font-weight:600;display:block;line-height:1}
+#s12 .tl-flag .tt{font-weight:700;line-height:1.28;display:block;margin-top:3px}
+#s12 .tl-flag .dd{line-height:1.32;display:block;margin-top:3px;opacity:.9}
+#s12 .tl-flag.dark{color:#fff}
+#s12 .tl-flag.light{color:var(--ink)}
+#s12 .tl-flag.offset::after{display:none}
+#s12 .tl-flag::after{
+    content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%) rotate(45deg);
+    width:12px;height:12px;background:inherit;border-radius:2px;
+  }
+#s12 .m-src{
+    position:relative;z-index:3;margin-top:auto;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s12 .stage{box-shadow:none;border-radius:0}
+/* ===== 13 · 13-linha-do-tempo-2021-2026 ===== */
+#s13{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s13 *{box-sizing:border-box;margin:0;padding:0}
+#s13 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s13 .s-head{margin-bottom:6px;position:relative;z-index:3}
+#s13 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s13 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s13 .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+#s13 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s13 .wm{position:absolute;font-family:var(--serif);font-weight:600;color:var(--orange-deep);
+    opacity:.06;line-height:1;pointer-events:none;user-select:none;z-index:0}
+#s13 .wm.wm-start{left:52px;bottom:18px;font-size:9rem;opacity:.16}
+#s13 .wm.wm-end{right:40px;bottom:18px;font-size:9rem;opacity:.16}
+#s13 .tl-area{height:380px;flex:none;margin-top:110px;position:relative;z-index:5}
+#s13 .tl-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#s13 .tl-dot{position:absolute;border-radius:50%;transform:translate(-50%,-50%);
+    border:3px solid var(--paper);z-index:3}
+#s13 .tl-stem{position:absolute;width:2px;transform:translateX(-50%);z-index:2;
+    background:repeating-linear-gradient(180deg,var(--stem-c) 0 4px,transparent 4px 8px)}
+#s13 .tl-flag{
+    position:absolute;transform:translate(-50%,-100%);border-radius:10px;
+    box-shadow:0 10px 24px rgba(30,27,24,.22);z-index:4;
+  }
+#s13 .tl-flag .yr{font-family:var(--serif);font-weight:600;display:block;line-height:1}
+#s13 .tl-flag .tt{font-weight:700;line-height:1.28;display:block;margin-top:3px}
+#s13 .tl-flag .dd{line-height:1.32;display:block;margin-top:3px;opacity:.9}
+#s13 .tl-flag.dark{color:#fff}
+#s13 .tl-flag.light{color:var(--ink)}
+#s13 .tl-flag.offset::after{display:none}
+#s13 .tl-flag::after{
+    content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%) rotate(45deg);
+    width:12px;height:12px;background:inherit;border-radius:2px;
+  }
+#s13 .pandemic-mark{
+    position:absolute;left:14px;top:0;bottom:0;width:0;
+    border-left:3px dashed #9C3B4E;z-index:1;
+  }
+#s13 .pandemic-label{
+    position:absolute;left:0px;top:10px;transform:rotate(-90deg) translate(-100%,0);
+    transform-origin:left top;
+    font-size:.8rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+    color:#9C3B4E;background:transparent;white-space:nowrap;z-index:1;
+    padding:2px 4px;border-radius:4px;
+  }
+#s13 .m-src{
+    position:relative;z-index:3;margin-top:auto;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s13 .stage{box-shadow:none;border-radius:0}
+/* ===== 14 · 14-usuarios-de-internet ===== */
+#s14{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+#s14 *{box-sizing:border-box;margin:0;padding:0}
+#s14 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s14 .s-head{margin-bottom:22px}
+#s14 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s14 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s14 .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+#s14 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s14 .body{flex:1;display:flex;flex-direction:column;gap:18px;min-height:0}
+#s14 .tiles{display:flex;gap:18px}
+#s14 .tile{
+    flex:1;display:flex;align-items:center;gap:14px;
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);padding:14px 18px;
+  }
+#s14 .tile .big{font-size:1.9rem;font-weight:800;color:var(--orange-deep);line-height:1;white-space:nowrap}
+#s14 .tile .lbl{font-size:1rem;color:var(--ink);line-height:1.3}
+#s14 .tile.alt .big{color:var(--muted)}
+#s14 .chart-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+#s14 .chart-title{font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:14px}
+#s14 .groups{flex:1;display:flex;align-items:flex-end;gap:28px;position:relative}
+#s14 .group{display:flex;flex-direction:column;height:100%}
+#s14 .group-bars{flex:1;display:flex;align-items:flex-end;gap:9px;padding-top:20px;
+    border-bottom:1px solid var(--line)}
+#s14 .group-title{
+    margin-top:8px;padding-top:8px;border-top:2px solid var(--line);
+    font-size:.8rem;font-weight:700;color:var(--muted);text-align:center;
+    text-transform:uppercase;letter-spacing:.05em;
+  }
+#s14 .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+#s14 .bar-val{font-size:.94rem;font-weight:800;color:var(--bar-c);margin-bottom:6px;white-space:nowrap}
+#s14 .bar-rect{width:100%;max-width:52px;border-radius:6px 6px 2px 2px;background:var(--bar-c)}
+#s14 .bar-lbl{margin-top:8px;font-size:.875rem;color:var(--muted);text-align:center;line-height:1.2}
+#s14 .bar-col.hi .bar-lbl{color:var(--ink);font-weight:700}
+#s14 .m-src{
+    margin-top:14px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s14 .stage{box-shadow:none;border-radius:0}
+/* ===== 15 · 15-acesso-so-por-celular ===== */
+#s15{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+#s15 *{box-sizing:border-box;margin:0;padding:0}
+#s15 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s15 .s-head{margin-bottom:22px}
+#s15 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s15 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s15 .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+#s15 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s15 .body{flex:1;display:flex;flex-direction:column;gap:18px;min-height:0}
+#s15 .tiles{display:flex;gap:18px}
+#s15 .tile{
+    flex:1;display:flex;align-items:center;gap:14px;
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);padding:14px 18px;
+  }
+#s15 .tile .big{font-size:1.9rem;font-weight:800;color:var(--orange-deep);line-height:1;white-space:nowrap}
+#s15 .tile .lbl{font-size:1rem;color:var(--ink);line-height:1.3}
+#s15 .tile.alt .big{color:var(--muted)}
+#s15 .chart-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+#s15 .chart-title{font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:14px}
+#s15 .groups{flex:1;display:flex;align-items:flex-end;gap:28px;position:relative}
+#s15 .group{display:flex;flex-direction:column;height:100%}
+#s15 .group-bars{flex:1;display:flex;align-items:flex-end;gap:9px;padding-top:20px;
+    border-bottom:1px solid var(--line)}
+#s15 .group-title{
+    margin-top:8px;padding-top:8px;border-top:2px solid var(--line);
+    font-size:.8rem;font-weight:700;color:var(--muted);text-align:center;
+    text-transform:uppercase;letter-spacing:.05em;
+  }
+#s15 .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+#s15 .bar-val{font-size:.94rem;font-weight:800;color:var(--bar-c);margin-bottom:6px;white-space:nowrap}
+#s15 .bar-rect{width:100%;max-width:52px;border-radius:6px 6px 2px 2px;background:var(--bar-c)}
+#s15 .bar-lbl{margin-top:8px;font-size:.875rem;color:var(--muted);text-align:center;line-height:1.2}
+#s15 .bar-col.hi .bar-lbl{color:var(--ink);font-weight:700}
+#s15 .m-src{
+    margin-top:14px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s15 .stage{box-shadow:none;border-radius:0}
+/* ===== 16 · 16-professores-e-celular ===== */
+#s16{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+#s16 *{box-sizing:border-box;margin:0;padding:0}
+#s16 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s16 .s-head{margin-bottom:14px}
+#s16 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s16 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s16 .s-title{font-size:1.5rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+#s16 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s16 .body{flex:1;display:grid;grid-template-columns:1fr 280px;gap:30px;min-height:0}
+#s16 .chart-col{position:relative;min-height:0;display:flex;flex-direction:column}
+#s16 .chart-svg{width:100%;flex:1;min-height:0;height:0}
+#s16 .legend{display:flex;gap:22px;margin-top:4px;padding-left:36px}
+#s16 .legend-item{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--ink);font-weight:600}
+#s16 .legend-dot{width:11px;height:11px;border-radius:50%}
+#s16 .side{display:flex;flex-direction:column;justify-content:center;gap:16px}
+#s16 .callout{
+    background:var(--peach);border-radius:14px;
+    padding:20px 22px;font-size:.88rem;line-height:1.48;color:var(--orange-deep);
+  }
+#s16 .callout b{color:#6E2C0F}
+#s16 .conclusion{
+    border-left:3px solid var(--orange);background:#FDF2E9;border-radius:0 12px 12px 0;
+    padding:16px 20px;font-size:.86rem;line-height:1.48;color:var(--ink);
+  }
+#s16 .conclusion .kicker{
+    display:block;font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--orange-deep);margin-bottom:6px;
+  }
+#s16 .conclusion b{color:var(--orange-deep)}
+#s16 .m-src{
+    margin-top:24px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s16 .stage{box-shadow:none;border-radius:0}
+/* ===== 17 · 17-constatacao ===== */
+#s17{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s17 *{box-sizing:border-box;margin:0;padding:0}
+#s17 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+  }
+#s17 .circle-fill{
+    position:absolute;top:-140px;right:-160px;
+    width:560px;height:560px;border-radius:50%;
+    background:radial-gradient(circle at 62% 68%, var(--peach-lt) 0%, var(--peach) 62%, #EFBB8E 100%);
+    z-index:0;
+  }
+#s17 .circle-outline{
+    position:absolute;bottom:-180px;left:-80px;
+    width:400px;height:400px;border-radius:50%;
+    border:3px solid var(--orange);opacity:.16;z-index:0;
+  }
+#s17 .content{position:relative;z-index:2;height:100%;padding:64px 96px;display:flex;flex-direction:column;justify-content:center}
+#s17 .eyebrow{
+    font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:26px;display:flex;align-items:center;gap:14px;
+  }
+#s17 .eyebrow::before{content:"";width:30px;height:3px;background:var(--orange);display:inline-block}
+#s17 .headline{
+    font-family:var(--serif);font-weight:600;font-optical-sizing:auto;
+    font-size:2.125rem;line-height:1.2;color:var(--orange-deep);
+    margin-bottom:28px;letter-spacing:-.01em;
+  }
+#s17 .body-text{max-width:none}
+#s17 .body-text ol{list-style:none;counter-reset:constat;display:flex;flex-direction:column;gap:20px}
+#s17 .body-text li{
+    counter-increment:constat;
+    position:relative;padding-left:52px;min-height:40px;
+    font-size:1.28rem;font-weight:400;line-height:1.45;color:var(--ink);
+  }
+#s17 .body-text li::before{
+    content:counter(constat);
+    position:absolute;left:0;top:-2px;
+    width:38px;height:38px;border-radius:50%;
+    background:var(--orange-deep);color:#fff;
+    font-family:var(--serif);font-weight:600;font-size:1.15rem;
+    display:flex;align-items:center;justify-content:center;
+  }
+#s17 .body-text b{color:var(--orange-deep)}
+#s17 .stage{box-shadow:none;border-radius:0}
+/* ===== 18 · 18-conectividade-significativa ===== */
+#s18{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+#s18 *{box-sizing:border-box;margin:0;padding:0}
+#s18 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s18 .s-head{margin-bottom:20px}
+#s18 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s18 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s18 .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+#s18 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s18 .body{flex:1;display:grid;grid-template-columns:300px 1fr;gap:34px;min-height:0}
+#s18 .defs{display:flex;flex-direction:column;gap:32px;justify-content:center}
+#s18 .def{font-size:1.22rem;line-height:1.55;color:var(--ink)}
+#s18 .def b{
+    display:inline-block;color:#fff;background:var(--orange-deep);
+    padding:3px 13px;border-radius:6px;font-weight:700;
+  }
+#s18 .grid2{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:min-content;
+    gap:26px;align-content:center;min-height:0}
+#s18 .cat{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);padding:26px 30px;display:flex;flex-direction:column;
+    position:relative;
+  }
+#s18 .cat-index{
+    position:absolute;top:24px;right:26px;width:38px;height:38px;border-radius:50%;
+    border:3px solid var(--cat-c);color:var(--cat-c);background:#fff;
+    font-size:1.15rem;font-weight:800;display:flex;align-items:center;justify-content:center;
+  }
+#s18 .cat-title{
+    font-size:1.18rem;font-weight:800;color:#fff;background:var(--cat-c);
+    padding:9px 18px;border-radius:9px;align-self:flex-start;margin:0 50px 20px 0;
+  }
+#s18 .cat ul{list-style:disc;padding-left:24px;display:flex;flex-direction:column;gap:15px}
+#s18 .cat li{font-size:1.16rem;line-height:1.4;color:var(--ink);padding-left:2px}
+#s18 .cat li::marker{color:var(--cat-c);font-size:.85em}
+#s18 .m-src{
+    margin-top:16px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s18 .stage{box-shadow:none;border-radius:0}
+/* ===== 19 · 19-nivel-de-conectividade ===== */
+#s19{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+#s19 *{box-sizing:border-box;margin:0;padding:0}
+#s19 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s19 .s-head{margin-bottom:10px}
+#s19 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s19 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s19 .s-title{font-size:1.5rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+#s19 .s-sub{font-size:.86rem;color:var(--muted);margin-top:6px;line-height:1.4}
+#s19 .s-sub b{color:var(--orange-deep)}
+#s19 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s19 .body{flex:1;display:grid;grid-template-columns:1fr 240px;gap:26px;min-height:0}
+#s19 .chart-col{position:relative;min-height:0;display:flex;flex-direction:column}
+#s19 .chart-svg{width:100%;flex:1}
+#s19 .legend{display:flex;gap:16px;flex-wrap:wrap;padding-left:44px;margin-top:2px}
+#s19 .legend-item{display:flex;align-items:center;gap:7px;font-size:.8rem;color:var(--ink);font-weight:600}
+#s19 .legend-dot{width:10px;height:10px;border-radius:50%}
+#s19 .side{display:flex;flex-direction:column;justify-content:center;gap:16px}
+#s19 .stat{
+    background:var(--orange-deep);color:#fff;border-radius:14px;padding:20px 22px;text-align:center;
+  }
+#s19 .stat .big{font-size:2.8rem;font-weight:800;line-height:1}
+#s19 .stat .lbl{font-size:.82rem;margin-top:6px;line-height:1.4;opacity:.95}
+#s19 .conclusion{
+    border-left:3px solid var(--orange);background:#FDF2E9;border-radius:0 12px 12px 0;
+    padding:14px 16px;font-size:.82rem;line-height:1.42;color:var(--ink);
+  }
+#s19 .conclusion .kicker{
+    display:block;font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--orange-deep);margin-bottom:5px;
+  }
+#s19 .conclusion b{color:var(--orange-deep)}
+#s19 .m-src{
+    margin-top:10px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s19 .stage{box-shadow:none;border-radius:0}
+/* ===== 20 · 20-direitos-digitais ===== */
+#s20{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s20 *{box-sizing:border-box;margin:0;padding:0}
+#s20 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+  }
+#s20 .circle-fill{
+    position:absolute;top:-130px;left:-150px;
+    width:560px;height:560px;border-radius:50%;
+    background:radial-gradient(circle at 40% 34%, var(--peach-lt) 0%, var(--peach) 62%, #EFBB8E 100%);
+    z-index:0;
+  }
+#s20 .circle-outline{
+    position:absolute;bottom:-200px;right:-90px;
+    width:420px;height:420px;border-radius:50%;
+    border:3px solid var(--orange);opacity:.18;z-index:0;
+  }
+#s20 .content{position:relative;z-index:2;height:100%;padding:0 88px 56px;display:grid;
+    grid-template-columns:300px 1fr;gap:44px;align-items:center;align-content:center}
+#s20 .left{display:flex;flex-direction:column}
+#s20 .eyebrow{display:flex;align-items:flex-start;gap:14px;margin-bottom:6px}
+#s20 .eyebrow::before{content:"";width:28px;height:3px;background:var(--orange);flex:0 0 auto;margin-top:14px}
+#s20 .eyebrow-text{font-size:1.5rem;font-weight:800;line-height:1.14;letter-spacing:-.01em;
+    color:var(--ink);text-transform:uppercase}
+#s20 .kicker{font-family:var(--sans);font-size:1.5rem;font-weight:400;color:var(--orange);
+    margin:2px 0 34px 44px;line-height:1.28;letter-spacing:-.01em}
+#s20 .photo-wrap{margin-left:44px;width:262px}
+#s20 .photo-wrap img{width:100%;height:auto;display:block;border-radius:10px;
+    box-shadow:0 10px 26px rgba(0,0,0,.18)}
+#s20 .photo-cap{margin-top:12px;font-size:.86rem;color:var(--muted);font-weight:600}
+#s20 .right{position:relative;padding-top:6px}
+#s20 .quote-mark{position:absolute;top:-34px;left:-10px;font-family:var(--serif);font-size:5.6rem;
+    color:var(--orange-soft);opacity:.55;line-height:1;user-select:none}
+#s20 .quote{font-family:var(--serif);font-style:italic;font-weight:500;font-optical-sizing:auto;
+    font-size:1.5rem;line-height:1.48;color:var(--ink);max-width:56ch;margin-left:24px}
+#s20 .quote p+p{margin-top:18px}
+#s20 .reactions{list-style:none;margin:32px 0 0 24px;display:flex;flex-direction:column;gap:18px}
+#s20 .reactions li{font-family:var(--serif);font-style:italic;font-weight:600;
+    font-size:1.44rem;line-height:1.4;color:var(--orange-deep);max-width:54ch;
+    position:relative;padding-left:28px}
+#s20 .reactions li::before{content:"»";position:absolute;left:0;top:0;color:var(--orange)}
+#s20 .m-src{
+    position:absolute;left:88px;right:88px;bottom:20px;
+    padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s20 .m-src a{color:inherit}
+#s20 .stage{box-shadow:none;border-radius:0}
+/* ===== 21 · 21-relatorio-unesco-2023-fonte ===== */
+#s21{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s21 *{box-sizing:border-box;margin:0;padding:0}
+#s21 .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:56px 68px;display:flex;flex-direction:column;
+  }
+#s21 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:34px;display:flex;align-items:center;gap:12px;
+  }
+#s21 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s21 .fonte-body{flex:1;display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:center;min-height:0}
+#s21 .cover-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+#s21 .cover{
+    width:300px;height:391px;border-radius:6px;
+    background:linear-gradient(155deg,#fff 0%,#fdf9f3 100%);
+    border:1px solid var(--line);
+    box-shadow:0 22px 44px rgba(30,27,24,.28), 0 2px 6px rgba(30,27,24,.10);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+#s21 .cover img{width:100%;height:100%;object-fit:cover}
+#s21 .cover-cap{font-size:.8rem;color:var(--muted);text-align:center;max-width:300px;line-height:1.4}
+#s21 .fonte-title{
+    font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:1.6rem;line-height:1.18;color:var(--ink);letter-spacing:-.005em;
+    margin-bottom:10px;
+  }
+#s21 .fonte-sub{
+    font-family:var(--serif);font-style:italic;font-weight:400;
+    font-size:1.2rem;color:var(--orange-deep);margin-bottom:18px;
+  }
+#s21 .fonte-meta{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+#s21 .fonte-meta .tag{
+    font-size:.8rem;font-weight:700;color:#FBF3E9;background:var(--orange-deep);
+    padding:5px 12px;border-radius:999px;letter-spacing:.02em;
+  }
+#s21 .fonte-meta .yr{font-size:1.05rem;color:var(--muted);font-weight:600}
+#s21 .fonte-desc{font-size:1.32rem;line-height:1.5;color:var(--ink);margin-bottom:26px}
+#s21 .fonte-desc b{color:var(--orange-deep)}
+#s21 .fonte-cite{
+    padding-top:16px;border-top:1px solid var(--muted);
+    font-size:.98rem;color:var(--muted);line-height:1.45;
+  }
+#s21 .fonte-cite em{font-style:italic}
+#s21 .stage{box-shadow:none;border-radius:0}
+/* ===== 22 · 22-relatorio-unesco-2023 ===== */
+#s22{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+#s22 *{box-sizing:border-box;margin:0;padding:0}
+#s22 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:48px 68px 40px;display:flex;flex-direction:column;
+  }
+#s22 .s-head{margin-bottom:20px}
+#s22 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s22 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s22 .s-title{font-size:1.5rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+#s22 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s22 .body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:28px;min-height:0;align-items:start;align-content:center}
+#s22 .col{display:flex;flex-direction:column;gap:14px;min-height:0;justify-content:flex-start}
+#s22 .col-head{
+    display:inline-flex;align-items:center;font-size:1rem;font-weight:800;color:#fff;
+    text-transform:uppercase;letter-spacing:.03em;background:var(--col-c);
+    padding:9px 18px;border-radius:9px;align-self:flex-start;margin-bottom:6px;
+  }
+#s22 .col.positivo{--col-c:#1F5FA8}
+#s22 .col.negativo{--col-c:#C0501A}
+#s22 .finding{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);padding:16px 24px;
+  }
+#s22 .finding p{font-size:1.2rem;line-height:1.36;color:var(--ink)}
+#s22 .finding b{color:var(--col-parent, var(--orange-deep))}
+#s22 .col.positivo .finding b{color:#1F5FA8}
+#s22 .col.negativo .finding b{color:#C0501A}
+#s22 .finding .tag{
+    display:block;font-size:1.36rem;font-weight:700;line-height:1.25;
+    color:var(--col-c);margin-bottom:8px;
+  }
+#s22 .update{
+    margin-top:10px;padding-top:10px;border-top:1px solid var(--line);
+    font-size:.9rem;line-height:1.35;color:var(--ink);
+  }
+#s22 .update b{color:#C0501A}
+#s22 .m-src{
+    margin-top:16px;padding-top:10px;border-top:1px solid var(--muted);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s22 .stage{box-shadow:none;border-radius:0}
+/* ===== 23 · 23-mec-saberes-digitais-fonte ===== */
+#s23{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s23 *{box-sizing:border-box;margin:0;padding:0}
+#s23 .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:56px 68px;display:flex;flex-direction:column;
+  }
+#s23 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:34px;display:flex;align-items:center;gap:12px;
+  }
+#s23 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s23 .fonte-body{flex:1;display:grid;grid-template-columns:300px 1fr;gap:56px;align-items:center;min-height:0}
+#s23 .cover-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+#s23 .cover{
+    width:270px;height:384px;border-radius:6px;
+    background:linear-gradient(155deg,#fff 0%,#fdf9f3 100%);
+    border:1px solid var(--line);
+    box-shadow:0 22px 44px rgba(30,27,24,.28), 0 2px 6px rgba(30,27,24,.10);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+#s23 .cover img{width:100%;height:100%;object-fit:cover}
+#s23 .cover-cap{font-size:.8rem;color:var(--muted);text-align:center;max-width:270px;line-height:1.4}
+#s23 .fonte-title{
+    font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:1.6rem;line-height:1.18;color:var(--ink);letter-spacing:-.005em;
+    margin-bottom:10px;
+  }
+#s23 .fonte-meta{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+#s23 .fonte-meta .tag{
+    font-size:.8rem;font-weight:700;color:#FBF3E9;background:var(--orange-deep);
+    padding:5px 12px;border-radius:999px;letter-spacing:.02em;
+  }
+#s23 .fonte-meta .yr{font-size:1.05rem;color:var(--muted);font-weight:600}
+#s23 .fonte-desc{font-size:1.32rem;line-height:1.5;color:var(--ink);margin-bottom:26px}
+#s23 .fonte-desc b{color:var(--orange-deep)}
+#s23 .fonte-cite{
+    padding-top:16px;border-top:1px solid var(--muted);
+    font-size:.98rem;color:var(--muted);line-height:1.45;
+  }
+#s23 .fonte-cite em{font-style:italic}
+#s23 .stage{box-shadow:none;border-radius:0}
+/* ===== 24 · 24-saberes-digitais-docentes ===== */
+#s24{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+#s24 *{box-sizing:border-box;margin:0;padding:0}
+#s24 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:40px 60px 34px;display:flex;flex-direction:column;
+  }
+#s24 .s-head{margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+#s24 .s-head-l{flex:1}
+#s24 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:6px;display:flex;align-items:center;gap:12px;
+  }
+#s24 .eyebrow::before{content:"";width:24px;height:2px;background:var(--orange-soft);display:inline-block}
+#s24 .s-title{font-size:1.4rem;line-height:1.24;font-weight:700;color:var(--orange-deep)}
+#s24 .stats{display:flex;gap:14px;flex:0 0 auto}
+#s24 .stat-pill{
+    display:flex;align-items:center;gap:10px;background:var(--orange-deep);color:#fff;
+    border-radius:999px;padding:8px 18px 8px 10px;
+  }
+#s24 .stat-pill .num{font-size:1.5rem;font-weight:800;background:#fff;color:var(--orange-deep);
+    width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+#s24 .stat-pill .lbl{font-size:.8rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;max-width:9ch;line-height:1.15}
+#s24 .accent-rule{height:3px;width:100%;margin-bottom:16px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s24 .dims{flex:1;display:flex;flex-direction:column;gap:14px;min-height:0}
+#s24 .dim{
+    flex:1;display:grid;grid-template-columns:230px 1fr;border-radius:14px;overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+  }
+#s24 .dim-label{
+    background:var(--dim-c);color:#fff;display:flex;flex-direction:column;justify-content:center;
+    padding:14px 22px;gap:6px;
+  }
+#s24 .dim-tag{
+    display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
+    border-radius:50%;background:rgba(255,255,255,.28);font-size:.8rem;font-weight:800;
+  }
+#s24 .dim-name{font-size:1.14rem;font-weight:800;line-height:1.22}
+#s24 .sd-grid{background:var(--dim-bg);display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 20px;align-content:center}
+#s24 .sd-item{
+    display:flex;align-items:center;gap:10px;background:var(--card);border-radius:999px;
+    padding:8px 18px 8px 8px;
+  }
+#s24 .sd-num{
+    display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;
+    background:var(--dim-c);color:#fff;font-size:.8rem;font-weight:800;flex:0 0 auto;text-align:center;line-height:1.05;
+  }
+#s24 .sd-txt{font-size:1.14rem;font-weight:700;color:var(--ink);line-height:1.2}
+#s24 .m-src{
+    margin-top:14px;padding-top:8px;border-top:1px solid var(--muted);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s24 .stage{box-shadow:none;border-radius:0}
+/* ===== 25 · 25-54-formacao-continuada ===== */
+#s25{
+    --ink:#1E1B18; --paper:#EFE3D1; --orange:#C1541F; --orange-deep:#8F3B15;
+    --orange-soft:#E8792F; --peach:#F3C7A4; --grid:#DCD1BF; --muted:#8A7F73;
+    --o1:#C0501A; --o2:#1F5FA8; --o3:#0E7F63;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s25 *{box-sizing:border-box;margin:0;padding:0}
+#s25 .stage{position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:36px 56px 30px;display:flex;flex-direction:column}
+#s25 .s-head{margin-bottom:8px}
+#s25 .eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:6px;display:flex;align-items:center;gap:12px}
+#s25 .eyebrow::before{content:"";width:24px;height:2px;background:var(--orange-soft);display:inline-block}
+#s25 .head-row{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+#s25 .s-title{font-size:1.26rem;line-height:1.24;font-weight:700;color:var(--orange-deep);flex:1}
+#s25 .s-note{flex:none;font-size:.8rem;line-height:1.35;color:var(--muted);
+    padding-left:0;border-left:none}
+#s25 .accent-rule{height:3px;width:100%;margin-top:10px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s25 .body{flex:1;display:flex;align-items:center;gap:40px;min-height:0;padding-top:6px}
+#s25 .stat{flex:0 0 400px}
+#s25 .stat-num{font-family:var(--serif);font-weight:600;font-size:7.4rem;line-height:.86;
+    color:var(--orange-deep);letter-spacing:-.03em}
+#s25 .stat-num span{font-size:3.1rem;letter-spacing:0}
+#s25 .stat-txt{font-size:1.16rem;line-height:1.4;font-weight:600;color:var(--ink);margin-top:16px}
+#s25 .stat-txt b{color:var(--orange-deep)}
+#s25 .stat-note{margin-top:22px;padding:14px 16px;border-left:3px solid var(--orange);
+    background:#FDF2E9;font-size:.9rem;line-height:1.45;color:var(--ink)}
+#s25 .stat-note .kicker{display:block;font-size:.8rem;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+#s25 .stat-note b{color:var(--orange-deep)}
+#s25 .chart{flex:1;display:flex;justify-content:center;min-width:0}
+#s25 svg{width:728px;height:520px;display:block}
+#s25 .grid{stroke:var(--grid);stroke-width:1}
+#s25 .axis{stroke:#B3A894;stroke-width:1.5}
+#s25 .ln{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+#s25 .mk{fill:var(--paper);stroke-width:2.5}
+#s25 .val{font-size:15px;font-weight:700;fill:var(--ink)}
+#s25 .ax{font-size:15px;fill:var(--muted)}
+#s25 .yr{font-size:15px;font-weight:700;fill:var(--ink)}
+#s25 .nm{font-size:15px;font-weight:600;fill:var(--ink)}
+#s25 .nmv{font-size:15px;font-weight:800;fill:var(--ink)}
+#s25 .m-src{margin-top:8px;padding-top:8px;border-top:1px solid var(--muted);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35}
+#s25 .m-src a{color:inherit}
+#s25 .stage{box-shadow:none;border-radius:0}
+/* ===== 26 · 26-temas-da-formacao ===== */
+#s26{
+    --ink:#1E1B18; --paper:#EFE3D1; --orange:#C1541F; --orange-deep:#8F3B15;
+    --orange-soft:#E8792F; --peach:#F3C7A4; --grid:#DCD1BF; --muted:#8A7F73;
+    /* dois grupos tematicos — paleta categorica validada (dataviz, surface #EFE3D1) */
+    --g1:#C0501A; --g2:#1F5FA8;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+#s26 *{box-sizing:border-box;margin:0;padding:0}
+#s26 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:34px 56px 28px;display:flex;flex-direction:column;
+  }
+#s26 .s-head{margin-bottom:6px}
+#s26 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:6px;display:flex;align-items:center;gap:12px;
+  }
+#s26 .eyebrow::before{content:"";width:24px;height:2px;background:var(--orange-soft);display:inline-block}
+#s26 .head-row{display:flex;align-items:flex-end;gap:26px}
+#s26 .s-title{font-size:1.22rem;line-height:1.24;font-weight:700;color:var(--orange-deep);flex:1}
+#s26 .s-note{
+    flex:0 0 246px;font-size:.8rem;line-height:1.35;color:var(--muted);
+    padding-left:20px;border-left:1px solid var(--grid);
+  }
+#s26 .s-note b{color:var(--ink);font-weight:700}
+#s26 .accent-rule{height:3px;width:100%;margin-top:9px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s26 .legend{display:flex;gap:30px;margin:12px 0 4px;padding-left:2px}
+#s26 .legend-item{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;color:var(--ink)}
+#s26 .legend-sw{width:14px;height:14px;border-radius:3px;flex:none}
+#s26 .legend-item span.sub{font-weight:500;color:var(--muted)}
+#s26 .chart{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-height:0}
+#s26 .axis-top{display:grid;grid-template-columns:540px 1fr;margin-bottom:2px}
+#s26 .axis-top .ticks{position:relative;height:13px;font-size:.8rem;color:var(--muted);font-weight:600}
+#s26 .axis-top .ticks span{position:absolute;transform:translateX(-50%)}
+#s26 .row{display:grid;grid-template-columns:540px 1fr;align-items:center;
+    border-top:1px solid var(--grid);padding:4px 0}
+#s26 .row:first-of-type{border-top:none}
+#s26 .row.group-start{border-top:2px solid #C3B49C;margin-top:5px;padding-top:9px}
+#s26 .row-label{font-size:.875rem;line-height:1.25;color:var(--ink);padding-right:20px;text-align:right}
+#s26 .row-label b{font-weight:700}
+#s26 .track{position:relative;height:21px;display:flex;align-items:center}
+#s26 .bar{height:17px;border-radius:0 3px 3px 0}
+#s26 .bar.g1{background:var(--g1)}
+#s26 .bar.g2{background:var(--g2)}
+#s26 .bar-val{position:absolute;font-size:.86rem;font-weight:800;color:var(--ink);
+    top:50%;transform:translateY(-50%);margin-left:10px}
+#s26 .row.hi{position:relative;background:#F7E3CF;border-radius:3px}
+#s26 .row.hi::before{content:"";position:absolute;left:-10px;top:6px;bottom:6px;
+    width:3px;background:var(--orange);border-radius:2px}
+#s26 .row.hi .row-label{font-weight:600}
+#s26 .row.hi .bar{height:21px}
+#s26 .row.hi .bar-val{font-size:1.02rem;color:var(--orange-deep)}
+#s26 .row.hi .tag{display:inline-block;margin-left:8px;padding:1px 7px;border-radius:9px;
+    background:var(--orange);color:#fff;font-size:.8rem;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;vertical-align:2px}
+#s26 .concl{
+    margin-top:12px;padding:11px 16px;border-left:3px solid var(--orange);
+    background:#FDF2E9;font-size:1remrem;line-height:1.45;color:var(--ink);
+  }
+#s26 .concl .kicker{display:block;font-size:.8rem;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--orange);margin-bottom:5px}
+#s26 .concl b{color:var(--orange-deep)}
+#s26 .m-src{
+    margin-top:10px;padding-top:7px;border-top:1px solid var(--muted);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s26 .m-src a{color:inherit}
+#s26 .stage{box-shadow:none;border-radius:0}
+/* ===== 27 · 27-para-refletir-final ===== */
+#s27{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s27 *{box-sizing:border-box;margin:0;padding:0}
+#s27 .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    border-radius:6px;
+  }
+#s27 .refl-circle-fill{
+    position:absolute;top:-120px;left:-140px;
+    width:620px;height:620px;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%, var(--peach-lt) 0%, var(--peach) 62%, #EFBB8E 100%);
+  }
+#s27 .refl-circle-outline{
+    position:absolute;bottom:-210px;right:-90px;
+    width:420px;height:420px;border-radius:50%;
+    border:3px solid var(--orange);
+    opacity:.18;
+  }
+#s27 .refl-grain{
+    position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+#s27 .refl-content{
+    position:relative;z-index:2;
+    height:100%;display:flex;flex-direction:column;justify-content:center;
+    padding:0 96px;max-width:1180px;
+  }
+#s27 .refl-eyebrow{
+    display:flex;align-items:flex-start;gap:14px;margin-bottom:6px;
+  }
+#s27 .refl-eyebrow::before{
+    content:"";width:30px;height:3px;background:var(--orange);flex:0 0 auto;margin-top:14px;
+  }
+#s27 .refl-eyebrow-text{
+    font-size:1.7rem;font-weight:800;line-height:1.12;letter-spacing:-.01em;
+    color:var(--ink);text-transform:uppercase;
+  }
+#s27 .refl-kicker{
+    font-family:var(--sans);font-size:1.7rem;font-weight:400;color:var(--orange);
+    margin:2px 0 34px 44px;letter-spacing:-.01em;
+  }
+#s27 .refl-question{
+    font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:clamp(2.1rem, 3.4vw, 2.7rem);line-height:1.22;color:var(--ink);
+    letter-spacing:-.005em;margin-left:44px;
+  }
+#s27 [data-anim]{opacity:0;animation:riseIn .5s cubic-bezier(.16,.8,.3,1) both}
+#s27 .stage{box-shadow:none;border-radius:0}
+/* ===== 28 · 28-glossario ===== */
+#s28{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s28 *{box-sizing:border-box;margin:0;padding:0}
+#s28 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s28 .s-head{margin-bottom:18px}
+#s28 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s28 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s28 .s-title{font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:1.9rem;line-height:1.2;color:var(--ink)}
+#s28 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s28 .glossary{
+    flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;
+    grid-auto-rows:1fr;gap:12px;
+  }
+#s28 .term{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:14px 20px;position:relative;display:flex;flex-direction:column;justify-content:center;gap:4px;
+  }
+#s28 .term::before{
+    content:"";position:absolute;left:0;top:10px;bottom:10px;width:4px;border-radius:3px;
+    background:var(--orange-soft);
+  }
+#s28 .term-name{font-size:1.05rem;font-weight:700;color:var(--orange-deep);letter-spacing:.01em}
+#s28 .term-def{font-size:.86rem;line-height:1.42;color:var(--ink)}
+#s28 .m-src{
+    margin-top:12px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+#s28 .stage{box-shadow:none;border-radius:0}
+/* ===== 29 · 29-referencias ===== */
+#s29{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s29 *{box-sizing:border-box;margin:0;padding:0}
+#s29 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+#s29 .s-head{margin-bottom:16px}
+#s29 .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+#s29 .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+#s29 .s-title{font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:1.9rem;line-height:1.2;color:var(--ink)}
+#s29 .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+#s29 .refs{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:16px}
+#s29 .ref-item{
+    font-size:.94rem;line-height:1.48;color:var(--ink);
+    padding-left:1.7em;text-indent:-1.7em;
+  }
+#s29 .ref-item b{color:var(--orange-deep);font-weight:700}
+#s29 .ref-item a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+#s29 .note{margin-top:14px;padding-top:10px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.4}
+#s29 .stage{box-shadow:none;border-radius:0}
+/* ===== 30 · 30-sobre-o-palestrante ===== */
+#s30{
+    --ink:#1E1B18; --paper:#EFE3D1; --orange:#C1541F; --orange-deep:#8F3B15;
+    --peach:#F3C7A4; --peach-lt:#FBE4CB; --deep:#6E2C0F; --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+#s30 *{box-sizing:border-box;margin:0;padding:0}
+#s30 .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+  }
+#s30 .orb{
+    position:absolute;top:-210px;right:-230px;width:820px;height:820px;border-radius:50%;
+    background:radial-gradient(circle at 60% 66%, var(--peach-lt) 0%, var(--peach) 52%, #E9A472 78%, #DE8B52 100%);
+    z-index:0;
+  }
+#s30 .ring{
+    position:absolute;bottom:-260px;left:-140px;width:560px;height:560px;border-radius:50%;
+    border:3px solid var(--orange);opacity:.15;z-index:0;
+  }
+#s30 .ring2{
+    position:absolute;top:120px;right:120px;width:420px;height:420px;border-radius:50%;
+    border:2px solid #FFFFFF;opacity:.35;z-index:1;
+  }
+#s30 .content{
+    position:relative;z-index:2;height:100%;
+    padding:56px 92px 118px;display:flex;gap:56px;
+  }
+#s30 .col-main{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:center}
+#s30 .col-side{flex:0 0 400px;display:flex;flex-direction:column;justify-content:center}
+#s30 .eyebrow{
+    font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--orange);display:flex;align-items:center;gap:14px;
+  }
+#s30 .eyebrow::before{content:"";width:36px;height:3px;background:var(--orange);display:inline-block}
+#s30 .name{
+    margin-top:22px;font-family:var(--serif);font-weight:700;font-optical-sizing:auto;
+    font-size:3rem;line-height:1.05;color:var(--orange-deep);letter-spacing:-.02em;
+  }
+#s30 .rule{height:4px;width:180px;margin:22px 0 26px;border-radius:2px;
+    background:linear-gradient(90deg,var(--deep) 0%,var(--orange) 50%,var(--peach) 100%)}
+#s30 .lead{font-size:1.2rem;line-height:1.45;font-weight:500;color:var(--ink);margin-bottom:24px}
+#s30 .creds{list-style:none;display:flex;flex-direction:column;gap:13px}
+#s30 .creds li{display:flex;gap:14px;align-items:baseline;font-size:1.14rem;line-height:1.35;color:var(--ink)}
+#s30 .creds li::before{
+    content:"";flex:0 0 8px;height:8px;border-radius:50%;background:var(--orange);
+    transform:translateY(-2px);
+  }
+#s30 .creds b{font-weight:700;color:var(--orange-deep)}
+#s30 .creds .inst{color:var(--muted);font-weight:500}
+#s30 .card{
+    background:rgba(255,255,255,.72);backdrop-filter:blur(6px);
+    border-radius:14px;padding:26px 28px;
+    box-shadow:0 10px 30px rgba(110,44,15,.14);
+    border-left:4px solid var(--orange);
+  }
+#s30 .card .kicker{
+    font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);
+  }
+#s30 .card .iara{
+    margin-top:8px;font-family:var(--serif);font-weight:700;font-size:1.7rem;line-height:1.1;color:var(--orange-deep);
+  }
+#s30 .card .iara-sub{margin-top:4px;font-size:.98rem;font-weight:600;color:var(--ink)}
+#s30 .card p{margin-top:14px;font-size:.98rem;line-height:1.48;color:var(--ink)}
+#s30 .card .sep{height:1px;background:rgba(110,44,15,.16);margin:18px 0 0}
+#s30 .card .tese-lbl{
+    margin-top:16px;font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  }
+#s30 .card .tese{margin-top:6px}
+#s30 .qr-row{display:flex;align-items:center;gap:14px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(110,44,15,.16)}
+#s30 .qr-code{width:128px;height:128px;flex:0 0 128px;object-fit:contain;background:#fff;padding:5px;border-radius:4px}
+#s30 .qr-copy{font-size:1rem;line-height:1.32;color:var(--ink)}
+#s30 .qr-copy b{display:block;margin-bottom:4px;color:var(--orange-deep);font-size:1rem}
+#s30 .bio-bar{
+    position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;
+    background:rgba(255,255,255,.58);backdrop-filter:blur(5px);
+    border-top:1px solid rgba(110,44,15,.16);
+    padding:18px 92px;gap:0;
+  }
+#s30 .bio-bar-col{display:flex;flex-direction:column;gap:5px;min-width:0;padding-right:40px}
+#s30 .bio-bar-col + .bio-bar-col{padding-left:40px;border-left:1px solid rgba(110,44,15,.14)}
+#s30 .bio-bar-label{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+#s30 .bio-bar-value{font-size:1rem;font-weight:700;color:var(--orange-deep);text-decoration:none}
+#s30 .stage{box-shadow:none;border-radius:0}
+</style>
+</head>
+<body>
+
+<div class="progress"></div>
+
+<div class="viewport">
+  <div class="deck-stage">
+<section id="s01" class="slide-sec" data-rot="Capa">
+<div class="stage">
+  <div class="globe-wrap"><div class="globe-glow"></div><canvas id="globe"></canvas></div>
+  <div class="ring"></div>
+  <div class="ring2"></div>
+
+  <div class="content">
+    <div class="logos"><div class="card"><img src="assets/logos-neei-uerj.png" alt="UERJ · PPGECC · NEEI · PGCTIn · UFF · FEP · Universidade Pedagógica de Maputo"></div></div>
+
+    <div class="eyebrow">Módulo 5 — Fronteira Tecnológica</div>
+
+    <div class="title-block">
+      <h1 class="title">Sociedade digital,<br>docência em transformação</h1>
+      <p class="subtitle">O que se espera dos professores numa educação mediada por tecnologias digitais e inteligência artificial?</p>
+    </div>
+
+    <div class="rule"></div>
+  </div>
+
+  <div class="logos-dados"><span class="lbl">Dados:</span><img src="assets/logos.png" alt="UNESCO · Cetic.br · NIC.br · CGI.br"></div>
+  <div class="capa-bar"><div class="capa-bar-col"><span class="capa-bar-label">Doutorando</span><span class="capa-bar-value">Prof. Me. Krysamon D. B. Cavalcante</span></div><div class="capa-bar-col"><span class="capa-bar-label">Instituição</span><span class="capa-bar-value">UFF — PGCTIn</span></div><div class="capa-bar-col"><span class="capa-bar-label">Orientação</span><span class="capa-bar-value">Profª. Drª. Edicléa Mascarenhas Fernandes</span></div><div class="capa-bar-col"><span class="capa-bar-label">Grupo de Pesquisa</span><span class="capa-bar-value">Núcleo de Educação Especial e Inclusiva (NEEI)</span></div></div>
+</div>
+
+<script>
+(function(){
+  const cv = document.getElementById('globe');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const parado = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // --- pontos distribuídos uniformemente na esfera (espiral de Fibonacci) ---
+  const N = 2400, PHI = Math.PI * (3 - Math.sqrt(5)), pts = [];
+  for(let i=0;i<N;i++){
+    const y = 1 - (i/(N-1))*2, r = Math.sqrt(1-y*y), t = PHI*i;
+    pts.push([Math.cos(t)*r, y, Math.sin(t)*r]);
+  }
+
+  const rad = d => d*Math.PI/180;
+  // (arco Brasil ↔ Moçambique removido a pedido do usuário, 2026-09-12)
+
+  const TILT = rad(16);
+  function girar(p, ang){
+    const [x,y,z]=p;
+    const x1 = x*Math.cos(ang) + z*Math.sin(ang);
+    const z1 = -x*Math.sin(ang) + z*Math.cos(ang);
+    const y2 = y*Math.cos(TILT) - z1*Math.sin(TILT);
+    const z2 = y*Math.sin(TILT) + z1*Math.cos(TILT);
+    return [x1, y2, z2];
+  }
+
+  let W=0,H=0,R=0,cx=0,cy=0;
+  function medir(){
+    const dpr = Math.min(devicePixelRatio||1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W*dpr; cv.height = H*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    R = Math.min(W,H)*0.36; cx = W/2; cy = H/2;
+  }
+  medir(); addEventListener('resize', medir);
+
+  function desenhar(ang){
+    ctx.clearRect(0,0,W,H);
+
+    // pontos: só o hemisfério visível, opacidade pela profundidade
+    for(const p of pts){
+      const [x,y,z] = girar(p, ang);
+      if(z < 0) continue;
+      const px = cx + x*R, py = cy - y*R;
+      const a = 0.16 + z*0.62;
+      ctx.beginPath();
+      ctx.arc(px, py, 0.8 + z*1.25, 0, 6.2832);
+      ctx.fillStyle = 'rgba(143,59,21,' + a.toFixed(3) + ')';
+      ctx.fill();
+    }
+
+  }
+
+  if(parado){ desenhar(rad(-97.65)); return; }   // acessibilidade: sem animação
+  // dentro do deck (index.html), só desenha enquanto a capa está na tela
+  const sec = cv.closest('.slide-sec');
+  let t0 = null;
+  (function loop(ts){
+    if(t0===null) t0=ts;
+    if(!sec || sec.classList.contains('on'))
+      desenhar(((ts-t0)/1000) * 0.045 + rad(-97.65));   // ~1 volta a cada 114s
+    requestAnimationFrame(loop);
+  })(performance.now());
+})();
+</script>
+</section>
+<section id="s02" class="slide-sec" data-rot="Disclaimer">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Antes de começar</div>
+    <h1 class="s-title">Disclaimer — Sincronizar os significados</h1>
+    <div class="accent-rule"></div>
+  </div>
+  <div class="meme-wrap">
+    <img src="assets/meme1.png" alt="Meme sobre discordância e abordagem semântico-cognitiva">
+  </div>
+</div>
+</section>
+<section id="s03" class="slide-sec" data-rot="Para iniciar a conversa">
+<div class="stage">
+  <div class="refl-circle-fill" data-anim style="animation-delay:0ms"></div>
+  <div class="refl-circle-outline" data-anim style="animation-delay:80ms"></div>
+  <div class="refl-grain"></div>
+
+  <div class="refl-content">
+    <div class="refl-eyebrow" data-anim style="animation-delay:120ms">
+      <span class="refl-eyebrow-text">Para iniciar a conversa</span>
+    </div>
+    <div class="refl-kicker" data-anim style="animation-delay:190ms">Sociedade digital</div>
+    <p class="refl-question" data-anim style="animation-delay:260ms">Quantos de vocês já usaram hoje o celular, o WhatsApp ou um aplicativo de banco?</p>
+  </div>
+</div>
+</section>
+<section id="s04" class="slide-sec" data-rot="Para refletir">
+<div class="stage">
+  <div class="refl-circle-fill" data-anim style="animation-delay:0ms"></div>
+  <div class="refl-circle-outline" data-anim style="animation-delay:80ms"></div>
+  <div class="refl-grain"></div>
+
+  <div class="refl-content">
+    <div class="refl-eyebrow" data-anim style="animation-delay:120ms">
+      <span class="refl-eyebrow-text">Para refletir</span>
+    </div>
+    <div class="refl-kicker" data-anim style="animation-delay:190ms">Competências digitais</div>
+    <p class="refl-question" data-anim style="animation-delay:260ms">Quais competências são importantes aos Professores para atuação na sociedade atual, mediada por tecnologias e serviços digitais?</p>
+  </div>
+</div>
+</section>
+<section id="s05" class="slide-sec" data-rot="UNESCO 2008 — fonte">
+<div class="stage">
+  <div class="eyebrow">Marcos de competências — UNESCO</div>
+
+  <div class="fonte-body">
+    <div class="cover-wrap">
+      <div class="cover">
+        <img src="assets/cover-unesco-2008.png" alt="Capa: Padrões de competência em TIC para professores — Módulos de padrão de competência (UNESCO)">
+      </div>
+      <div class="cover-cap">Capa do documento original</div>
+    </div>
+
+    <div class="fonte-text">
+      <h1 class="fonte-title">Padrões de competências em TIC para professores</h1>
+      <div class="fonte-meta">
+        <span class="tag">UNESCO</span>
+        <span class="yr">Módulos de padrão de competência · 2008 (ed. 2009)</span>
+      </div>
+      <p class="fonte-desc">
+        Primeiro marco global de competências digitais docentes da UNESCO. Organiza
+        <b>seis dimensões</b> — de política e visão a desenvolvimento profissional
+        docente — em <b>três estágios de progressão</b>: alfabetização, aprofundamento
+        e criação de conhecimento. Foco predominantemente <b>instrumental</b>:
+        aprender a usar a tecnologia.
+      </p>
+      <div class="fonte-cite">
+        UNESCO. Padrões de competências em TIC para professores: módulos de padrão de
+        competência. Paris: UNESCO, 2009. [Versão original: <em>ICT competency standards
+        for teachers: competency standards modules</em>. Paris: UNESCO, 2008.] <a href="https://unesdoc.unesco.org/ark:/48223/pf0000156207_por" style="color:inherit">https://unesdoc.unesco.org/ark:/48223/pf0000156207_por</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<section id="s06" class="slide-sec" data-rot="UNESCO 2008">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Marcos de competências — UNESCO</div>
+    <h1 class="s-title">Padrões de competências TIC para professores da UNESCO [2008]</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="matrix">
+    <div class="matrix-cols">
+      <div class="group-h dimensions-h"><strong>6</strong> dimensões</div>
+      <div class="group-h stages-h"><strong>3</strong> estágios de progressão</div>
+      <div class="col-h spacer">dimensão</div>
+      <div class="col-h stage-h">Adquirir</div>
+      <div class="col-h stage-h">Aprofundar</div>
+      <div class="col-h stage-h">Criar</div>
+    </div>
+    <div class="matrix-rows">
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">1</span><span class="m-dim-label">Política e Visão</span></div>
+        <div class="m-cell"><span class="hl">Alfabetização em Tecnologia</span></div>
+        <div class="m-cell">Aprofundamento do Conhecimento</div>
+        <div class="m-cell">Criação de Conhecimentos</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">2</span><span class="m-dim-label">Currículo e Avaliação</span></div>
+        <div class="m-cell">Conhecimento Básico</div>
+        <div class="m-cell">Aplicação do Conhecimento</div>
+        <div class="m-cell">Habilidades do Século XXI</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">3</span><span class="m-dim-label">Pedagogia</span></div>
+        <div class="m-cell">Tecnologia Integrada</div>
+        <div class="m-cell">Solução de Problemas Complexos</div>
+        <div class="m-cell">Autogestão</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">4</span><span class="m-dim-label">TIC</span></div>
+        <div class="m-cell">Ferramentas Básicas</div>
+        <div class="m-cell">Ferramentas Complexas</div>
+        <div class="m-cell">Ferramentas Abrangentes</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">5</span><span class="m-dim-label">Organização e Administração</span></div>
+        <div class="m-cell"><span class="hl">Sala de Aula Padrão</span></div>
+        <div class="m-cell">Grupos Colaborativos</div>
+        <div class="m-cell">Organizações de Aprendizagem</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">6</span><span class="m-dim-label">Desenvolvimento Profissional do Docente</span></div>
+        <div class="m-cell">Alfabetização Digital</div>
+        <div class="m-cell"><span class="hl">Gerência e Orientação</span></div>
+        <div class="m-cell">Professor como Aluno-Modelo</div>
+      </div>
+    </div>
+    <div class="m-src">Fonte: UNESCO. Padrões de competências em TIC para professores: módulos de padrão de competência. Paris: UNESCO, 2009. [Versão original: <em>ICT competency standards for teachers: competency standards modules</em>. Paris: UNESCO, 2008.] <a href="https://unesdoc.unesco.org/ark:/48223/pf0000156207_por" style="color:inherit">https://unesdoc.unesco.org/ark:/48223/pf0000156207_por</a></div>
+  </div>
+</div>
+</section>
+<section id="s07" class="slide-sec" data-rot="UNESCO 2018 — fonte">
+<div class="stage">
+  <div class="eyebrow">Marcos de competências — UNESCO</div>
+
+  <div class="fonte-body">
+    <div class="cover-wrap">
+      <div class="cover">
+        <img src="assets/265721eng.jpg" alt="Capa: UNESCO ICT competency framework for teachers, version 3">
+      </div>
+      <div class="cover-cap">Capa do documento original</div>
+    </div>
+
+    <div class="fonte-text">
+      <h1 class="fonte-title">Marco de competências dos docentes em matéria de TIC</h1>
+      <div class="fonte-meta">
+        <span class="tag">UNESCO</span>
+        <span class="yr">Versão 3 · 2018</span>
+      </div>
+      <p class="fonte-desc">
+        Terceira versão do marco, dez anos após a primeira. Mantém as
+        <b>seis dimensões</b> e os <b>três estágios de progressão</b> da versão original,
+        atualizados para o cenário tecnológico de 2018 — mas ainda sem uma dimensão
+        dedicada à <b>inteligência artificial</b>, que só vai aparecer no marco de 2024.
+      </p>
+      <div class="fonte-cite">
+        UNESCO. <em>ICT competency framework for teachers: version 3</em>. Paris: UNESCO, 2018.
+        <a href="https://unesdoc.unesco.org/ark:/48223/pf0000265721" style="color:inherit">https://unesdoc.unesco.org/ark:/48223/pf0000265721</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<section id="s08" class="slide-sec" data-rot="UNESCO 2018">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Marcos de competências — UNESCO</div>
+    <h1 class="s-title">Marco de competências de docentes em TIC da UNESCO [2018]</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="matrix">
+    <div class="matrix-cols">
+      <div class="col-h spacer">dimensão</div>
+      <div class="col-h">Adquirir</div>
+      <div class="col-h">Aprofundar</div>
+      <div class="col-h">Criar</div>
+    </div>
+    <div class="matrix-rows">
+      <div class="m-row">
+        <div class="m-dim">Compreensão do papel das TIC na educação</div>
+        <div class="m-cell">Conhecimento das políticas</div>
+        <div class="m-cell">Aplicação de políticas</div>
+        <div class="m-cell">Inovação política</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim">Currículo e Avaliação</div>
+        <div class="m-cell">Conhecimentos básicos</div>
+        <div class="m-cell">Aplicação dos conhecimentos</div>
+        <div class="m-cell">Competências da sociedade do conhecimento</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim">Pedagogia</div>
+        <div class="m-cell">Ensino potencializado pelas TIC</div>
+        <div class="m-cell">Resolução de problemas complexos</div>
+        <div class="m-cell">Autogestão</div>
+      </div>
+      <div class="m-row m-row--novo">
+        <div class="m-dim">Aplicação de competências digitais</div>
+        <div class="m-cell">Aplicação</div>
+        <div class="m-cell">Infusão</div>
+        <div class="m-cell">Transformação</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim">Organização e Administração</div>
+        <div class="m-cell">Sala de aula padrão</div>
+        <div class="m-cell">Grupos de colaboração</div>
+        <div class="m-cell">Organizações de aprendizagem</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim">Aprendizagem profissional dos docentes</div>
+        <div class="m-cell">Alfabetização digital</div>
+        <div class="m-cell">Trabalho em redes</div>
+        <div class="m-cell">O docente como inovador</div>
+      </div>
+    </div>
+    <div class="m-src">Fonte: UNESCO. <em>ICT competency framework for teachers: version 3</em>. Paris: UNESCO, 2018. <a href="https://unesdoc.unesco.org/ark:/48223/pf0000265721" style="color:inherit">https://unesdoc.unesco.org/ark:/48223/pf0000265721</a></div>
+  </div>
+</div>
+</section>
+<section id="s09" class="slide-sec" data-rot="UNESCO 2024 — fonte">
+<div class="stage">
+  <div class="eyebrow">Marcos de competências — UNESCO</div>
+
+  <div class="fonte-body">
+    <div class="cover-wrap">
+      <div class="cover">
+        <img src="assets/cover-unesco-2024.png" alt="Capa: Marco de competencias para docentes en materia de IA — UNESCO">
+      </div>
+      <div class="cover-cap">Capa do documento original</div>
+    </div>
+
+    <div class="fonte-text">
+      <h1 class="fonte-title">Marco referencial de competências em IA para professores</h1>
+      <div class="fonte-meta">
+        <span class="tag">UNESCO</span>
+        <span class="yr">2024 (ed. 2025)</span>
+      </div>
+      <p class="fonte-desc">
+        Não é mais um marco de TIC — é o primeiro marco da UNESCO para a sociedade
+        mediada por <b>Inteligência Artificial</b>. Cinco dimensões, com palavras-chave
+        novas: <b>ética</b> e <b>mentalidade centrada no ser humano</b>. Antes a
+        tecnologia parecia só oportunidade; agora exige cuidado.
+      </p>
+      <div class="fonte-cite">
+        UNESCO. Marco referencial de competências em IA para professores. Paris: UNESCO,
+        2025. [Versão original: <em>AI competency framework for teachers</em>. Paris:
+        UNESCO, 2024.] <a href="https://unesdoc.unesco.org/ark:/48223/pf0000394280" style="color:inherit">https://unesdoc.unesco.org/ark:/48223/pf0000394280</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<section id="s10" class="slide-sec" data-rot="UNESCO 2024">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Marcos de competências — UNESCO</div>
+    <h1 class="s-title">Marco referencial de competências em IA para professores [2024]</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="matrix">
+    <div class="matrix-cols">
+      <div class="col-h spacer">dimensão</div>
+      <div class="col-h">Adquirir</div>
+      <div class="col-h">Aprofundar</div>
+      <div class="col-h">Criar</div>
+    </div>
+    <div class="matrix-rows">
+      <div class="m-row">
+        <div class="m-dim m-dim--marca">Mentalidade centrada no ser humano</div>
+        <div class="m-cell">Autonomia humana</div>
+        <div class="m-cell">Responsabilidade humana</div>
+        <div class="m-cell">Responsabilidade social</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim">Ética da IA</div>
+        <div class="m-cell">Princípios éticos</div>
+        <div class="m-cell">Uso seguro e responsável</div>
+        <div class="m-cell">Criação conjunta de regras éticas</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim">Fundamentos e aplicações de IA</div>
+        <div class="m-cell">Técnicas e aplicações básicas de IA</div>
+        <div class="m-cell">Habilidades de aplicações</div>
+        <div class="m-cell">Criação com IA</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim">Pedagogia de IA</div>
+        <div class="m-cell">Ensino assistido por IA</div>
+        <div class="m-cell">Integração IA-pedagogia</div>
+        <div class="m-cell">Transformação pedagógica aprimorada por IA</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim">IA para o desenvolvimento profissional</div>
+        <div class="m-cell">IA que permite a aprendizagem profissional ao longo da vida</div>
+        <div class="m-cell">IA para melhorar a aprendizagem organizacional</div>
+        <div class="m-cell">IA para apoiar a transformação profissional</div>
+      </div>
+    </div>
+    <div class="m-insight">Por que as outras tecnologias não eram centradas no ser humano? Porque o nosso pensamento mudou.</div>
+    <div class="m-src">Fonte: UNESCO. Marco referencial de competências em IA para professores. Paris: UNESCO, 2025. [Versão original: <em>AI competency framework for teachers</em>. Paris: UNESCO, 2024.] <a href="https://unesdoc.unesco.org/ark:/48223/pf0000394280" style="color:inherit">https://unesdoc.unesco.org/ark:/48223/pf0000394280</a></div>
+  </div>
+</div>
+</section>
+<section id="s11" class="slide-sec" data-rot="IA centrada no ser humano">
+<div class="stage">
+  <div class="eyebrow">Inteligência artificial e educação</div>
+  <h1 class="s-title">O que é IA centrada no ser humano?</h1>
+  <div class="accent-rule"></div>
+  <div class="hai-body">
+    <figure class="hai-figure">
+      <img class="hai-cover" src="assets/aiindex_2026_promo_cover.jpg" alt="Capa do relatório The 2026 AI Index Report, do Stanford HAI.">
+      <img class="hai-visual" src="assets/hai-diagrama-centrado-transparente.png" alt="Diagrama da IA centrada no ser humano: HAI no centro, ligada às pessoas, à colaboração entre humanos e máquinas e aos saberes integrados de computação, psicologia, ética e design.">
+    </figure>
+  </div>
+  <div class="m-src">Fonte: The Stanford Institute for Human-Centered AI (HAI). <em>What is human-centered AI?</em> <a href="https://hai.stanford.edu/ai-definitions/what-is-human-centered-ai" style="color:inherit">https://hai.stanford.edu/ai-definitions/what-is-human-centered-ai</a>. Capa: Stanford HAI. <em>The 2026 AI Index Report</em>. <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" style="color:inherit">https://hai.stanford.edu/ai-index/2026-ai-index-report</a></div>
+</div>
+</section>
+<section id="s12" class="slide-sec" data-rot="Linha do tempo 1984–2021">
+<div class="stage">
+  <div class="wm wm-start">1984</div>
+  <div class="wm wm-end">2021</div>
+
+  <div class="s-head">
+    <div class="eyebrow">Políticas públicas no Brasil</div>
+    <h1 class="s-title">Tecnologias digitais e políticas públicas — 1984 a 2021</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="tl-area">
+    <svg class="tl-svg" viewBox="0 0 1144 380" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="tlGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#F0C093"/>
+          <stop offset="45%" stop-color="#D97C42"/>
+          <stop offset="100%" stop-color="#6E2C0F"/>
+        </linearGradient>
+      </defs>
+      <path d="M30,340 C59.3,340 59.3,324 88.6,324 C132.5,324 132.5,303 176.5,303 C293.75,303 293.75,277 411,277 C557.5,277 557.5,243 704,243 C850.5,243 850.5,200 997,200 C1055.5,200 1055.5,150 1114,150"
+        fill="none" stroke="url(#tlGrad)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+
+    <!-- 1984 — Educom -->
+    <div class="tl-dot" style="left:30px;top:340px;width:12px;height:12px;background:#F0C093"></div>
+    <div class="tl-stem" style="left:30px;top:290px;height:34px;--stem-c:#F0C093"></div>
+    <div class="tl-flag light" style="left:30px;top:288px;background:#F0C093;width:150px;padding:11px 14px;font-size:1rem">
+      <span class="yr" style="font-size:1.25rem">1984</span><span class="tt" style="font-size:1.057rem">Educom</span>
+    </div>
+
+    <!-- 1986 — Ação Imediata -->
+    <div class="tl-dot" style="left:88.6px;top:324px;width:12.5px;height:12.5px;background:#EDB183"></div>
+    <div class="tl-stem" style="left:88.6px;top:102px;height:206px;--stem-c:#EDB183"></div>
+    <div class="tl-flag light" style="left:88.6px;top:100px;background:#EDB183;width:165px;padding:11px 15px;font-size:1.014rem">
+      <span class="yr" style="font-size:1.312rem">1986</span><span class="tt" style="font-size:1.071rem">Ação Imediata em Informática</span>
+    </div>
+
+    <!-- 1989 — PRONINFE -->
+    <div class="tl-dot" style="left:176.5px;top:303px;width:13px;height:13px;background:#E8A66E"></div>
+    <div class="tl-stem" style="left:176.5px;top:265px;height:22px;--stem-c:#E8A66E"></div>
+    <div class="tl-flag light" style="left:176.5px;top:263px;transform:translate(-22%,-100%);background:#E8A66E;width:177.5px;padding:12px 15px;font-size:1.029rem">
+      <span class="yr" style="font-size:1.375rem">1989</span><span class="tt" style="font-size:1.086rem">PRONINFE — 1º Programa Nacional de Informática Educativa</span>
+    </div>
+
+    <!-- 1997 — Proinfo -->
+    <div class="tl-dot" style="left:411px;top:277px;width:14px;height:14px;background:#DB8654"></div>
+    <div class="tl-stem" style="left:411px;top:120px;height:135px;--stem-c:#DB8654"></div>
+    <div class="tl-flag dark" style="left:411px;top:118px;background:#D06A3A;width:197.5px;padding:14px 16px;font-size:1.057rem">
+      <span class="yr" style="font-size:1.5rem">1997</span><span class="tt" style="font-size:1.143rem">Proinfo</span>
+      <span class="dd" style="font-size:1rem;font-weight:700;opacity:1">Laboratórios de informática</span>
+    </div>
+
+    <!-- 2007 — Proinfo Integrado / UCA -->
+    <div class="tl-dot" style="left:704px;top:243px;width:15px;height:15px;background:#B4571E"></div>
+    <div class="tl-stem" style="left:704px;top:215px;height:20px;--stem-c:#B4571E"></div>
+    <div class="tl-flag dark" style="left:704px;top:213px;background:#B4571E;width:222.5px;padding:16px 19px;font-size:1.114rem">
+      <span class="yr" style="font-size:1.688rem">2007</span><span class="tt" style="font-size:1.229rem">Proinfo Integrado + Projeto UCA</span>
+      <span class="dd" style="font-size:1.057rem;font-weight:700;opacity:1">Banda larga (2 Mbps/escola) e o início da mobilidade</span>
+    </div>
+
+    <!-- 2017 — PIEC -->
+    <div class="tl-dot" style="left:997px;top:200px;width:16px;height:16px;background:#8F3B15"></div>
+    <div class="tl-stem" style="left:997px;top:180px;height:8px;--stem-c:#8F3B15"></div>
+    <div class="tl-flag dark" style="left:997px;top:178px;transform:translate(-52%,-100%);background:#8F3B15;width:220px;padding:15px 18px;font-size:1.143rem">
+      <span class="yr" style="font-size:1.75rem">2017</span><span class="tt" style="font-size:1.214rem">PIEC — Educação Conectada</span>
+      <span class="dd" style="font-size:1.029rem">1ª vez com o gestor escolar como ator da política</span>
+    </div>
+
+    <!-- 2021 — Lei 14.180 -->
+    <div class="tl-dot" style="left:1114px;top:150px;width:17px;height:17px;background:#6E2C0F"></div>
+    <div class="tl-stem" style="left:1114px;top:18px;height:114px;--stem-c:#6E2C0F"></div>
+    <div class="tl-flag dark offset" style="left:1114px;top:16px;transform:translate(-86%,-100%);background:#6E2C0F;width:237.5px;padding:18px 20px;font-size:1.2rem">
+      <span class="yr" style="font-size:1.938rem">2021</span><span class="tt" style="font-size:1.314rem">Lei nº 14.180/2021</span>
+      <span class="dd" style="font-size:1.086rem">O PIEC vira política de Estado</span>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: elaborado a partir de marcos históricos de políticas públicas de tecnologias digitais na educação no Brasil (1984–2021).</div>
+</div>
+</section>
+<section id="s13" class="slide-sec" data-rot="Linha do tempo 2021–2026">
+<div class="stage">
+  <div class="wm wm-start">2021</div>
+  <div class="wm wm-end">2026</div>
+
+  <div class="s-head">
+    <div class="eyebrow">Políticas públicas no Brasil</div>
+    <h1 class="s-title">Tecnologias digitais e políticas públicas — 2021 a 2026 (o divisor da pandemia)</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="tl-area">
+    <div class="pandemic-mark"></div>
+    <div class="pandemic-label">Pandemia<br>COVID-19</div>
+
+    <svg class="tl-svg" viewBox="0 0 1144 380" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="tlGrad2" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#F0C093"/>
+          <stop offset="45%" stop-color="#D97C42"/>
+          <stop offset="100%" stop-color="#6E2C0F"/>
+        </linearGradient>
+      </defs>
+      <path d="M30,340 C138.4,340 138.4,312 246.8,312 C355.2,312 355.2,277 463.6,277 C680.4,277 680.4,229 897.2,229 C1005.6,229 1005.6,150 1114,150"
+        fill="none" stroke="url(#tlGrad2)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+
+    <!-- 2021 — Lei 14.180 (continuidade) -->
+    <div class="tl-dot" style="left:30px;top:340px;width:12px;height:12px;background:#F0C093"></div>
+    <div class="tl-stem" style="left:30px;top:290px;height:34px;--stem-c:#F0C093"></div>
+    <div class="tl-flag light" style="left:30px;top:288px;transform:translate(-45%,-100%);background:#F0C093;width:187.5px;padding:11px 14px;font-size:1.03rem">
+      <span class="yr" style="font-size:1.25rem">2021</span><span class="tt" style="font-size:1.089rem">Lei nº 14.180/2021 — PIEC vira política de Estado</span>
+    </div>
+
+    <!-- 2022 — Computação na Educação Básica -->
+    <div class="tl-dot" style="left:246.8px;top:312px;width:13px;height:13px;background:#EDB183"></div>
+    <div class="tl-stem" style="left:246.8px;top:222px;height:86px;--stem-c:#EDB183"></div>
+    <div class="tl-flag light" style="left:246.8px;top:220px;background:#EDB183;width:250px;padding:12px 16px;font-size:1.059rem">
+      <span class="yr" style="font-size:1.375rem">2022</span><span class="tt" style="font-size:1.147rem">Resolução CNE/CEB nº 1/2022 + Parecer nº 2/2022</span>
+      <span class="dd" style="font-size:1rem">Computação na Educação Básica — complemento à BNCC, em 3 eixos: Pensamento Computacional, Mundo Digital, Cultura Digital</span>
+    </div>
+
+    <!-- 2023 — PNED / ENEC / Educação Midiática -->
+    <div class="tl-dot" style="left:463.6px;top:277px;width:15px;height:15px;background:#D06A3A"></div>
+    <div class="tl-stem" style="left:463.6px;top:120px;height:143px;--stem-c:#D06A3A"></div>
+    <div class="tl-flag dark" style="left:463.6px;top:118px;transform:translate(-44%,-100%);background:#C1541F;width:245px;padding:16px 19px;font-size:1.117rem">
+      <span class="yr" style="font-size:1.625rem">2023</span>
+      <span class="tt" style="font-size:1.206rem">PNED, ENEC e Educação Midiática</span>
+      <span class="dd" style="font-size:1.03rem">Lei nº 14.533/2023 (PNED) · Decreto nº 11.713/2023 (ENEC) · Estratégia Nac. de Educação Midiática</span>
+    </div>
+
+    <!-- 2025 — Celular nas escolas / Estatuto Digital -->
+    <div class="tl-dot" style="left:897.2px;top:229px;width:16px;height:16px;background:#A54A1B"></div>
+    <div class="tl-stem" style="left:897.2px;top:96px;height:118px;--stem-c:#A54A1B"></div>
+    <div class="tl-flag dark offset" style="left:830px;top:94px;transform:translate(-72%,-100%);background:#8F3B15;width:262.5px;padding:18px 20px;font-size:1.147rem">
+      <span class="yr" style="font-size:1.75rem">2025</span>
+      <span class="tt" style="font-size:1.265rem">Celular nas escolas e Estatuto Digital</span>
+      <span class="dd" style="font-size:1.059rem">Lei nº 15.100/2025 · Resolução CNE/CEB nº 2/2025 · Lei nº 15.211/2025 (ECA Digital)</span>
+    </div>
+
+    <!-- 2026 — Direitos digitais / IA / PNE -->
+    <div class="tl-dot" style="left:1114px;top:150px;width:17px;height:17px;background:#6E2C0F"></div>
+    <div class="tl-stem" style="left:1114px;top:128px;height:14px;--stem-c:#6E2C0F"></div>
+    <div class="tl-flag dark offset" style="left:1114px;top:128px;transform:translate(-71%,-100%);background:#6E2C0F;width:275px;padding:19px 21px;font-size:1.176rem">
+      <span class="yr" style="font-size:1.875rem">2026</span>
+      <span class="tt" style="font-size:1.324rem">Direitos digitais, IA e o novo PNE</span>
+      <span class="dd" style="font-size:1.089rem">Decreto nº 12.800/2026 · CNE/2026 (consulta IA) · Lei nº 15.388/2026 (PNE 2026–2036, +20 metas digitais)</span>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: elaborado a partir de marcos históricos de políticas públicas de tecnologias digitais na educação no Brasil (2021–2026).</div>
+</div>
+</section>
+<section id="s14" class="slide-sec" data-rot="Usuários de Internet">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Conectividade no Brasil</div>
+    <h1 class="s-title">Usuários de Internet no Brasil, por perfil</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="tiles">
+      <div class="tile">
+        <div class="big">85%</div>
+        <div class="lbl">dos brasileiros acessavam a internet (total da população)</div>
+      </div>
+      <div class="tile alt">
+        <div class="big">28M</div>
+        <div class="lbl">pessoas ainda não são usuárias de internet no Brasil</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Usuários de Internet, por perfil (% da população)</div>
+      <div class="groups">
+
+        <div class="group" style="flex:2;--bar-c:#B4576B">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">82%</div><div class="bar-rect" style="height:82%"></div>
+              <div class="bar-lbl">Masculino</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">88%</div><div class="bar-rect" style="height:88%"></div>
+              <div class="bar-lbl">Feminino</div>
+            </div>
+          </div>
+          <div class="group-title">Sexo</div>
+        </div>
+
+        <div class="group" style="flex:3;--bar-c:#B98A2E">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">74%</div><div class="bar-rect" style="height:74%"></div>
+              <div class="bar-lbl">Fundamental</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">91%</div><div class="bar-rect" style="height:91%"></div>
+              <div class="bar-lbl">Médio</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">98%</div><div class="bar-rect" style="height:98%"></div>
+              <div class="bar-lbl">Superior</div>
+            </div>
+          </div>
+          <div class="group-title">Grau de instrução</div>
+        </div>
+
+        <div class="group" style="flex:6;--bar-c:#C1541F">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">94%</div><div class="bar-rect" style="height:94%"></div>
+              <div class="bar-lbl">10–15</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">95%</div><div class="bar-rect" style="height:95%"></div>
+              <div class="bar-lbl">16–24</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">95%</div><div class="bar-rect" style="height:95%"></div>
+              <div class="bar-lbl">25–34</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">92%</div><div class="bar-rect" style="height:92%"></div>
+              <div class="bar-lbl">35–44</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">86%</div><div class="bar-rect" style="height:86%"></div>
+              <div class="bar-lbl">45–59</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">54%</div><div class="bar-rect" style="height:54%"></div>
+              <div class="bar-lbl">60+</div>
+            </div>
+          </div>
+          <div class="group-title">Faixa etária</div>
+        </div>
+
+        <div class="group" style="flex:4;--bar-c:#6E4A32">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">99%</div><div class="bar-rect" style="height:99%"></div>
+              <div class="bar-lbl">A</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">95%</div><div class="bar-rect" style="height:95%"></div>
+              <div class="bar-lbl">B</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">87%</div><div class="bar-rect" style="height:87%"></div>
+              <div class="bar-lbl">C</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">74%</div><div class="bar-rect" style="height:74%"></div>
+              <div class="bar-lbl">DE</div>
+            </div>
+          </div>
+          <div class="group-title">Classe</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: Cetic.br/NIC.br, Pesquisa TIC Domicílios 2025, indicador C2 — indivíduos por último acesso à Internet, total da população (%). <a href="https://cetic.br/pt/tics/domicilios/2025/individuos/C2/" style="color:inherit">https://cetic.br/pt/tics/domicilios/2025/individuos/C2/</a></div>
+</div>
+</section>
+<section id="s15" class="slide-sec" data-rot="Acesso só por celular">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Conectividade no Brasil</div>
+    <h1 class="s-title">Usuários que acessam a Internet exclusivamente pelo celular</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="tiles">
+      <div class="tile">
+        <div class="big">65%</div>
+        <div class="lbl">dos usuários de Internet acessam a rede apenas pelo celular, sem computador</div>
+      </div>
+      <div class="tile alt">
+        <div class="big">87%</div>
+        <div class="lbl">das classes DE acessam só pelo celular. Na classe A, são 5%.</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Acesso apenas pelo celular, por perfil (% dos usuários de Internet em cada grupo)</div>
+      <div class="groups">
+
+        <div class="group" style="flex:2;--bar-c:#B4576B">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">64%</div><div class="bar-rect" style="height:64%"></div>
+              <div class="bar-lbl">Masculino</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">65%</div><div class="bar-rect" style="height:65%"></div>
+              <div class="bar-lbl">Feminino</div>
+            </div>
+          </div>
+          <div class="group-title">Sexo</div>
+        </div>
+
+        <div class="group" style="flex:3;--bar-c:#B98A2E">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">84%</div><div class="bar-rect" style="height:84%"></div>
+              <div class="bar-lbl">Fundamental</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">73%</div><div class="bar-rect" style="height:73%"></div>
+              <div class="bar-lbl">Médio</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">24%</div><div class="bar-rect" style="height:24%"></div>
+              <div class="bar-lbl">Superior</div>
+            </div>
+          </div>
+          <div class="group-title">Grau de instrução</div>
+        </div>
+
+        <div class="group" style="flex:6;--bar-c:#C1541F">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">68%</div><div class="bar-rect" style="height:68%"></div>
+              <div class="bar-lbl">10–15</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">56%</div><div class="bar-rect" style="height:56%"></div>
+              <div class="bar-lbl">16–24</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">57%</div><div class="bar-rect" style="height:57%"></div>
+              <div class="bar-lbl">25–34</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">61%</div><div class="bar-rect" style="height:61%"></div>
+              <div class="bar-lbl">35–44</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">71%</div><div class="bar-rect" style="height:71%"></div>
+              <div class="bar-lbl">45–59</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">81%</div><div class="bar-rect" style="height:81%"></div>
+              <div class="bar-lbl">60+</div>
+            </div>
+          </div>
+          <div class="group-title">Faixa etária</div>
+        </div>
+
+        <div class="group" style="flex:4;--bar-c:#6E4A32">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">5%</div><div class="bar-rect" style="height:5%"></div>
+              <div class="bar-lbl">A</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">35%</div><div class="bar-rect" style="height:35%"></div>
+              <div class="bar-lbl">B</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">67%</div><div class="bar-rect" style="height:67%"></div>
+              <div class="bar-lbl">C</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">87%</div><div class="bar-rect" style="height:87%"></div>
+              <div class="bar-lbl">DE</div>
+            </div>
+          </div>
+          <div class="group-title">Classe</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: Cetic.br/NIC.br, Pesquisa TIC Domicílios 2025, indicador C16A — acesso exclusivo ou simultâneo por celular e computador (% do total de usuários de Internet). <a href="https://cetic.br/pt/tics/domicilios/2025/individuos/C16A/" style="color:inherit">https://cetic.br/pt/tics/domicilios/2025/individuos/C16A/</a></div>
+</div>
+</section>
+<section id="s16" class="slide-sec" data-rot="Professores e celular">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Conectividade no Brasil</div>
+    <h1 class="s-title">Professores em escolas urbanas, acesso à Internet por celular (2010–2019)</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="chart-col">
+      <svg class="chart-svg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+        <!-- gridlines: y = 550 - valor*5.1 (mesma escala das polylines; esticado em 2026-09-12 para ocupar a altura) -->
+        <line x1="40" y1="550" x2="960" y2="550" stroke="#C3BBA9" stroke-width="1.2"/>
+        <line x1="40" y1="295" x2="960" y2="295" stroke="var(--line)" stroke-width="1"/>
+        <line x1="40" y1="40" x2="960" y2="40" stroke="var(--line)" stroke-width="1"/>
+        <text x="30" y="557.8" text-anchor="end" font-size="16" fill="#8A7F73">0</text>
+        <text x="30" y="304.8" text-anchor="end" font-size="16" fill="#8A7F73">50</text>
+        <text x="30" y="49.8" text-anchor="end" font-size="16" fill="#8A7F73">100</text>
+
+        <!-- eixo x -->
+        <g font-size="16" fill="#8A7F73" text-anchor="middle">
+          <text x="40" y="593.2">2010</text><text x="142.2" y="593.2">2011</text>
+          <text x="244.4" y="593.2">2012</text><text x="346.7" y="593.2">2013</text>
+          <text x="448.9" y="593.2">2014</text><text x="551.1" y="593.2">2015</text>
+          <text x="653.3" y="593.2">2016</text><text x="755.6" y="593.2">2017</text>
+          <text x="857.8" y="593.2">2018</text><text x="960" y="593.2">2019</text>
+        </g>
+
+        <!-- linha: escolas particulares -->
+        <polyline fill="none" stroke="#6E2C0F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+          points="40,504.1 142.2,442.9 244.4,407.2 346.7,325.6 448.9,152.2 551.1,80.8 653.3,85.9 755.6,45.1 857.8,45.1 960,40"/>
+        <!-- linha: escolas públicas -->
+        <polyline fill="none" stroke="#C1541F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+          points="40,519.4 142.2,483.7 244.4,437.8 346.7,366.4 448.9,223.6 551.1,131.8 653.3,91 755.6,60.4 857.8,50.2 960,45.1"/>
+
+        <!-- pontos + rótulos: particulares -->
+        <g fill="#6E2C0F">
+          <circle cx="142.2" cy="442.9" r="4"/><text x="142.2" y="422.5" text-anchor="middle" font-size="16" font-weight="700">21</text>
+          <circle cx="244.4" cy="407.2" r="4"/><text x="244.4" y="387.2" text-anchor="middle" font-size="16" font-weight="700">28</text>
+          <circle cx="346.7" cy="325.6" r="4"/><text x="346.7" y="304.8" text-anchor="middle" font-size="16" font-weight="700">44</text>
+          <circle cx="448.9" cy="152.2" r="4"/><text x="448.9" y="132.2" text-anchor="middle" font-size="16" font-weight="700">78</text>
+          <circle cx="551.1" cy="80.8" r="4"/><text x="551.1" y="59.6" text-anchor="middle" font-size="16" font-weight="700">92</text>
+          <circle cx="653.3" cy="85.9" r="4"/><text x="653.3" y="65.5" text-anchor="middle" font-size="16" font-weight="700">91</text>
+          <circle cx="755.6" cy="45.1" r="4"/><text x="755.6" y="24.3" text-anchor="middle" font-size="16" font-weight="700">99</text>
+          <circle cx="857.8" cy="45.1" r="4"/><text x="857.8" y="24.3" text-anchor="middle" font-size="16" font-weight="700">99</text>
+          <circle cx="960" cy="40" r="4"/><text x="945" y="20.4" text-anchor="middle" font-size="16" font-weight="700">100</text>
+        </g>
+        <!-- pontos + rótulos: públicas -->
+        <g fill="#C1541F">
+          <circle cx="40" cy="519.4" r="4"/><text x="40" y="555.9" text-anchor="middle" font-size="16" font-weight="700">6</text>
+          <circle cx="142.2" cy="483.7" r="4"/><text x="142.2" y="520.6" text-anchor="middle" font-size="16" font-weight="700">13</text>
+          <circle cx="244.4" cy="437.8" r="4"/><text x="244.4" y="475.5" text-anchor="middle" font-size="16" font-weight="700">22</text>
+          <circle cx="346.7" cy="366.4" r="4"/><text x="346.7" y="404.8" text-anchor="middle" font-size="16" font-weight="700">36</text>
+          <circle cx="448.9" cy="223.6" r="4"/><text x="448.9" y="261.7" text-anchor="middle" font-size="16" font-weight="700">64</text>
+          <circle cx="551.1" cy="131.8" r="4"/><text x="551.1" y="169.5" text-anchor="middle" font-size="16" font-weight="700">82</text>
+          <circle cx="653.3" cy="91" r="4"/><text x="653.3" y="130.2" text-anchor="middle" font-size="16" font-weight="700">90</text>
+          <circle cx="755.6" cy="60.4" r="4"/><text x="755.6" y="98.8" text-anchor="middle" font-size="16" font-weight="700">96</text>
+          <circle cx="857.8" cy="50.2" r="4"/><text x="857.8" y="89" text-anchor="middle" font-size="16" font-weight="700">98</text>
+          <circle cx="960" cy="45.1" r="4"/><text x="960" y="89" text-anchor="middle" font-size="16" font-weight="700">99</text>
+        </g>
+      </svg>
+
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#C1541F"></span>Professores de escolas públicas</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#6E2C0F"></span>Professores de escolas particulares</div>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="callout">
+        Segundo a pesquisa TIC Educação 2021, <b>12%</b> dos professores que lecionavam em escolas rurais não possuíam computador no domicílio e realizavam atividades remotas exclusivamente pelo <b>telefone celular</b>.
+      </div>
+      <div class="conclusion">
+        <span class="kicker">Conclusão</span>
+        Conectividade não é um número único: as <b>particulares sempre estiveram à frente</b> das públicas, e o "quase 100%" urbano <b>esconde a desigualdade rural</b>. Competências digitais precisam ser <b>contextuais</b>.
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: Cetic.br/NIC.br, Pesquisa TIC Educação 2021 — professores de escolas urbanas de Ensino Fundamental e Médio, usuários de Internet (%). <a href="https://cetic.br/pt/pesquisa/educacao/" style="color:inherit">https://cetic.br/pt/pesquisa/educacao/</a></div>
+</div>
+</section>
+<section id="s17" class="slide-sec" data-rot="Constatação">
+<div class="stage">
+  <div class="circle-fill"></div>
+  <div class="circle-outline"></div>
+
+  <div class="content">
+    <div class="eyebrow">Conectividade no Brasil · Constatação</div>
+    <h1 class="headline">Competências digitais precisam ser contextuais.</h1>
+    <div class="body-text">
+      <ol>
+        <li>Um marco nacional dá uma direção geral, mas é a competência que de fato importa <b>muda com o contexto real</b> do ensino.</li>
+        <li>Em 2021, 12% dos professores realizavam atividades remotas apenas pelo celular. Esse dado mostra que as condições de trabalho docente são desiguais.</li>
+        <li>Exigir a mesma competência "padrão" dos dois ignora que um já está pronto para usar <b>Inteligência Artificial</b> em sala, enquanto o outro ainda luta por conexão estável.</li>
+        <li><b>A política e a formação docente precisam se adaptar à realidade de cada escola</b> — não o contrário.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+</section>
+<section id="s18" class="slide-sec" data-rot="Conectividade significativa">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Conectividade significativa</div>
+    <h1 class="s-title">Conectividade universal e significativa</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="defs">
+      <div class="def"><b>Universal</b> — deve estar disponível a todas as pessoas, de forma equitativa.</div>
+      <div class="def"><b>Significativa</b> — deve estar disponível de forma qualitativa e acessível, para permitir usufruir plenamente das oportunidades.</div>
+    </div>
+
+    <div class="grid2">
+      <div class="cat" style="--cat-c:#C1541F">
+        <span class="cat-index">1</span>
+        <div class="cat-title">Acessibilidade financeira</div>
+        <ul>
+          <li>Custo da conexão domiciliar</li>
+          <li>Plano de celular</li>
+        </ul>
+      </div>
+      <div class="cat" style="--cat-c:#E8A66E">
+        <span class="cat-index">2</span>
+        <div class="cat-title">Acesso a dispositivos</div>
+        <ul>
+          <li>Dispositivos <i>per capita</i></li>
+          <li>Computador no domicílio</li>
+          <li>Uso diversificado de dispositivos</li>
+        </ul>
+      </div>
+      <div class="cat" style="--cat-c:#8F3B15">
+        <span class="cat-index">3</span>
+        <div class="cat-title">Qualidade da conexão</div>
+        <ul>
+          <li>Tipo de conexão domiciliar</li>
+          <li>Velocidade da conexão domiciliar</li>
+        </ul>
+      </div>
+      <div class="cat" style="--cat-c:#6E4A32">
+        <span class="cat-index">4</span>
+        <div class="cat-title">Ambiente de uso</div>
+        <ul>
+          <li>Frequência de uso da Internet</li>
+          <li>Locais de uso diversificados</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: Cetic.br/NIC.br, Pesquisa TIC Educação 2021 — critérios de conectividade universal e significativa. <a href="https://cetic.br/pt/pesquisa/educacao/" style="color:inherit">https://cetic.br/pt/pesquisa/educacao/</a></div>
+</div>
+</section>
+<section id="s19" class="slide-sec" data-rot="Nível de conectividade">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Conectividade significativa</div>
+    <h1 class="s-title">Conectividade significativa</h1>
+    <div class="s-sub">Conectividade <b>significativa</b> = pontuação de 7 a 9 (de 9 critérios: recurso financeiro, dispositivo, qualidade da conexão e ambiente de uso).</div>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="chart-col">
+      <!-- escala: y = 480 - valor*10.5 (eixo e pontos pela mesma conta; corrigido e esticado em 2026-09-12) -->
+      <svg class="chart-svg" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet">
+        <line x1="60" y1="60" x2="840" y2="60" stroke="var(--line)" stroke-width="1"/>
+        <line x1="60" y1="270" x2="840" y2="270" stroke="var(--line)" stroke-width="1"/>
+        <line x1="60" y1="480" x2="840" y2="480" stroke="#C3BBA9" stroke-width="1.2"/>
+        <text x="44" y="66.5" text-anchor="end" font-size="13" fill="#8A7F73">40</text>
+        <text x="44" y="276.5" text-anchor="end" font-size="13" fill="#8A7F73">20</text>
+        <text x="44" y="486.5" text-anchor="end" font-size="13" fill="#8A7F73">0</text>
+
+        <g font-size="13" fill="#8A7F73" text-anchor="middle">
+          <text x="60" y="498">2021</text><text x="255" y="498">2022</text>
+          <text x="450" y="498">2023</text><text x="645" y="498">2024</text>
+          <text x="840" y="498">2025</text>
+        </g>
+
+        <!-- 0 a 2 pontos -->
+        <polyline fill="none" stroke="#D9873F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+          points="60,60 255,102 450,133.5 645,123 840,165"/>
+        <!-- 3 e 4 pontos -->
+        <polyline fill="none" stroke="#C85A1E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+          points="60,228 255,216.7 450,216.7 645,228 840,174.7"/>
+        <!-- 5 e 6 pontos -->
+        <polyline fill="none" stroke="#9B3A14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+          points="60,281.3 255,260.3 450,249 645,249 840,260.3"/>
+        <!-- 7 a 9 pontos -->
+        <polyline fill="none" stroke="#5A2208" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"
+          points="60,312 255,291 450,270 645,260.3 840,270"/>
+
+        <g font-size="13" font-weight="700" text-anchor="middle">
+          <g fill="#D9873F">
+            <circle cx="60" cy="60" r="4"/><text x="60" y="40.6">40</text>
+            <circle cx="255" cy="102" r="4"/><text x="255" y="82.6">36</text>
+            <circle cx="450" cy="133.5" r="4"/><text x="450" y="114.1">33</text>
+            <circle cx="645" cy="123" r="4"/><text x="645" y="103.6">34</text>
+            <circle cx="840" cy="165" r="4"/><text x="815" y="145.6">30</text>
+          </g>
+          <g fill="#C97C34">
+            <circle cx="60" cy="228" r="4"/><text x="60" y="208.6">24</text>
+            <circle cx="255" cy="216.7" r="4"/><text x="255" y="197.3">25</text>
+            <circle cx="450" cy="216.7" r="4"/><text x="450" y="197.3">25</text>
+            <circle cx="645" cy="228" r="4"/><text x="645" y="208.6">24</text>
+            <circle cx="840" cy="174.7" r="4"/><text x="815" y="200.5">29</text>
+          </g>
+          <g fill="#9B3A14">
+            <circle cx="60" cy="281.3" r="4"/><text x="60" y="310.4">19</text>
+            <circle cx="255" cy="260.3" r="4"/><text x="255" y="289.4">21</text>
+            <circle cx="450" cy="249" r="4"/><text x="450" y="236.1">22</text>
+            <circle cx="645" cy="249" r="4"/><text x="645" y="236.1">22</text>
+            <circle cx="840" cy="260.3" r="4"/><text x="815" y="289.4">21</text>
+          </g>
+          <g fill="#5A2208">
+            <circle cx="60" cy="312" r="4.2"/><text x="60" y="341.1">16</text>
+            <circle cx="255" cy="291" r="4.2"/><text x="255" y="320.1">18</text>
+            <circle cx="450" cy="270" r="4.2"/><text x="450" y="299.1">20</text>
+            <circle cx="645" cy="260.3" r="4.2"/><text x="645" y="291">21</text>
+            <circle cx="840" cy="270" r="4.2"/><text x="815" y="320.1">20</text>
+          </g>
+        </g>
+      </svg>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#D9873F"></span>0 a 2 pontos</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#C85A1E"></span>3 e 4 pontos</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#9B3A14"></span>5 e 6 pontos</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#5A2208"></span>7 a 9 pontos (significativa)</div>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="stat">
+        <div class="big">20%</div>
+        <div class="lbl">dos brasileiros com 10 anos ou mais têm conectividade significativa (2025)</div>
+      </div>
+      <div class="conclusion">
+        <span class="kicker">Conclusão</span>
+        Em 2025, 85% da população havia usado a Internet nos três meses anteriores, mas somente <b>20% estava na faixa mais alta de conectividade significativa</b>. Outros <b>59% estavam nas faixas de 0 a 4 pontos</b>.
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: CGI.br (2025), Pesquisa TIC Domicílios 2025 — nível de conectividade significativa, total da população com 10 anos ou mais (%). <a href="https://www.cetic.br/media/analises/tic_domicilios_2025_principais_resultados.pdf" style="color:inherit">https://www.cetic.br/media/analises/tic_domicilios_2025_principais_resultados.pdf</a></div>
+</div>
+</section>
+<section id="s20" class="slide-sec" data-rot="Direitos digitais">
+<div class="stage">
+  <div class="circle-fill"></div>
+  <div class="circle-outline"></div>
+
+  <div class="content">
+    <div class="left">
+      <div class="eyebrow"><span class="eyebrow-text">Para refletir</span></div>
+      <div class="kicker">Inclusão digital baseada em direitos digitais</div>
+      <div class="photo-wrap">
+        <img src="assets/Tim-Berners-Lee.webp" alt="Tim Berners-Lee">
+        <div class="photo-cap">Tim Berners-Lee</div>
+      </div>
+    </div>
+
+    <div class="right">
+      <span class="quote-mark">&ldquo;</span>
+      <div class="quote">
+        <p>Hoje, a World Wide Web completa 29 anos (2018). Este ano registra um marco na história da web: pela primeira vez, cruzaremos o ponto de inflexão em que mais da metade da população mundial estará online.</p>
+        <p>Quando compartilho essa notícia empolgante com as pessoas, costumo receber uma de duas reações preocupadas:</p>
+      </div>
+      <ul class="reactions">
+        <li>Como conectar a outra metade do mundo?</li>
+        <li>Temos certeza de que o resto do mundo quer se conectar à web que temos hoje?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="m-src">Tim Berners-Lee. (2018) <i>The web is under threat. Join us and fight for it.</i> <a href="https://medium.com/@timberners_lee/the-web-is-under-threat-join-us-and-fight-for-it-69cb3408c770/">https://medium.com/@timberners_lee/the-web-is-under-threat-join-us-and-fight-for-it-69cb3408c770/</a></div>
+</div>
+</section>
+<section id="s21" class="slide-sec" data-rot="Relatório UNESCO 2023 — fonte">
+<div class="stage">
+  <div class="eyebrow">Inclusão digital baseada em direitos digitais</div>
+
+  <div class="fonte-body">
+    <div class="cover-wrap">
+      <div class="cover">
+        <img src="assets/cover-unesco-relatorio-2023.jpg" alt="Capa: Relatório de Monitoramento Global da Educação 2023 — A tecnologia na educação: uma ferramenta a serviço de quem?">
+      </div>
+      <div class="cover-cap">Capa do relatório original</div>
+    </div>
+
+    <div class="fonte-text">
+      <h1 class="fonte-title">A tecnologia na educação: uma ferramenta a serviço de quem?</h1>
+      <div class="fonte-sub">Relatório de Monitoramento Global da Educação — resumo</div>
+      <div class="fonte-meta">
+        <span class="tag">UNESCO</span>
+        <span class="yr">2023</span>
+      </div>
+      <p class="fonte-desc">
+        Uma análise global sobre o real impacto da tecnologia na aprendizagem — indo
+        além do discurso de "quanto mais tecnologia, melhor" para perguntar <b>a
+        serviço de quem</b> ela está, quando funciona e quando pode até prejudicar.
+      </p>
+      <div class="fonte-cite">
+        Organização das Nações Unidas para a Educação, a Ciência e a Cultura (UNESCO).
+        Relatório de monitoramento global da educação, resumo, 2023: a tecnologia na
+        educação: uma ferramenta a serviço de quem?. 2023. [Versão original: <em>Global
+        education monitoring report summary, 2023: technology in education: a tool on
+        whose terms?</em>. Paris: UNESCO, 2023.] <a href="https://unesdoc.unesco.org/ark:/48223/pf0000386147_por" style="color:inherit">https://unesdoc.unesco.org/ark:/48223/pf0000386147_por</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<section id="s22" class="slide-sec" data-rot="Relatório UNESCO 2023">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Inclusão digital baseada em direitos digitais</div>
+    <h1 class="s-title">Benefícios e riscos da tecnologia dependem do contexto</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="col positivo">
+      <div class="col-head">Evidências de benefício</div>
+      <div class="finding">
+        <span class="tag">Acesso a recursos</span>
+        <p>A tecnologia digital ampliou o <b>acesso a recursos de ensino e aprendizagem</b>. Esse acesso, por si só, não garante melhores resultados em todos os contextos.</p>
+      </div>
+      <div class="finding">
+        <span class="tag">China: aulas gravadas para 100 milhões de estudantes rurais</span>
+        <p>Gravações de aulas de alta qualidade <b>melhoraram os resultados em 32%</b> e reduziram em <b>38%</b> a diferença de rendimentos entre áreas urbanas e rurais.</p>
+      </div>
+    </div>
+
+    <div class="col negativo">
+      <div class="col-head">Riscos e limites</div>
+      <div class="finding">
+        <span class="tag">PISA 2018: fonte do relatório</span>
+        <p>Dados do Programa de Avaliação Internacional de Estudantes sugerem uma <b>associação negativa entre o uso de TIC acima de um nível moderado e o desempenho</b>.</p>
+        <p class="update"><b>Atualização · PISA 2025:</b> estudantes que relatam distração digital frequente nas aulas de Ciências tiveram, em média nos países da OCDE e após controlar o perfil socioeconômico, 11 pontos a menos. No Brasil: 19 pontos; 25% dos alunos relatam essa distração. É associação, não prova de causa.</p>
+      </div>
+      <div class="finding">
+        <span class="tag">14 países</span>
+        <p>Uma meta-análise encontrou um <b>pequeno efeito negativo do uso de celulares nos resultados educacionais</b>, mais intenso no ensino superior.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fontes: UNESCO. <em>Relatório de monitoramento global da educação, resumo, 2023</em>. Paris: UNESCO, 2023. <a href="https://unesdoc.unesco.org/ark:/48223/pf0000386147_por" style="color:inherit">https://unesdoc.unesco.org/ark:/48223/pf0000386147_por</a> · OCDE. <em>PISA 2025 Results, Volume I</em>, 2026. <a href="https://doi.org/10.1787/73451bc5-en" style="color:inherit">https://doi.org/10.1787/73451bc5-en</a></div>
+</div>
+</section>
+<section id="s23" class="slide-sec" data-rot="MEC Saberes Digitais — fonte">
+<div class="stage">
+  <div class="eyebrow">Competências e saberes digitais</div>
+
+  <div class="fonte-body">
+    <div class="cover-wrap">
+      <div class="cover">
+        <img src="assets/cover-mec-saberes-digitais.webp" alt="Capa: Saberes Digitais Docentes — MEC">
+      </div>
+      <div class="cover-cap">Capa do documento original</div>
+    </div>
+
+    <div class="fonte-text">
+      <h1 class="fonte-title">Referencial de Saberes Digitais Docentes</h1>
+      <div class="fonte-meta">
+        <span class="tag">MEC</span>
+        <span class="yr">2024</span>
+      </div>
+      <p class="fonte-desc">
+        Referencial do MEC que define <b>conhecimentos e práticas</b> para integrar
+        tecnologias digitais com intencionalidade pedagógica no Ensino Fundamental e
+        no Ensino Médio. Organizado em <b>3 dimensões</b> e <b>10 saberes</b>, apoia a
+        formação docente e a implementação das políticas nacionais de conectividade e
+        educação digital.
+      </p>
+      <div class="fonte-cite">
+        Ministério da Educação (MEC). Referencial de Saberes Digitais Docentes. 2024. <a href="https://www.gov.br/mec/pt-br/escolas-conectadas/20240822MatrizSaberesDigitais.pdf" style="color:inherit">https://www.gov.br/mec/pt-br/escolas-conectadas/20240822MatrizSaberesDigitais.pdf</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<section id="s24" class="slide-sec" data-rot="Saberes digitais docentes">
+<div class="stage">
+  <div class="s-head">
+    <div class="s-head-l">
+      <div class="eyebrow">Competências e saberes digitais</div>
+      <h1 class="s-title">Como o referencial organiza os saberes docentes</h1>
+    </div>
+    <div class="stats">
+      <div class="stat-pill"><span class="num">3</span><span class="lbl">Dimensões</span></div>
+      <div class="stat-pill"><span class="num">10</span><span class="lbl">Saberes docentes</span></div>
+    </div>
+  </div>
+  <div class="accent-rule"></div>
+
+  <div class="dims">
+    <div class="dim" style="--dim-c:var(--orange-deep);--dim-bg:#F3E4D8">
+      <div class="dim-label">
+        <span class="dim-tag">D1</span>
+        <span class="dim-name">Ensino e Aprendizagem com uso de tecnologias digitais</span>
+      </div>
+      <div class="sd-grid">
+        <div class="sd-item"><span class="sd-num">SD<br>1.1</span><span class="sd-txt">Prática Pedagógica</span></div>
+        <div class="sd-item"><span class="sd-num">SD<br>1.2</span><span class="sd-txt">Curadoria e Criação</span></div>
+        <div class="sd-item"><span class="sd-num">SD<br>1.3</span><span class="sd-txt">Análise de Dados</span></div>
+        <div class="sd-item"><span class="sd-num">SD<br>1.4</span><span class="sd-txt">Prática Inclusiva</span></div>
+      </div>
+    </div>
+
+    <div class="dim" style="--dim-c:#1F5FA8;--dim-bg:#E4EDF7">
+      <div class="dim-label">
+        <span class="dim-tag">D2</span>
+        <span class="dim-name">Cidadania Digital</span>
+      </div>
+      <div class="sd-grid">
+        <div class="sd-item"><span class="sd-num">SD<br>2.1</span><span class="sd-txt">Uso Responsável</span></div>
+        <div class="sd-item"><span class="sd-num">SD<br>2.2</span><span class="sd-txt">Uso Seguro</span></div>
+        <div class="sd-item" style="grid-column:1/3;justify-self:start"><span class="sd-num">SD<br>2.3</span><span class="sd-txt">Uso Crítico</span></div>
+      </div>
+    </div>
+
+    <div class="dim" style="--dim-c:#0E7F63;--dim-bg:#E2F1EC">
+      <div class="dim-label">
+        <span class="dim-tag">D3</span>
+        <span class="dim-name">Desenvolvimento Profissional</span>
+      </div>
+      <div class="sd-grid">
+        <div class="sd-item"><span class="sd-num">SD<br>3.1</span><span class="sd-txt">Formação Continuada</span></div>
+        <div class="sd-item"><span class="sd-num">SD<br>3.2</span><span class="sd-txt">Comunicação e Colaboração</span></div>
+        <div class="sd-item" style="grid-column:1/3;justify-self:start"><span class="sd-num">SD<br>3.3</span><span class="sd-txt">Uso de recursos digitais para gestão</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: Ministério da Educação (MEC). Referencial de Saberes Digitais Docentes. 2024. <a href="https://www.gov.br/mec/pt-br/escolas-conectadas/20240822MatrizSaberesDigitais.pdf" style="color:inherit">https://www.gov.br/mec/pt-br/escolas-conectadas/20240822MatrizSaberesDigitais.pdf</a></div>
+</div>
+</section>
+<section id="s25" class="slide-sec" data-rot="54% — formação continuada">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Professores</div>
+    <div class="head-row">
+      <h1 class="s-title">Professores que participaram de formação continuada sobre tecnologias digitais nos 12 meses anteriores à realização da pesquisa</h1>
+      <div class="s-note">Total de professores de escolas de Ensino Fundamental e Médio (%)</div>
+    </div>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="stat">
+      <div class="stat-num">54<span>%</span></div>
+      <div class="stat-txt">dos professores participaram de formação continuada sobre <b>tecnologias digitais</b> nos processos de ensino e de aprendizagem</div>
+      <div class="stat-note">
+        <span class="kicker">A tendência</span>
+        Eram <b>65%</b> em 2021. A queda atinge todas as redes, mas é <b>muito mais forte na rede municipal</b>: de 62% para 43% — 19 pontos em três anos.
+      </div>
+    </div>
+    <div class="chart">
+      <svg viewBox="0 0 728 520" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Participação em formação continuada sobre tecnologias digitais, de 2021 a 2024, por dependência administrativa.">
+        <line class="grid" x1="32" x2="502" y1="470.0" y2="470.0"/>
+        <text class="ax" x="24" y="474.0" text-anchor="end">0</text>
+        <line class="grid" x1="32" x2="502" y1="360.0" y2="360.0"/>
+        <text class="ax" x="24" y="364.0" text-anchor="end">20</text>
+        <line class="grid" x1="32" x2="502" y1="250.0" y2="250.0"/>
+        <text class="ax" x="24" y="254.0" text-anchor="end">40</text>
+        <line class="grid" x1="32" x2="502" y1="140.0" y2="140.0"/>
+        <text class="ax" x="24" y="144.0" text-anchor="end">60</text>
+        <line class="grid" x1="32" x2="502" y1="30.0" y2="30.0"/>
+        <text class="ax" x="24" y="34.0" text-anchor="end">80</text>
+        <line class="axis" x1="32" x2="502" y1="470.0" y2="470.0"/>
+        <polyline class="ln" points="58.0,112.5 203.3,162.0" stroke="#E9A36B" style="stroke-width:7;"/>
+        <polyline class="ln" points="203.3,162.0 494.0,173.0" stroke="#E9A36B" style="stroke-width:7;stroke-dasharray:0.1 13"/>
+        <polyline class="ln" points="58.0,129.0 203.3,195.0" stroke="var(--o1)" style=""/>
+        <polyline class="ln" points="203.3,195.0 494.0,233.5" stroke="var(--o1)" style="stroke-dasharray:2 9"/>
+        <polyline class="ln" points="58.0,90.5 203.3,123.5" stroke="var(--o2)" style=""/>
+        <polyline class="ln" points="203.3,123.5 494.0,129.0" stroke="var(--o2)" style="stroke-dasharray:2 9"/>
+        <polyline class="ln" points="58.0,107.0 203.3,195.0" stroke="var(--o3)" style=""/>
+        <polyline class="ln" points="203.3,195.0 494.0,151.0" stroke="var(--o3)" style="stroke-dasharray:2 9"/>
+        <circle class="mk" cx="58.0" cy="112.5" r="5.5" stroke="#E9A36B"/>
+        <circle class="mk" cx="203.3" cy="162.0" r="5.5" stroke="#E9A36B"/>
+        <circle class="mk" cx="494.0" cy="173.0" r="5.5" stroke="#E9A36B"/>
+        <circle class="mk" cx="58.0" cy="129.0" r="5.5" stroke="var(--o1)"/>
+        <circle class="mk" cx="203.3" cy="195.0" r="5.5" stroke="var(--o1)"/>
+        <circle class="mk" cx="494.0" cy="233.5" r="5.5" stroke="var(--o1)"/>
+        <circle class="mk" cx="58.0" cy="90.5" r="5.5" stroke="var(--o2)"/>
+        <circle class="mk" cx="203.3" cy="123.5" r="5.5" stroke="var(--o2)"/>
+        <circle class="mk" cx="494.0" cy="129.0" r="5.5" stroke="var(--o2)"/>
+        <circle class="mk" cx="58.0" cy="107.0" r="5.5" stroke="var(--o3)"/>
+        <circle class="mk" cx="203.3" cy="195.0" r="5.5" stroke="var(--o3)"/>
+        <circle class="mk" cx="494.0" cy="151.0" r="5.5" stroke="var(--o3)"/>
+        <text class="val" x="46.0" y="94.5" text-anchor="end">69</text>
+        <text class="val" x="46.0" y="113.5" text-anchor="end">66</text>
+        <text class="val" x="46.0" y="132.5" text-anchor="end">65</text>
+        <text class="val" x="46.0" y="151.5" text-anchor="end">62</text>
+        <circle cx="520" cy="129.0" r="5" fill="var(--o2)"/>
+        <text class="nm" x="532" y="133.0">Estadual</text>
+        <text class="nmv" x="720" y="133.0" text-anchor="end">62</text>
+        <circle cx="520" cy="153.0" r="5" fill="var(--o3)"/>
+        <text class="nm" x="532" y="157.0">Particular</text>
+        <text class="nmv" x="720" y="157.0" text-anchor="end">58</text>
+        <circle cx="520" cy="177.0" r="5" fill="#E9A36B"/>
+        <text class="nm" x="532" y="181.0">Total</text>
+        <text class="nmv" x="720" y="181.0" text-anchor="end">54</text>
+        <circle cx="520" cy="233.5" r="5" fill="var(--o1)"/>
+        <text class="nm" x="532" y="237.5">Municipal</text>
+        <text class="nmv" x="720" y="237.5" text-anchor="end">43</text>
+        <line x1="520" x2="560" y1="300" y2="300" stroke="#8F3B15" stroke-width="3" stroke-linecap="round"/>
+        <text class="nm" x="568" y="305" style="font-weight:400">dado anual</text>
+        <line x1="520" x2="560" y1="326" y2="326" stroke="#8F3B15" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"/>
+        <text class="nm" x="568" y="331" style="font-weight:400">sem dado em 2023</text>
+        <text class="yr" x="58.0" y="497" text-anchor="middle">2021</text>
+        <text class="yr" x="203.3" y="497" text-anchor="middle">2022</text>
+        <text class="yr" x="494.0" y="497" text-anchor="middle">2024</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: Cetic.br/NIC.br, Pesquisa TIC Educação 2021, 2022 e 2024. <a href="https://cetic.br/pt/pesquisa/educacao/">https://cetic.br/pt/pesquisa/educacao/</a></div>
+</div>
+</section>
+<section id="s26" class="slide-sec" data-rot="Temas da formação">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Professores</div>
+    <div class="head-row">
+      <h1 class="s-title">Temas das atividades de formação continuada realizadas nos 12 meses anteriores à realização da pesquisa</h1>
+      <div class="s-note">Total de professores de escolas de Ensino Fundamental e Médio <b>que participaram de formação continuada</b> (%)</div>
+    </div>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-sw" style="background:var(--g1)"></span>Uso de ferramentas e plataformas</div>
+    <div class="legend-item"><span class="legend-sw" style="background:var(--g2)"></span>Demais temas <span class="sub">— uso crítico, cidadania digital, tecnologias emergentes</span></div>
+  </div>
+
+  <div class="chart">
+    <div class="axis-top">
+      <div></div>
+      <div class="ticks">
+        <span style="left:0%">0</span><span style="left:20%">20</span><span style="left:40%">40</span>
+        <span style="left:60%">60</span><span style="left:80%">80</span><span style="left:100%;transform:translateX(-100%)">100</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-label">Plataformas, programas de computador ou aplicativos de <b>criação de conteúdos</b> educacionais</div>
+      <div class="track"><div class="bar g1" style="width:82%"></div><div class="bar-val" style="left:82%">82</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label">Uso de tecnologias digitais para adaptar as atividades aos <b>ritmos de aprendizagem</b> dos estudantes</div>
+      <div class="track"><div class="bar g1" style="width:79%"></div><div class="bar-val" style="left:79%">79</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label">Uso de tecnologias na <b>avaliação de desempenho</b> dos alunos</div>
+      <div class="track"><div class="bar g1" style="width:75%"></div><div class="bar-val" style="left:75%">75</div></div>
+    </div>
+
+    <div class="row group-start">
+      <div class="row-label">Formas de orientar os alunos sobre o <b>uso seguro</b> do computador, do celular e da Internet</div>
+      <div class="track"><div class="bar g2" style="width:69%"></div><div class="bar-val" style="left:69%">69</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label"><b>Educação midiática</b> e uso crítico das mídias em sala de aula</div>
+      <div class="track"><div class="bar g2" style="width:68%"></div><div class="bar-val" style="left:68%">68</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label">Avaliação da <b>veracidade de informações</b> e notícias e compartilhamento responsável de conteúdos e opiniões na Internet</div>
+      <div class="track"><div class="bar g2" style="width:61%"></div><div class="bar-val" style="left:61%">61</div></div>
+    </div>
+    <div class="row hi">
+      <div class="row-label">Uso de <b>Inteligência Artificial</b> em atividades educacionais<span class="tag">Atenção</span></div>
+      <div class="track"><div class="bar g2" style="width:59%"></div><div class="bar-val" style="left:59%">59</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label">Proteção à <b>privacidade</b> e aos dados pessoais no uso da Internet</div>
+      <div class="track"><div class="bar g2" style="width:58%"></div><div class="bar-val" style="left:58%">58</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label"><b>Computação, programação</b> ou <b>robótica</b> na educação</div>
+      <div class="track"><div class="bar g2" style="width:39%"></div><div class="bar-val" style="left:39%">39</div></div>
+    </div>
+  </div>
+
+  <div class="concl">
+    <span class="kicker">Conclusão</span>
+    Entre os professores que fizeram formação, os três temas mais citados são de <b>uso de ferramentas</b> (75% a 82%). Os de <b>leitura crítica</b> ficam abaixo: educação midiática 68%, veracidade da informação 61% e privacidade 58%. Sobre <b>Inteligência Artificial</b>, <b>59% desses professores</b> tiveram formação.
+  </div>
+
+  <div class="m-src">Fonte: Cetic.br/NIC.br, Pesquisa TIC Educação 2024. <a href="https://cetic.br/pt/pesquisa/educacao/">https://cetic.br/pt/pesquisa/educacao/</a></div>
+</div>
+</section>
+<section id="s27" class="slide-sec" data-rot="Para refletir — final">
+<div class="stage">
+  <div class="refl-circle-fill" data-anim style="animation-delay:0ms"></div>
+  <div class="refl-circle-outline" data-anim style="animation-delay:80ms"></div>
+  <div class="refl-grain"></div>
+
+  <div class="refl-content">
+    <div class="refl-eyebrow" data-anim style="animation-delay:120ms">
+      <span class="refl-eyebrow-text">Para refletir</span>
+    </div>
+    <div class="refl-kicker" data-anim style="animation-delay:190ms">Competências digitais</div>
+    <p class="refl-question" data-anim style="animation-delay:260ms">Como apoiar os professores para a educação que queremos?</p>
+  </div>
+</div>
+</section>
+<section id="s28" class="slide-sec" data-rot="Glossário">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Encerramento</div>
+    <h1 class="s-title">Glossário</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="glossary">
+    <div class="term">
+      <div class="term-name">Framework / diretrizes</div>
+      <div class="term-def">Documento de referência — internacional (UNESCO) ou nacional (MEC) — que organiza numa estrutura comum o que se espera de uma competência. Orienta, mas não tem força de lei.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">TIC</div>
+      <div class="term-def">Tecnologias da Informação e Comunicação — termo guarda-chuva para computador, internet e tecnologias digitais em geral, usado antes de o vocabulário migrar para "IA".</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Conectividade significativa</div>
+      <div class="term-def">Ter internet não basta: é o acesso medido em conjunto — recurso financeiro, dispositivo, qualidade da conexão e ambiente de uso. Sem isso, o acesso é frágil mesmo existindo "no papel".</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Inclusão digital crítica</div>
+      <div class="term-def">Não é só entregar tecnologia ao aluno — é educar para usá-la com discernimento: entender riscos, oportunidades e objetivos, não só operar a ferramenta.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Aplicação · Infusão · Transformação</div>
+      <div class="term-def">Três estágios de progressão de uma competência digital: uso pontual numa atividade → já integrada à prática do dia a dia → a tecnologia muda a própria forma de ensinar.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Agência</div>
+      <div class="term-def">Capacidade de uma pessoa fazer escolhas intencionais e agir a partir delas, sendo autora e responsável por suas ações e pelos efeitos que causam. Envolve intenção, planejamento e reflexão sobre o que se faz.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Mentalidade centrada no ser humano</div>
+      <div class="term-def">Abordagem de IA que prioriza valores e bem-estar humano, mantém o humano no centro das decisões, e é construída com ética desde o design — não como ajuste feito depois do problema aparecer.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Pensamento computacional</div>
+      <div class="term-def">Lógica de decompor um problema, reconhecer padrões e criar um passo a passo para resolvê-lo — com ou sem computador. Um dos três eixos que a Computação ganhou na BNCC em 2022 (com Mundo Digital e Cultura Digital).</div>
+    </div>
+  </div>
+
+  <div class="m-src">Definições próprias, com base nas fontes já citadas nesta apresentação — ver Referências.</div>
+</div>
+</section>
+<section id="s29" class="slide-sec" data-rot="Referências">
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Encerramento</div>
+    <h1 class="s-title">Referências</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="refs">
+    <p class="ref-item"><b>BERNERS-LEE, Tim.</b> The web is under threat. Join us and fight for it. <i>Medium</i>, 2018. Disponível em: <a href="https://medium.com/@timberners_lee/the-web-is-under-threat-join-us-and-fight-for-it-69cb3408c770/">medium.com/@timberners_lee/the-web-is-under-threat-join-us-and-fight-for-it-69cb3408c770</a>. Acesso em: 13 set. 2026.</p>
+
+    <p class="ref-item"><b>BRASIL. Ministério da Educação.</b> Referencial de Saberes Digitais Docentes. Brasília: MEC, 2024. Disponível em: <a href="https://www.gov.br/mec/pt-br/escolas-conectadas/20240822MatrizSaberesDigitais.pdf">gov.br/mec/pt-br/escolas-conectadas/20240822MatrizSaberesDigitais.pdf</a>. Acesso em: 13 set. 2026.</p>
+
+    <p class="ref-item"><b>CETIC.BR; NIC.BR.</b> Pesquisa TIC Educação: edições 2021, 2022, 2024 e 2025. São Paulo: Comitê Gestor da Internet no Brasil (CGI.br). Disponível em: <a href="https://cetic.br/pt/pesquisa/educacao/">cetic.br/pt/pesquisa/educacao</a>. Acesso em: 13 set. 2026.</p>
+
+    <p class="ref-item"><b>OCDE.</b> PISA 2025 results (volume I): future-ready students. Paris: OECD Publishing, 2026. Disponível em: <a href="https://doi.org/10.1787/73451bc5-en">doi.org/10.1787/73451bc5-en</a>. Acesso em: 30 set. 2026.</p>
+
+    <p class="ref-item"><b>STANFORD UNIVERSITY. Institute for Human-Centered Artificial Intelligence (HAI).</b> What is human-centered AI?. Stanford, [s.d.]. Disponível em: <a href="https://hai.stanford.edu/ai-definitions/what-is-human-centered-ai">hai.stanford.edu/ai-definitions/what-is-human-centered-ai</a>. Acesso em: 13 set. 2026.</p>
+
+    <p class="ref-item"><b>UNESCO.</b> ICT competency framework for teachers: version 3. Paris: UNESCO, 2018. Disponível em: <a href="https://unesdoc.unesco.org/ark:/48223/pf0000265721">unesdoc.unesco.org/ark:/48223/pf0000265721</a>. Acesso em: 13 set. 2026.</p>
+
+    <p class="ref-item"><b>UNESCO.</b> Marco referencial de competências em IA para professores. Paris: UNESCO, 2025. Disponível em: <a href="https://unesdoc.unesco.org/ark:/48223/pf0000394280">unesdoc.unesco.org/ark:/48223/pf0000394280</a>. Acesso em: 13 set. 2026.</p>
+
+    <p class="ref-item"><b>UNESCO.</b> Padrões de competências em TIC para professores: módulos de padrão de competência. Paris: UNESCO, 2009. Disponível em: <a href="https://unesdoc.unesco.org/ark:/48223/pf0000156207_por">unesdoc.unesco.org/ark:/48223/pf0000156207_por</a>. Acesso em: 13 set. 2026.</p>
+
+    <p class="ref-item"><b>UNESCO.</b> Relatório de monitoramento global da educação, resumo, 2023: a tecnologia na educação: uma ferramenta a serviço de quem?. Paris: UNESCO, 2023. Disponível em: <a href="https://unesdoc.unesco.org/ark:/48223/pf0000386147_por">unesdoc.unesco.org/ark:/48223/pf0000386147_por</a>. Acesso em: 13 set. 2026.</p>
+  </div>
+
+  <div class="note">Ordem alfabética, conforme ABNT NBR 6023.</div>
+</div>
+</section>
+<section id="s30" class="slide-sec" data-rot="Sobre o palestrante">
+<div class="stage">
+  <div class="orb"></div>
+  <div class="ring"></div>
+  <div class="ring2"></div>
+
+  <div class="content">
+    <div class="col-main">
+      <div class="eyebrow">Sobre o palestrante</div>
+      <h1 class="name">Prof. Me.<br>Krysamon Cavalcante</h1>
+      <div class="rule"></div>
+
+      <p class="lead">Pesquisador em inteligência artificial aplicada à educação e à inclusão, com ênfase na investigação de como as tecnologias cognitivas podem potencializar as capacidades humanas e reconfigurar os processos de aprendizagem.</p>
+
+      <ul class="creds">
+        <li><span><b>Doutorando</b> em Ciências, Tecnologias e Inclusão <span class="inst">· PGCTIn/UFF</span></span></li>
+        <li><span><b>Mestre</b> em Diversidade e Inclusão <span class="inst">· CMPDI/UFF</span></span></li>
+        <li><span><b>Graduado</b> em Design Gráfico <span class="inst">· UNESA</span></span></li>
+        <li><span><b>Professor</b> e <b>Coordenador de Pesquisa</b> <span class="inst">· FAETEC / Centro de Memória</span></span></li>
+        <li><span><b>Pesquisador</b> do Núcleo de Educação Especial e Inclusiva <span class="inst">· NEEI</span> e <b>editor acadêmico</b> no Selo Hypatia</span></li>
+      </ul>
+    </div>
+
+    <div class="col-side">
+      <div class="card">
+        <div class="kicker">Criador do</div>
+        <div class="iara">Assistente I.A.R.A.</div>
+        <div class="iara-sub">Inteligência Artificial para Raras Assistência</div>
+        <p>Nasceu na pesquisa de mestrado para incluir e disseminar conhecimento sobre doenças, síndromes e condições raras — e agora se amplia no doutorado.</p>
+        <div class="sep"></div>
+        <div class="tese-lbl">Pesquisa doutoral</div>
+        <p class="tese">Como sistemas conversacionais de IA generativa redistribuem agência e promovem inclusão epistêmica e autonomia cognitiva nas condições raras e na neurodiversidade, à luz da tese da Mente Estendida.</p>
+        <div class="qr-row">
+          <img class="qr-code" src="assets/krysamon_bio_qrcode.png" alt="QR Code para a bio de Krysamon Cavalcante">
+          <div class="qr-copy"><b>Acesse minha bio</b>Aponte a câmera para conhecer o currículo e os projetos.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio-bar">
+    <div class="bio-bar-col"><span class="bio-bar-label">Bio</span><a class="bio-bar-value" href="https://www.iara.me/bio">https://www.iara.me/bio</a></div>
+    <div class="bio-bar-col"><span class="bio-bar-label">Currículo Lattes</span><a class="bio-bar-value" href="https://lattes.cnpq.br/5084695314809486">https://lattes.cnpq.br/5084695314809486</a></div>
+    <div class="bio-bar-col"><span class="bio-bar-label">ORCID</span><a class="bio-bar-value" href="https://orcid.org/0009-0003-7840-2501">https://orcid.org/0009-0003-7840-2501</a></div>
+  </div>
+</div>
+</section>
+  </div>
+</div>
+
+<div class="hud">
+  <button class="btn-idx" title="Índice (i)">☰</button>
+  <span class="cont">1 / 30</span>
+  <span class="rot"></span>
+  <button class="btn-prev" title="Anterior (←)">‹</button>
+  <button class="btn-next" title="Próxima (→)">›</button>
+  <button class="btn-fs" title="Tela cheia (f)">⛶</button>
+</div>
+
+<div class="drawer">
+  <h2>Índice — 30 telas</h2>
+  <ol>
+      <li><button data-go="0"><span class="n">01</span><span>Capa</span></button></li>
+      <li><button data-go="1"><span class="n">02</span><span>Disclaimer</span></button></li>
+      <li><button data-go="2"><span class="n">03</span><span>Para iniciar a conversa</span></button></li>
+      <li><button data-go="3"><span class="n">04</span><span>Para refletir</span></button></li>
+      <li><button data-go="4"><span class="n">05</span><span>UNESCO 2008 — fonte</span></button></li>
+      <li><button data-go="5"><span class="n">06</span><span>UNESCO 2008</span></button></li>
+      <li><button data-go="6"><span class="n">07</span><span>UNESCO 2018 — fonte</span></button></li>
+      <li><button data-go="7"><span class="n">08</span><span>UNESCO 2018</span></button></li>
+      <li><button data-go="8"><span class="n">09</span><span>UNESCO 2024 — fonte</span></button></li>
+      <li><button data-go="9"><span class="n">10</span><span>UNESCO 2024</span></button></li>
+      <li><button data-go="10"><span class="n">11</span><span>IA centrada no ser humano</span></button></li>
+      <li><button data-go="11"><span class="n">12</span><span>Linha do tempo 1984–2021</span></button></li>
+      <li><button data-go="12"><span class="n">13</span><span>Linha do tempo 2021–2026</span></button></li>
+      <li><button data-go="13"><span class="n">14</span><span>Usuários de Internet</span></button></li>
+      <li><button data-go="14"><span class="n">15</span><span>Acesso só por celular</span></button></li>
+      <li><button data-go="15"><span class="n">16</span><span>Professores e celular</span></button></li>
+      <li><button data-go="16"><span class="n">17</span><span>Constatação</span></button></li>
+      <li><button data-go="17"><span class="n">18</span><span>Conectividade significativa</span></button></li>
+      <li><button data-go="18"><span class="n">19</span><span>Nível de conectividade</span></button></li>
+      <li><button data-go="19"><span class="n">20</span><span>Direitos digitais</span></button></li>
+      <li><button data-go="20"><span class="n">21</span><span>Relatório UNESCO 2023 — fonte</span></button></li>
+      <li><button data-go="21"><span class="n">22</span><span>Relatório UNESCO 2023</span></button></li>
+      <li><button data-go="22"><span class="n">23</span><span>MEC Saberes Digitais — fonte</span></button></li>
+      <li><button data-go="23"><span class="n">24</span><span>Saberes digitais docentes</span></button></li>
+      <li><button data-go="24"><span class="n">25</span><span>54% — formação continuada</span></button></li>
+      <li><button data-go="25"><span class="n">26</span><span>Temas da formação</span></button></li>
+      <li><button data-go="26"><span class="n">27</span><span>Para refletir — final</span></button></li>
+      <li><button data-go="27"><span class="n">28</span><span>Glossário</span></button></li>
+      <li><button data-go="28"><span class="n">29</span><span>Referências</span></button></li>
+      <li><button data-go="29"><span class="n">30</span><span>Sobre o palestrante</span></button></li>
+  </ol>
+</div>
+
+<script>
+
+const secs=[...document.querySelectorAll('.slide-sec')];
+const TOTAL=secs.length;
+const stage=document.querySelector('.deck-stage'), vp=document.querySelector('.viewport');
+const prog=document.querySelector('.progress'), cont=document.querySelector('.cont'), rot=document.querySelector('.rot');
+const idxButtons=[...document.querySelectorAll('.drawer button[data-go]')];
+let cur=0;
+function show(i){
+  cur=Math.max(0,Math.min(TOTAL-1,i));
+  secs.forEach((s,k)=>s.classList.toggle('on',k===cur));
+  idxButtons.forEach(b=>{
+    const active=+b.dataset.go===cur;
+    b.classList.toggle('current',active);
+    b.toggleAttribute('aria-current',active);
+  });
+  cont.textContent=(cur+1)+' / '+TOTAL;
+  rot.textContent=secs[cur].dataset.rot;
+  prog.style.width=((cur+1)/TOTAL*100)+'%';
+  location.hash='#'+(cur+1);
+}
+/* Escala do palco.
+   Não dependemos de eventos: 'resize' não dispara em alguns ambientes e a
+   transição para tela cheia às vezes reporta dimensões antigas. Verificamos a
+   cada quadro se as dimensões mudaram — é uma comparação de dois inteiros, e
+   só tocamos no DOM quando algo realmente mudou. */
+let _w=0, _h=0;
+function fit(forcar){
+  const d=document.documentElement;
+  const w=d.clientWidth, h=d.clientHeight;
+  if(!forcar && w===_w && h===_h) return;
+  _w=w; _h=h;
+  stage.style.transform='scale('+Math.min(w/1280, h/720)+')';
+}
+/* Dois vigias: rAF é suave e barato enquanto a aba está visível, mas o
+   navegador o PAUSA quando a aba está oculta (medido: 0 quadros). O intervalo
+   continua rodando nesse caso e custa uma comparação de inteiros 4x/s. */
+(function vigia(){ fit(); requestAnimationFrame(vigia); })();
+setInterval(fit, 250);
+addEventListener('resize', ()=>fit(true));
+for(const ev of ['fullscreenchange','webkitfullscreenchange']){
+  addEventListener(ev, ()=>{ fit(true); requestAnimationFrame(()=>fit(true)); setTimeout(()=>fit(true),150); });
+}
+addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(cur+1)}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(cur-1)}
+  else if(e.key==='Home')show(0); else if(e.key==='End')show(TOTAL-1);
+  else if(e.key.toLowerCase()==='f'&&e.ctrlKey&&e.shiftKey){e.preventDefault();toggleFS()}
+  else if(e.key==='Escape')dr.classList.remove('on');
+  else if(e.key==='i')dr.classList.toggle('on');
+});
+const dr=document.querySelector('.drawer');
+document.querySelector('.btn-idx').onclick=()=>dr.classList.toggle('on');
+document.querySelector('.btn-prev').onclick=()=>show(cur-1);
+document.querySelector('.btn-next').onclick=()=>show(cur+1);
+function toggleFS(){
+  const d=document;
+  if(d.fullscreenElement||d.webkitFullscreenElement){ (d.exitFullscreen||d.webkitExitFullscreen).call(d); }
+  else { const e=d.documentElement; (e.requestFullscreen||e.webkitRequestFullscreen).call(e); }
+}
+document.querySelector('.btn-fs').onclick=toggleFS;
+dr.querySelectorAll('button[data-go]').forEach(b=>b.onclick=()=>{show(+b.dataset.go);dr.classList.remove('on')});
+show(Math.max(0,(parseInt(location.hash.slice(1))||1)-1));
+
+</script>
+</body>
+</html>

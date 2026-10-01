@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide reflexão — v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    border-radius:6px;
+  }
+
+  /* ---------- Decorative circles ---------- */
+  .refl-circle-fill{
+    position:absolute;top:-120px;left:-140px;
+    width:620px;height:620px;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%, var(--peach-lt) 0%, var(--peach) 62%, #EFBB8E 100%);
+  }
+  .refl-circle-outline{
+    position:absolute;bottom:-210px;right:-90px;
+    width:420px;height:420px;border-radius:50%;
+    border:3px solid var(--orange);
+    opacity:.18;
+  }
+  .refl-grain{
+    position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Content ---------- */
+  .refl-content{
+    position:relative;z-index:2;
+    height:100%;display:flex;flex-direction:column;justify-content:center;
+    padding:0 96px;max-width:1180px;
+  }
+  .refl-eyebrow{
+    display:flex;align-items:flex-start;gap:14px;margin-bottom:6px;
+  }
+  .refl-eyebrow::before{
+    content:"";width:30px;height:3px;background:var(--orange);flex:0 0 auto;margin-top:14px;
+  }
+  .refl-eyebrow-text{
+    font-size:1.7rem;font-weight:800;line-height:1.12;letter-spacing:-.01em;
+    color:var(--ink);text-transform:uppercase;
+  }
+  .refl-kicker{
+    font-family:var(--sans);font-size:1.7rem;font-weight:400;color:var(--orange);
+    margin:2px 0 34px 44px;letter-spacing:-.01em;
+  }
+  .refl-question{
+    font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:clamp(2.1rem, 3.4vw, 2.7rem);line-height:1.22;color:var(--ink);
+    letter-spacing:-.005em;margin-left:44px;
+  }
+
+  /* entrada */
+  [data-anim]{opacity:0;animation:riseIn .5s cubic-bezier(.16,.8,.3,1) both}
+  @keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="refl-circle-fill" data-anim style="animation-delay:0ms"></div>
+  <div class="refl-circle-outline" data-anim style="animation-delay:80ms"></div>
+  <div class="refl-grain"></div>
+
+  <div class="refl-content">
+    <div class="refl-eyebrow" data-anim style="animation-delay:120ms">
+      <span class="refl-eyebrow-text">Para iniciar a conversa</span>
+    </div>
+    <div class="refl-kicker" data-anim style="animation-delay:190ms">Sociedade digital</div>
+    <p class="refl-question" data-anim style="animation-delay:260ms">Quantos de vocês já usaram hoje o celular, o WhatsApp ou um aplicativo de banco?</p>
+  </div>
+</div>
+
+</body>
+</html>

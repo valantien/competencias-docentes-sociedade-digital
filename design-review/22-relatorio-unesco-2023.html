@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 15 — Relatório UNESCO 2023 (achados)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:48px 68px 40px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:20px}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-size:1.5rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+  .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  .body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:28px;min-height:0;align-items:start;align-content:center}
+  .col{display:flex;flex-direction:column;gap:14px;min-height:0;justify-content:flex-start}
+  .col-head{
+    display:inline-flex;align-items:center;font-size:1rem;font-weight:800;color:#fff;
+    text-transform:uppercase;letter-spacing:.03em;background:var(--col-c);
+    padding:9px 18px;border-radius:9px;align-self:flex-start;margin-bottom:6px;
+  }
+  .col.positivo{--col-c:#1F5FA8}
+  .col.negativo{--col-c:#C0501A}
+
+  .finding{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);padding:16px 24px;
+  }
+  .finding p{font-size:1.2rem;line-height:1.36;color:var(--ink)}
+  .finding b{color:var(--col-parent, var(--orange-deep))}
+  .col.positivo .finding b{color:#1F5FA8}
+  .col.negativo .finding b{color:#C0501A}
+  .finding .tag{
+    display:block;font-size:1.36rem;font-weight:700;line-height:1.25;
+    color:var(--col-c);margin-bottom:8px;
+  }
+  .update{
+    margin-top:10px;padding-top:10px;border-top:1px solid var(--line);
+    font-size:.9rem;line-height:1.35;color:var(--ink);
+  }
+  .update b{color:#C0501A}
+
+  .m-src{
+    margin-top:16px;padding-top:10px;border-top:1px solid var(--muted);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Inclusão digital baseada em direitos digitais</div>
+    <h1 class="s-title">Benefícios e riscos da tecnologia dependem do contexto</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="col positivo">
+      <div class="col-head">Evidências de benefício</div>
+      <div class="finding">
+        <span class="tag">Acesso a recursos</span>
+        <p>A tecnologia digital ampliou o <b>acesso a recursos de ensino e aprendizagem</b>. Esse acesso, por si só, não garante melhores resultados em todos os contextos.</p>
+      </div>
+      <div class="finding">
+        <span class="tag">China: aulas gravadas para 100 milhões de estudantes rurais</span>
+        <p>Gravações de aulas de alta qualidade <b>melhoraram os resultados em 32%</b> e reduziram em <b>38%</b> a diferença de rendimentos entre áreas urbanas e rurais.</p>
+      </div>
+    </div>
+
+    <div class="col negativo">
+      <div class="col-head">Riscos e limites</div>
+      <div class="finding">
+        <span class="tag">PISA 2018: fonte do relatório</span>
+        <p>Dados do Programa de Avaliação Internacional de Estudantes sugerem uma <b>associação negativa entre o uso de TIC acima de um nível moderado e o desempenho</b>.</p>
+        <p class="update"><b>Atualização · PISA 2025:</b> estudantes que relatam distração digital frequente nas aulas de Ciências tiveram, em média nos países da OCDE e após controlar o perfil socioeconômico, 11 pontos a menos. No Brasil: 19 pontos; 25% dos alunos relatam essa distração. É associação, não prova de causa.</p>
+      </div>
+      <div class="finding">
+        <span class="tag">14 países</span>
+        <p>Uma meta-análise encontrou um <b>pequeno efeito negativo do uso de celulares nos resultados educacionais</b>, mais intenso no ensino superior.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fontes: UNESCO. <em>Relatório de monitoramento global da educação, resumo, 2023</em>. Paris: UNESCO, 2023. <a href="https://unesdoc.unesco.org/ark:/48223/pf0000386147_por" style="color:inherit">https://unesdoc.unesco.org/ark:/48223/pf0000386147_por</a> · OCDE. <em>PISA 2025 Results, Volume I</em>, 2026. <a href="https://doi.org/10.1787/73451bc5-en" style="color:inherit">https://doi.org/10.1787/73451bc5-en</a></div>
+</div>
+
+</body>
+</html>

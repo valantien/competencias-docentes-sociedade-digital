@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 16 — Critérios de celular nas escolas</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:40px 60px 34px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:12px}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:6px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:24px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-size:1.3rem;line-height:1.24;font-weight:700;color:var(--orange-deep)}
+  .accent-rule{height:3px;width:100%;margin-top:12px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  .chart{flex:1;display:flex;flex-direction:column;min-height:0;padding-top:8px}
+
+  .axis-top{display:grid;grid-template-columns:260px 1fr;margin-bottom:10px}
+  .axis-top .ticks{display:flex;font-size:.8rem;color:var(--muted);font-weight:600;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  .axis-top .ticks span{flex:1;text-align:left}
+  .axis-top .ticks span:last-child{text-align:right;flex:0}
+
+  .groups{flex:1;display:flex;flex-direction:column;justify-content:center;gap:4px;min-height:0}
+  .grp-sep{border-top:1px solid var(--line);margin:2px 0}
+  .row{display:grid;grid-template-columns:260px 1fr;align-items:center;gap:10px}
+  .row-label{font-size:.9rem;color:var(--ink);text-align:right;padding-right:8px}
+  .row-label.strong{font-weight:700}
+  .grp-label{
+    grid-column:1;font-size:1.1rem;font-weight:700;
+    color:var(--orange-deep);margin-top:10px;margin-bottom:2px;
+  }
+
+  .bar{display:flex;height:23px;border-radius:4px;overflow:hidden;width:100%}
+  .seg{display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff}
+  .seg.s1{background:#E9A36B;color:var(--ink)}
+  .seg.s2{background:#C85A1E}
+  .seg.s3{background:#8F2F10}
+  .seg.s4{background:#D8CBB4;color:var(--ink)}
+
+  .legend{display:flex;flex-direction:column;gap:10px;margin-top:20px;font-size:.8rem;color:var(--ink);line-height:1.5}
+  .legend-item{display:flex;align-items:flex-start;gap:10px}
+  .legend-item b{font-weight:700}
+  .legend-dot{width:12px;height:12px;border-radius:3px;flex:0 0 auto;margin-top:4px}
+
+  .m-src{
+    margin-top:12px;padding-top:8px;border-top:1px solid var(--muted);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+  .m-src a{color:inherit}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Celular na escola</div>
+    <h1 class="s-title">Regras para celulares pessoais dos alunos nas escolas</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="chart">
+    <div class="axis-top">
+      <div></div>
+      <div class="ticks"><span>0%</span><span>20%</span><span>40%</span><span>60%</span><span>80%</span><span>100%</span></div>
+    </div>
+
+    <div class="groups">
+      <div class="row">
+        <div class="row-label strong">Total</div>
+        <div class="bar">
+          <div class="seg s1" style="width:24%">24</div>
+          <div class="seg s2" style="width:16%">16</div>
+          <div class="seg s3" style="width:51%">51</div>
+          <div class="seg s4" style="width:9%">9</div>
+        </div>
+      </div>
+
+      <div class="grp-sep"></div>
+      <div class="grp-label">Dependência administrativa</div>
+      <div class="row"><div class="row-label">Municipal</div>
+        <div class="bar"><div class="seg s1" style="width:21%">21</div><div class="seg s2" style="width:13%">13</div><div class="seg s3" style="width:57%">57</div><div class="seg s4" style="width:10%">10</div></div></div>
+      <div class="row"><div class="row-label">Estadual</div>
+        <div class="bar"><div class="seg s1" style="width:33%">33</div><div class="seg s2" style="width:21%">21</div><div class="seg s3" style="width:39%">39</div><div class="seg s4" style="width:7%">7</div></div></div>
+      <div class="row"><div class="row-label">Particular</div>
+        <div class="bar"><div class="seg s1" style="width:24%">24</div><div class="seg s2" style="width:19%">19</div><div class="seg s3" style="width:48%">48</div><div class="seg s4" style="width:9%">9</div></div></div>
+
+      <div class="grp-sep"></div>
+      <div class="grp-label">Nível de ensino mais elevado ofertado</div>
+      <div class="row"><div class="row-label">Até anos iniciais do EF</div>
+        <div class="bar"><div class="seg s1" style="width:12%">12</div><div class="seg s2" style="width:8%">8</div><div class="seg s3" style="width:69%">69</div><div class="seg s4" style="width:12%">12</div></div></div>
+      <div class="row"><div class="row-label">Até anos finais do EF</div>
+        <div class="bar"><div class="seg s1" style="width:30%">30</div><div class="seg s2" style="width:21%">21</div><div class="seg s3" style="width:42%">42</div><div class="seg s4" style="width:7%">7</div></div></div>
+      <div class="row"><div class="row-label">Até Ensino Médio</div>
+        <div class="bar"><div class="seg s1" style="width:39%">39</div><div class="seg s2" style="width:23%">23</div><div class="seg s3" style="width:31%">31</div><div class="seg s4" style="width:7%">7</div></div></div>
+
+      <div class="grp-sep"></div>
+      <div class="grp-label">Área</div>
+      <div class="row"><div class="row-label">Urbana</div>
+        <div class="bar"><div class="seg s1" style="width:24%">24</div><div class="seg s2" style="width:14%">14</div><div class="seg s3" style="width:54%">54</div><div class="seg s4" style="width:8%">8</div></div></div>
+      <div class="row"><div class="row-label">Rural</div>
+        <div class="bar"><div class="seg s1" style="width:24%">24</div><div class="seg s2" style="width:19%">19</div><div class="seg s3" style="width:46%">46</div><div class="seg s4" style="width:11%">11</div></div></div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:#E9A36B"></span><span>Os alunos devem guardar o telefone celular em <b>bolsos ou acessórios de uso individual</b>, como mochila ou estojo</span></div>
+      <div class="legend-item"><span class="legend-dot" style="background:#C85A1E"></span><span>Devem guardar o telefone celular em <b>locais disponibilizados pela escola</b>, como caixas, armários ou outros espaços</span></div>
+      <div class="legend-item"><span class="legend-dot" style="background:#8F2F10"></span><span><b>Não podem levar o telefone celular</b> para a escola</span></div>
+      <div class="legend-item"><span class="legend-dot" style="background:#D8CBB4"></span><span>Não sabe, não respondeu ou não se aplica</span></div>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: Cetic.br/NIC.br, Pesquisa TIC Educação 2025, indicador C3E — total de escolas de Ensino Fundamental e Médio (%). <a href="https://www.cetic.br/pt/tics/educacao/2025/escolas/C3E/">https://www.cetic.br/pt/tics/educacao/2025/escolas/C3E/</a></div>
+</div>
+
+</body>
+</html>

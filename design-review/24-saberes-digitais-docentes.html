@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 18 — MEC Saberes Digitais Docentes</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:40px 60px 34px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .s-head-l{flex:1}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:6px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:24px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-size:1.4rem;line-height:1.24;font-weight:700;color:var(--orange-deep)}
+
+  .stats{display:flex;gap:14px;flex:0 0 auto}
+  .stat-pill{
+    display:flex;align-items:center;gap:10px;background:var(--orange-deep);color:#fff;
+    border-radius:999px;padding:8px 18px 8px 10px;
+  }
+  .stat-pill .num{font-size:1.5rem;font-weight:800;background:#fff;color:var(--orange-deep);
+    width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .stat-pill .lbl{font-size:.8rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;max-width:9ch;line-height:1.15}
+
+  .accent-rule{height:3px;width:100%;margin-bottom:16px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  .dims{flex:1;display:flex;flex-direction:column;gap:14px;min-height:0}
+  .dim{
+    flex:1;display:grid;grid-template-columns:230px 1fr;border-radius:14px;overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+  }
+  .dim-label{
+    background:var(--dim-c);color:#fff;display:flex;flex-direction:column;justify-content:center;
+    padding:14px 22px;gap:6px;
+  }
+  .dim-tag{
+    display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
+    border-radius:50%;background:rgba(255,255,255,.28);font-size:.8rem;font-weight:800;
+  }
+  .dim-name{font-size:1.14rem;font-weight:800;line-height:1.22}
+
+  .sd-grid{background:var(--dim-bg);display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 20px;align-content:center}
+  .sd-item{
+    display:flex;align-items:center;gap:10px;background:var(--card);border-radius:999px;
+    padding:8px 18px 8px 8px;
+  }
+  .sd-num{
+    display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;
+    background:var(--dim-c);color:#fff;font-size:.8rem;font-weight:800;flex:0 0 auto;text-align:center;line-height:1.05;
+  }
+  .sd-txt{font-size:1.14rem;font-weight:700;color:var(--ink);line-height:1.2}
+
+  .m-src{
+    margin-top:14px;padding-top:8px;border-top:1px solid var(--muted);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="s-head">
+    <div class="s-head-l">
+      <div class="eyebrow">Competências e saberes digitais</div>
+      <h1 class="s-title">Como o referencial organiza os saberes docentes</h1>
+    </div>
+    <div class="stats">
+      <div class="stat-pill"><span class="num">3</span><span class="lbl">Dimensões</span></div>
+      <div class="stat-pill"><span class="num">10</span><span class="lbl">Saberes docentes</span></div>
+    </div>
+  </div>
+  <div class="accent-rule"></div>
+
+  <div class="dims">
+    <div class="dim" style="--dim-c:var(--orange-deep);--dim-bg:#F3E4D8">
+      <div class="dim-label">
+        <span class="dim-tag">D1</span>
+        <span class="dim-name">Ensino e Aprendizagem com uso de tecnologias digitais</span>
+      </div>
+      <div class="sd-grid">
+        <div class="sd-item"><span class="sd-num">SD<br>1.1</span><span class="sd-txt">Prática Pedagógica</span></div>
+        <div class="sd-item"><span class="sd-num">SD<br>1.2</span><span class="sd-txt">Curadoria e Criação</span></div>
+        <div class="sd-item"><span class="sd-num">SD<br>1.3</span><span class="sd-txt">Análise de Dados</span></div>
+        <div class="sd-item"><span class="sd-num">SD<br>1.4</span><span class="sd-txt">Prática Inclusiva</span></div>
+      </div>
+    </div>
+
+    <div class="dim" style="--dim-c:#1F5FA8;--dim-bg:#E4EDF7">
+      <div class="dim-label">
+        <span class="dim-tag">D2</span>
+        <span class="dim-name">Cidadania Digital</span>
+      </div>
+      <div class="sd-grid">
+        <div class="sd-item"><span class="sd-num">SD<br>2.1</span><span class="sd-txt">Uso Responsável</span></div>
+        <div class="sd-item"><span class="sd-num">SD<br>2.2</span><span class="sd-txt">Uso Seguro</span></div>
+        <div class="sd-item" style="grid-column:1/3;justify-self:start"><span class="sd-num">SD<br>2.3</span><span class="sd-txt">Uso Crítico</span></div>
+      </div>
+    </div>
+
+    <div class="dim" style="--dim-c:#0E7F63;--dim-bg:#E2F1EC">
+      <div class="dim-label">
+        <span class="dim-tag">D3</span>
+        <span class="dim-name">Desenvolvimento Profissional</span>
+      </div>
+      <div class="sd-grid">
+        <div class="sd-item"><span class="sd-num">SD<br>3.1</span><span class="sd-txt">Formação Continuada</span></div>
+        <div class="sd-item"><span class="sd-num">SD<br>3.2</span><span class="sd-txt">Comunicação e Colaboração</span></div>
+        <div class="sd-item" style="grid-column:1/3;justify-self:start"><span class="sd-num">SD<br>3.3</span><span class="sd-txt">Uso de recursos digitais para gestão</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: Ministério da Educação (MEC). Referencial de Saberes Digitais Docentes. 2024. <a href="https://www.gov.br/mec/pt-br/escolas-conectadas/20240822MatrizSaberesDigitais.pdf" style="color:inherit">https://www.gov.br/mec/pt-br/escolas-conectadas/20240822MatrizSaberesDigitais.pdf</a></div>
+</div>
+
+</body>
+</html>

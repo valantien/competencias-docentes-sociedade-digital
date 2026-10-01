@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 7 — Linha do tempo 1984–2021</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:6px;position:relative;z-index:3}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+  .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  .wm{position:absolute;font-family:var(--serif);font-weight:600;color:var(--orange-deep);
+    opacity:.06;line-height:1;pointer-events:none;user-select:none;z-index:0}
+  .wm.wm-start{left:52px;bottom:18px;font-size:9rem;opacity:.16}
+  .wm.wm-end{right:40px;bottom:18px;font-size:9rem;opacity:.16}
+
+  /* ---------- Percurso ---------- */
+  /* altura FIXA e igual ao viewBox do SVG (380px) — garante que os pontos
+     absolutamente posicionados coincidam exatamente com a curva (sem
+     distorção de escala do preserveAspectRatio="none") */
+  .tl-area{height:380px;flex:none;margin-top:150px;position:relative;z-index:5}
+  .tl-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+
+  .tl-dot{position:absolute;border-radius:50%;transform:translate(-50%,-50%);
+    border:3px solid var(--paper);z-index:3}
+
+  .tl-stem{position:absolute;width:2px;transform:translateX(-50%);z-index:2;
+    background:repeating-linear-gradient(180deg,var(--stem-c) 0 4px,transparent 4px 8px)}
+
+  .tl-flag{
+    position:absolute;transform:translate(-50%,-100%);border-radius:10px;
+    box-shadow:0 10px 24px rgba(30,27,24,.22);z-index:4;
+  }
+  .tl-flag .yr{font-family:var(--serif);font-weight:600;display:block;line-height:1}
+  .tl-flag .tt{font-weight:700;line-height:1.28;display:block;margin-top:3px}
+  .tl-flag .dd{line-height:1.32;display:block;margin-top:3px;opacity:.9}
+  .tl-flag.dark{color:#fff}
+  .tl-flag.light{color:var(--ink)}
+  .tl-flag.offset::after{display:none}
+  .tl-flag::after{
+    content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%) rotate(45deg);
+    width:12px;height:12px;background:inherit;border-radius:2px;
+  }
+
+  .m-src{
+    position:relative;z-index:3;margin-top:auto;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="wm wm-start">1984</div>
+  <div class="wm wm-end">2021</div>
+
+  <div class="s-head">
+    <div class="eyebrow">Políticas públicas no Brasil</div>
+    <h1 class="s-title">Tecnologias digitais e políticas públicas — 1984 a 2021</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="tl-area">
+    <svg class="tl-svg" viewBox="0 0 1144 380" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="tlGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#F0C093"/>
+          <stop offset="45%" stop-color="#D97C42"/>
+          <stop offset="100%" stop-color="#6E2C0F"/>
+        </linearGradient>
+      </defs>
+      <path d="M30,340 C59.3,340 59.3,324 88.6,324 C132.5,324 132.5,303 176.5,303 C293.75,303 293.75,277 411,277 C557.5,277 557.5,243 704,243 C850.5,243 850.5,200 997,200 C1055.5,200 1055.5,150 1114,150"
+        fill="none" stroke="url(#tlGrad)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+
+    <!-- 1984 — Educom -->
+    <div class="tl-dot" style="left:30px;top:340px;width:12px;height:12px;background:#F0C093"></div>
+    <div class="tl-stem" style="left:30px;top:290px;height:34px;--stem-c:#F0C093"></div>
+    <div class="tl-flag light" style="left:30px;top:288px;background:#F0C093;width:150px;padding:11px 14px;font-size:1rem">
+      <span class="yr" style="font-size:1.25rem">1984</span><span class="tt" style="font-size:1.057rem">Educom</span>
+    </div>
+
+    <!-- 1986 — Ação Imediata -->
+    <div class="tl-dot" style="left:88.6px;top:324px;width:12.5px;height:12.5px;background:#EDB183"></div>
+    <div class="tl-stem" style="left:88.6px;top:102px;height:206px;--stem-c:#EDB183"></div>
+    <div class="tl-flag light" style="left:88.6px;top:100px;background:#EDB183;width:165px;padding:11px 15px;font-size:1.014rem">
+      <span class="yr" style="font-size:1.312rem">1986</span><span class="tt" style="font-size:1.071rem">Ação Imediata em Informática</span>
+    </div>
+
+    <!-- 1989 — PRONINFE -->
+    <div class="tl-dot" style="left:176.5px;top:303px;width:13px;height:13px;background:#E8A66E"></div>
+    <div class="tl-stem" style="left:176.5px;top:265px;height:22px;--stem-c:#E8A66E"></div>
+    <div class="tl-flag light" style="left:176.5px;top:263px;transform:translate(-22%,-100%);background:#E8A66E;width:177.5px;padding:12px 15px;font-size:1.029rem">
+      <span class="yr" style="font-size:1.375rem">1989</span><span class="tt" style="font-size:1.086rem">PRONINFE — 1º Programa Nacional de Informática Educativa</span>
+    </div>
+
+    <!-- 1997 — Proinfo -->
+    <div class="tl-dot" style="left:411px;top:277px;width:14px;height:14px;background:#DB8654"></div>
+    <div class="tl-stem" style="left:411px;top:120px;height:135px;--stem-c:#DB8654"></div>
+    <div class="tl-flag dark" style="left:411px;top:118px;background:#D06A3A;width:197.5px;padding:14px 16px;font-size:1.057rem">
+      <span class="yr" style="font-size:1.5rem">1997</span><span class="tt" style="font-size:1.143rem">Proinfo</span>
+      <span class="dd" style="font-size:1rem;font-weight:700;opacity:1">Laboratórios de informática</span>
+    </div>
+
+    <!-- 2007 — Proinfo Integrado / UCA -->
+    <div class="tl-dot" style="left:704px;top:243px;width:15px;height:15px;background:#B4571E"></div>
+    <div class="tl-stem" style="left:704px;top:215px;height:20px;--stem-c:#B4571E"></div>
+    <div class="tl-flag dark" style="left:704px;top:213px;background:#B4571E;width:222.5px;padding:16px 19px;font-size:1.114rem">
+      <span class="yr" style="font-size:1.688rem">2007</span><span class="tt" style="font-size:1.229rem">Proinfo Integrado + Projeto UCA</span>
+      <span class="dd" style="font-size:1.057rem;font-weight:700;opacity:1">Banda larga (2 Mbps/escola) e o início da mobilidade</span>
+    </div>
+
+    <!-- 2017 — PIEC -->
+    <div class="tl-dot" style="left:997px;top:200px;width:16px;height:16px;background:#8F3B15"></div>
+    <div class="tl-stem" style="left:997px;top:180px;height:8px;--stem-c:#8F3B15"></div>
+    <div class="tl-flag dark" style="left:997px;top:178px;transform:translate(-52%,-100%);background:#8F3B15;width:220px;padding:15px 18px;font-size:1.143rem">
+      <span class="yr" style="font-size:1.75rem">2017</span><span class="tt" style="font-size:1.214rem">PIEC — Educação Conectada</span>
+      <span class="dd" style="font-size:1.029rem">1ª vez com o gestor escolar como ator da política</span>
+    </div>
+
+    <!-- 2021 — Lei 14.180 -->
+    <div class="tl-dot" style="left:1114px;top:150px;width:17px;height:17px;background:#6E2C0F"></div>
+    <div class="tl-stem" style="left:1114px;top:18px;height:114px;--stem-c:#6E2C0F"></div>
+    <div class="tl-flag dark offset" style="left:1114px;top:16px;transform:translate(-86%,-100%);background:#6E2C0F;width:237.5px;padding:18px 20px;font-size:1.2rem">
+      <span class="yr" style="font-size:1.938rem">2021</span><span class="tt" style="font-size:1.314rem">Lei nº 14.180/2021</span>
+      <span class="dd" style="font-size:1.086rem">O PIEC vira política de Estado</span>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: elaborado a partir de marcos históricos de políticas públicas de tecnologias digitais na educação no Brasil (1984–2021).</div>
+</div>
+
+</body>
+</html>

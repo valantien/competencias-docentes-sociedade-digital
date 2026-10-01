@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 18a — Fonte/contexto MEC Saberes Digitais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:56px 68px;display:flex;flex-direction:column;
+  }
+
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:34px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+
+  .fonte-body{flex:1;display:grid;grid-template-columns:300px 1fr;gap:56px;align-items:center;min-height:0}
+
+  .cover-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .cover{
+    width:270px;height:384px;border-radius:6px;
+    background:linear-gradient(155deg,#fff 0%,#fdf9f3 100%);
+    border:1px solid var(--line);
+    box-shadow:0 22px 44px rgba(30,27,24,.28), 0 2px 6px rgba(30,27,24,.10);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+  .cover img{width:100%;height:100%;object-fit:cover}
+  .cover-cap{font-size:.8rem;color:var(--muted);text-align:center;max-width:270px;line-height:1.4}
+
+  .fonte-title{
+    font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:1.6rem;line-height:1.18;color:var(--ink);letter-spacing:-.005em;
+    margin-bottom:10px;
+  }
+  .fonte-meta{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+  .fonte-meta .tag{
+    font-size:.8rem;font-weight:700;color:#FBF3E9;background:var(--orange-deep);
+    padding:5px 12px;border-radius:999px;letter-spacing:.02em;
+  }
+  .fonte-meta .yr{font-size:1.05rem;color:var(--muted);font-weight:600}
+
+  .fonte-desc{font-size:1.32rem;line-height:1.5;color:var(--ink);margin-bottom:26px}
+  .fonte-desc b{color:var(--orange-deep)}
+
+  .fonte-cite{
+    padding-top:16px;border-top:1px solid var(--muted);
+    font-size:.98rem;color:var(--muted);line-height:1.45;
+  }
+  .fonte-cite em{font-style:italic}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="eyebrow">Competências e saberes digitais</div>
+
+  <div class="fonte-body">
+    <div class="cover-wrap">
+      <div class="cover">
+        <img src="../assets/cover-mec-saberes-digitais.webp" alt="Capa: Saberes Digitais Docentes — MEC">
+      </div>
+      <div class="cover-cap">Capa do documento original</div>
+    </div>
+
+    <div class="fonte-text">
+      <h1 class="fonte-title">Referencial de Saberes Digitais Docentes</h1>
+      <div class="fonte-meta">
+        <span class="tag">MEC</span>
+        <span class="yr">2024</span>
+      </div>
+      <p class="fonte-desc">
+        Referencial do MEC que define <b>conhecimentos e práticas</b> para integrar
+        tecnologias digitais com intencionalidade pedagógica no Ensino Fundamental e
+        no Ensino Médio. Organizado em <b>3 dimensões</b> e <b>10 saberes</b>, apoia a
+        formação docente e a implementação das políticas nacionais de conectividade e
+        educação digital.
+      </p>
+      <div class="fonte-cite">
+        Ministério da Educação (MEC). Referencial de Saberes Digitais Docentes. 2024. <a href="https://www.gov.br/mec/pt-br/escolas-conectadas/20240822MatrizSaberesDigitais.pdf" style="color:inherit">https://www.gov.br/mec/pt-br/escolas-conectadas/20240822MatrizSaberesDigitais.pdf</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

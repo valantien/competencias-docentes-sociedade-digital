@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 9 — Usuários de Internet no Brasil, por perfil</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:22px}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+  .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  /* ---------- Corpo: tiles + gráfico agrupado ---------- */
+  .body{flex:1;display:flex;flex-direction:column;gap:18px;min-height:0}
+
+  .tiles{display:flex;gap:18px}
+  .tile{
+    flex:1;display:flex;align-items:center;gap:14px;
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);padding:14px 18px;
+  }
+  .tile .big{font-size:1.9rem;font-weight:800;color:var(--orange-deep);line-height:1;white-space:nowrap}
+  .tile .lbl{font-size:1rem;color:var(--ink);line-height:1.3}
+  .tile.alt .big{color:var(--muted)}
+
+  .chart-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+  .chart-title{font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:14px}
+  .groups{flex:1;display:flex;align-items:flex-end;gap:28px;position:relative}
+  .group{display:flex;flex-direction:column;height:100%}
+  .group-bars{flex:1;display:flex;align-items:flex-end;gap:9px;padding-top:20px;
+    border-bottom:1px solid var(--line)}
+  .group-title{
+    margin-top:8px;padding-top:8px;border-top:2px solid var(--line);
+    font-size:.8rem;font-weight:700;color:var(--muted);text-align:center;
+    text-transform:uppercase;letter-spacing:.05em;
+  }
+  .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+  .bar-val{font-size:.94rem;font-weight:800;color:var(--bar-c);margin-bottom:6px;white-space:nowrap}
+  .bar-rect{width:100%;max-width:52px;border-radius:6px 6px 2px 2px;background:var(--bar-c)}
+  .bar-lbl{margin-top:8px;font-size:.875rem;color:var(--muted);text-align:center;line-height:1.2}
+  .bar-col.hi .bar-lbl{color:var(--ink);font-weight:700}
+
+  .m-src{
+    margin-top:14px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Conectividade no Brasil</div>
+    <h1 class="s-title">Usuários que acessam a Internet exclusivamente pelo celular</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="tiles">
+      <div class="tile">
+        <div class="big">65%</div>
+        <div class="lbl">dos usuários de Internet acessam a rede apenas pelo celular, sem computador</div>
+      </div>
+      <div class="tile alt">
+        <div class="big">87%</div>
+        <div class="lbl">das classes DE acessam só pelo celular. Na classe A, são 5%.</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Acesso apenas pelo celular, por perfil (% dos usuários de Internet em cada grupo)</div>
+      <div class="groups">
+
+        <div class="group" style="flex:2;--bar-c:#B4576B">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">64%</div><div class="bar-rect" style="height:64%"></div>
+              <div class="bar-lbl">Masculino</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">65%</div><div class="bar-rect" style="height:65%"></div>
+              <div class="bar-lbl">Feminino</div>
+            </div>
+          </div>
+          <div class="group-title">Sexo</div>
+        </div>
+
+        <div class="group" style="flex:3;--bar-c:#B98A2E">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">84%</div><div class="bar-rect" style="height:84%"></div>
+              <div class="bar-lbl">Fundamental</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">73%</div><div class="bar-rect" style="height:73%"></div>
+              <div class="bar-lbl">Médio</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">24%</div><div class="bar-rect" style="height:24%"></div>
+              <div class="bar-lbl">Superior</div>
+            </div>
+          </div>
+          <div class="group-title">Grau de instrução</div>
+        </div>
+
+        <div class="group" style="flex:6;--bar-c:#C1541F">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">68%</div><div class="bar-rect" style="height:68%"></div>
+              <div class="bar-lbl">10–15</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">56%</div><div class="bar-rect" style="height:56%"></div>
+              <div class="bar-lbl">16–24</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">57%</div><div class="bar-rect" style="height:57%"></div>
+              <div class="bar-lbl">25–34</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">61%</div><div class="bar-rect" style="height:61%"></div>
+              <div class="bar-lbl">35–44</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">71%</div><div class="bar-rect" style="height:71%"></div>
+              <div class="bar-lbl">45–59</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">81%</div><div class="bar-rect" style="height:81%"></div>
+              <div class="bar-lbl">60+</div>
+            </div>
+          </div>
+          <div class="group-title">Faixa etária</div>
+        </div>
+
+        <div class="group" style="flex:4;--bar-c:#6E4A32">
+          <div class="group-bars">
+            <div class="bar-col">
+              <div class="bar-val">5%</div><div class="bar-rect" style="height:5%"></div>
+              <div class="bar-lbl">A</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">35%</div><div class="bar-rect" style="height:35%"></div>
+              <div class="bar-lbl">B</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">67%</div><div class="bar-rect" style="height:67%"></div>
+              <div class="bar-lbl">C</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">87%</div><div class="bar-rect" style="height:87%"></div>
+              <div class="bar-lbl">DE</div>
+            </div>
+          </div>
+          <div class="group-title">Classe</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: Cetic.br/NIC.br, Pesquisa TIC Domicílios 2025, indicador C16A — acesso exclusivo ou simultâneo por celular e computador (% do total de usuários de Internet). <a href="https://cetic.br/pt/tics/domicilios/2025/individuos/C16A/" style="color:inherit">https://cetic.br/pt/tics/domicilios/2025/individuos/C16A/</a></div>
+</div>
+
+</body>
+</html>

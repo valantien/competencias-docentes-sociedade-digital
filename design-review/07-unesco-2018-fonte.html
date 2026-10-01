@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 4a — Fonte/contexto UNESCO 2008</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:56px 68px;display:flex;flex-direction:column;
+  }
+
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:34px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+
+  .fonte-body{flex:1;display:grid;grid-template-columns:360px 1fr;gap:56px;align-items:center;min-height:0}
+
+  /* ---------- Miniatura de capa ---------- */
+  .cover-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .cover{
+    width:328px;height:428px;border-radius:6px;
+    background:linear-gradient(155deg,#fff 0%,#fdf9f3 100%);
+    border:1px solid var(--line);
+    box-shadow:0 22px 44px rgba(30,27,24,.28), 0 2px 6px rgba(30,27,24,.10);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+  /* placeholder visual enquanto a imagem real não chega */
+  .cover.placeholder{
+    background:
+      repeating-linear-gradient(135deg, rgba(143,59,21,.06) 0 10px, transparent 10px 20px),
+      linear-gradient(155deg,#fff 0%,#fdf9f3 100%);
+  }
+  .cover.placeholder::before{
+    content:"UNESCO";
+    font-family:var(--serif);font-weight:600;font-size:1.4rem;color:var(--orange-deep);
+    opacity:.35;letter-spacing:.02em;
+  }
+  .cover img{width:100%;height:100%;object-fit:contain}
+  .cover-cap{font-size:.8rem;color:var(--muted);text-align:center;max-width:328px;line-height:1.4}
+
+  /* ---------- Conteúdo textual ---------- */
+  .fonte-title{
+    font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:1.6rem;line-height:1.18;color:var(--ink);letter-spacing:-.005em;
+    margin-bottom:10px;
+  }
+  .fonte-meta{
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+  .fonte-meta .tag{
+    font-size:.8rem;font-weight:700;color:#FBF3E9;background:var(--orange-deep);
+    padding:5px 12px;border-radius:999px;letter-spacing:.02em;
+  }
+  .fonte-meta .yr{font-size:1.05rem;color:var(--muted);font-weight:600}
+
+  .fonte-desc{font-size:1.32rem;line-height:1.5;color:var(--ink);margin-bottom:26px}
+  .fonte-desc b{color:var(--orange-deep)}
+
+  .fonte-cite{
+    padding-top:16px;border-top:1px solid var(--line);
+    font-size:.98rem;color:var(--muted);line-height:1.45;
+  }
+  .fonte-cite em{font-style:italic}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="eyebrow">Marcos de competências — UNESCO</div>
+
+  <div class="fonte-body">
+    <div class="cover-wrap">
+      <div class="cover">
+        <img src="../assets/265721eng.jpg" alt="Capa: UNESCO ICT competency framework for teachers, version 3">
+      </div>
+      <div class="cover-cap">Capa do documento original</div>
+    </div>
+
+    <div class="fonte-text">
+      <h1 class="fonte-title">Marco de competências dos docentes em matéria de TIC</h1>
+      <div class="fonte-meta">
+        <span class="tag">UNESCO</span>
+        <span class="yr">Versão 3 · 2018</span>
+      </div>
+      <p class="fonte-desc">
+        Terceira versão do marco, dez anos após a primeira. Mantém as
+        <b>seis dimensões</b> e os <b>três estágios de progressão</b> da versão original,
+        atualizados para o cenário tecnológico de 2018 — mas ainda sem uma dimensão
+        dedicada à <b>inteligência artificial</b>, que só vai aparecer no marco de 2024.
+      </p>
+      <div class="fonte-cite">
+        UNESCO. <em>ICT competency framework for teachers: version 3</em>. Paris: UNESCO, 2018.
+        <a href="https://unesdoc.unesco.org/ark:/48223/pf0000265721" style="color:inherit">https://unesdoc.unesco.org/ark:/48223/pf0000265721</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

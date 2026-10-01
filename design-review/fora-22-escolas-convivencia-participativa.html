@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 22 — Escolas, convivência participativa</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    /* paleta categorica validada (dataviz, surface #EFE3D1, --pairs all: PASS) */
+    --o1:#C0501A; --o2:#1F5FA8; --o3:#0E7F63;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:34px 56px 30px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:6px}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:5px;display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-size:1.14rem;line-height:1.24;font-weight:700;color:var(--orange-deep)}
+  .accent-rule{height:3px;width:100%;margin-top:8px;margin-bottom:6px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  .axis-top{display:grid;grid-template-columns:318px 1fr 196px;margin-bottom:16px;padding:0 10px 0 14px}   /* mesmo recuo das linhas: eixo alinhado por construção */
+  .axis-top .ticks{position:relative;height:14px;font-size:.8rem;color:var(--muted);font-weight:600}
+  .axis-top .ticks span{position:absolute;transform:translateX(-50%)}
+  .axis-top .tbl-head{display:flex;gap:0;font-size:.8rem;font-weight:700;color:var(--muted);
+    text-transform:none;letter-spacing:0;justify-content:space-around;text-align:center;padding-left:12px}
+
+  .rows{flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:3px;min-height:0}
+  /* visual suave (pedido do usuário, 2026-09-12): faixas alternadas no lugar dos traços; recuo interno
+     para nenhum texto encostar na borda da faixa */
+  .row{display:grid;grid-template-columns:318px 1fr 196px;align-items:center;gap:0;
+    padding:4px 10px 4px 14px;border-radius:6px}
+  .row:nth-child(odd){background:rgba(255,255,255,.45)}
+  .row:has(.tbl.highlight){background:#F6DCC2;box-shadow:inset 3px 0 0 var(--orange)}
+  .row-label{font-size:.875rem;color:var(--ink);line-height:1.15;padding-right:12px}
+  .row-label i{font-style:italic}
+  .row-label b{font-weight:700}
+
+  .track{position:relative;height:24px}
+  .track .base-line{position:absolute;left:0;top:50%;height:1px;background:#E3D6C4;width:100%;transform:translateY(-50%)}
+  .track .total-line{position:absolute;top:50%;height:12px;background:#EBC39E;transform:translateY(-50%);border-radius:6px}
+  .track .total-val{position:absolute;top:-16px;font-size:.9rem;font-weight:800;color:var(--orange-deep);transform:translateX(-50%)}
+  .track .dot{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;transform:translate(-50%,-50%);border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+  .dot.d1{background:var(--o1)}
+  .dot.d2{background:var(--o2)}
+  .dot.d3{background:var(--o3)}
+  /* nos sobrepostos recebem margin-left calculado no proprio elemento (ver generators/) */
+
+  .tbl{display:flex;justify-content:space-around;text-align:center}
+  .tbl span{font-size:.875rem;font-weight:600;width:36px}
+  .tbl span:nth-child(1){color:var(--o1)}
+  .tbl span:nth-child(2){color:var(--o2)}
+  .tbl span:nth-child(3){color:var(--o3)}
+  .tbl.highlight span{font-weight:800}
+
+  .legend{display:flex;gap:24px;justify-content:center;align-items:center;margin-top:8px}
+  .legend-item{display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600;color:var(--ink)}
+  .legend-line{width:22px;height:8px;background:#EBC39E;border-radius:4px}
+  .legend-dot{width:13px;height:13px;border-radius:50%}
+
+  .m-src{
+    margin-top:12px;padding-top:6px;border-top:1px solid var(--muted);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.3;
+  }
+  .m-src a{color:inherit}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Escolas e convivência</div>
+    <h1 class="s-title">Escolas, presença de espaços de apoio e promoção de convivência participativa para os alunos</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="axis-top">
+    <div></div>
+    <div class="ticks">
+      <span style="left:0%">0</span><span style="left:20%">20</span><span style="left:40%">40</span>
+      <span style="left:60%">60</span><span style="left:80%">80</span><span style="left:100%;transform:translateX(-100%)">100</span>
+    </div>
+    <div class="tbl-head"><span>Municipal</span><span>Estadual</span><span>Particular</span></div>
+  </div>
+
+  <div class="rows">
+    <div class="row">
+      <div class="row-label">Plano de <b>convivência escolar</b> integrado ao Projeto Político-Pedagógico</div>
+      <div class="track"><div class="base-line"></div>
+        <div class="total-line" style="width:82%"></div><div class="total-val" style="left:82%">82</div>
+        <div class="dot d1" style="left:78%"></div><div class="dot d2" style="left:87%"></div><div class="dot d3" style="left:90%"></div>
+      </div>
+      <div class="tbl"><span>78</span><span>87</span><span>90</span></div>
+    </div>
+
+    <div class="row">
+      <div class="row-label"><b>Canal de comunicação e escuta</b> aberto entre alunos, professores, funcionários e famílias</div>
+      <div class="track"><div class="base-line"></div>
+        <div class="total-line" style="width:81%"></div><div class="total-val" style="left:81%">81</div>
+        <div class="dot d1" style="left:79%"></div><div class="dot d3" style="left:83%;margin-left:-4.7px"></div><div class="dot d2" style="left:84%;margin-left:4.7px"></div>
+      </div>
+      <div class="tbl"><span>79</span><span>84</span><span>83</span></div>
+    </div>
+
+    <div class="row">
+      <div class="row-label"><b>Plano individualizado de acompanhamento</b> de alunos que necessitam de maior atenção em relação a vulnerabilidades ou comportamentos reincidentes</div>
+      <div class="track"><div class="base-line"></div>
+        <div class="total-line" style="width:79%"></div><div class="total-val" style="left:79%">79</div>
+        <div class="dot d1" style="left:76%"></div><div class="dot d2" style="left:81%"></div><div class="dot d3" style="left:86%"></div>
+      </div>
+      <div class="tbl"><span>76</span><span>81</span><span>86</span></div>
+    </div>
+
+    <div class="row">
+      <div class="row-label"><b>Rede de apoio permanente</b>, formada por adultos de referência a quem os alunos possam buscar auxílio caso vivenciem situações sensíveis</div>
+      <div class="track"><div class="base-line"></div>
+        <div class="total-line" style="width:73%"></div><div class="total-val" style="left:73%">73</div>
+        <div class="dot d1" style="left:68%"></div><div class="dot d3" style="left:76%"></div><div class="dot d2" style="left:82%"></div>
+      </div>
+      <div class="tbl"><span>68</span><span>82</span><span>76</span></div>
+    </div>
+
+    <div class="row">
+      <div class="row-label"><b>Grupo permanente de mediação de conflitos</b></div>
+      <div class="track"><div class="base-line"></div>
+        <div class="total-line" style="width:64%"></div><div class="total-val" style="left:64%">64</div>
+        <div class="dot d1" style="left:62%;margin-left:-8.0px"></div><div class="dot d3" style="left:62%;margin-left:8.0px"></div><div class="dot d2" style="left:72%"></div>
+      </div>
+      <div class="tbl"><span>62</span><span>72</span><span>62</span></div>
+    </div>
+
+    <div class="row">
+      <div class="row-label"><b>Sistema de apoio estudantil</b>, no qual os próprios alunos ajudam uns aos outros a lidar com situações sensíveis</div>
+      <div class="track"><div class="base-line"></div>
+        <div class="total-line" style="width:61%"></div><div class="total-val" style="left:61%">61</div>
+        <div class="dot d1" style="left:58%"></div><div class="dot d3" style="left:63%;margin-left:-1.5px"></div><div class="dot d2" style="left:65%;margin-left:1.5px"></div>
+      </div>
+      <div class="tbl"><span>58</span><span>65</span><span>63</span></div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-line"></span>Total</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--o1)"></span>Municipal</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--o2)"></span>Estadual</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--o3)"></span>Particular</div>
+  </div>
+
+  <div class="m-src" style="padding-right:300px">Fonte: Cetic.br/NIC.br, TIC Educação 2024, indicador G6 — alunos usuários de Internet do Ensino Fundamental e Médio (%). <a href="https://cetic.br/pt/tics/educacao/2024/alunos/G6/">https://cetic.br/pt/tics/educacao/2024/alunos/G6/</a></div>
+</div>
+
+</body>
+</html>

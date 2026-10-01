@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 11b — Constatação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+  }
+
+  .circle-fill{
+    position:absolute;top:-140px;right:-160px;
+    width:560px;height:560px;border-radius:50%;
+    background:radial-gradient(circle at 62% 68%, var(--peach-lt) 0%, var(--peach) 62%, #EFBB8E 100%);
+    z-index:0;
+  }
+  .circle-outline{
+    position:absolute;bottom:-180px;left:-80px;
+    width:400px;height:400px;border-radius:50%;
+    border:3px solid var(--orange);opacity:.16;z-index:0;
+  }
+
+  .content{position:relative;z-index:2;height:100%;padding:64px 96px;display:flex;flex-direction:column;justify-content:center}
+
+  .eyebrow{
+    font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:26px;display:flex;align-items:center;gap:14px;
+  }
+  .eyebrow::before{content:"";width:30px;height:3px;background:var(--orange);display:inline-block}
+
+  .headline{
+    font-family:var(--serif);font-weight:600;font-optical-sizing:auto;
+    font-size:2.125rem;line-height:1.2;color:var(--orange-deep);
+    margin-bottom:28px;letter-spacing:-.01em;
+  }
+
+  .body-text{max-width:none}
+  .body-text ol{list-style:none;counter-reset:constat;display:flex;flex-direction:column;gap:20px}
+  .body-text li{
+    counter-increment:constat;
+    position:relative;padding-left:52px;min-height:40px;
+    font-size:1.28rem;font-weight:400;line-height:1.45;color:var(--ink);
+  }
+  .body-text li::before{
+    content:counter(constat);
+    position:absolute;left:0;top:-2px;
+    width:38px;height:38px;border-radius:50%;
+    background:var(--orange-deep);color:#fff;
+    font-family:var(--serif);font-weight:600;font-size:1.15rem;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .body-text b{color:var(--orange-deep)}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="circle-fill"></div>
+  <div class="circle-outline"></div>
+
+  <div class="content">
+    <div class="eyebrow">Conectividade no Brasil · Constatação</div>
+    <h1 class="headline">Competências digitais precisam ser contextuais.</h1>
+    <div class="body-text">
+      <ol>
+        <li>Um marco nacional dá uma direção geral, mas é a competência que de fato importa <b>muda com o contexto real</b> do ensino.</li>
+        <li>Em 2021, 12% dos professores realizavam atividades remotas apenas pelo celular. Esse dado mostra que as condições de trabalho docente são desiguais.</li>
+        <li>Exigir a mesma competência "padrão" dos dois ignora que um já está pronto para usar <b>Inteligência Artificial</b> em sala, enquanto o outro ainda luta por conexão estável.</li>
+        <li><b>A política e a formação docente precisam se adaptar à realidade de cada escola</b> — não o contrário.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

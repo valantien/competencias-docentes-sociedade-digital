@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 4 — UNESCO 2008</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --peach-lt:#FBE4CB;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;
+    background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+
+  /* cabeçalho (já existe no deck; replicado aqui só p/ contexto) */
+  .s-head{margin-bottom:18px}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+  .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  /* ---------- Matriz de competências ---------- */
+  .matrix{flex:1;display:flex;flex-direction:column;min-height:0;gap:7px}
+
+  .matrix-cols{
+    display:grid;grid-template-columns:260px repeat(3,1fr);column-gap:10px;row-gap:4px;
+    padding:0 4px 4px;
+  }
+  .matrix-cols .col-h{
+    font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);align-self:end;text-align:center;
+  }
+  .matrix-cols .col-h.spacer{grid-column:1;grid-row:2;visibility:hidden}
+  .matrix-cols .col-h.stage-h{grid-row:2}
+  .matrix-cols .group-h{
+    display:flex;align-items:baseline;gap:7px;font-size:.8rem;font-weight:700;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--orange-deep);line-height:1;
+  }
+  .matrix-cols .group-h strong{font-size:1.32rem;font-weight:800;letter-spacing:0}
+  .matrix-cols .dimensions-h{grid-column:1;grid-row:1;justify-content:flex-start;padding-left:4px}
+  .matrix-cols .stages-h{grid-column:2 / 5;grid-row:1;justify-content:center;color:var(--muted)}
+
+  .matrix-rows{flex:1;display:flex;flex-direction:column;gap:6px;min-height:0}
+  .m-row{
+    display:grid;grid-template-columns:260px repeat(3,1fr);gap:10px;
+    flex:1;align-items:stretch;min-height:0;
+  }
+  .m-dim{
+    display:flex;align-items:center;padding:0 12px;border-radius:10px;
+    font-size:1.06rem;font-weight:700;letter-spacing:.01em;line-height:1.2;
+  }
+  .m-num{
+    flex:0 0 26px;width:26px;height:26px;margin-right:10px;border-radius:50%;
+    display:grid;place-items:center;background:rgba(255,255,255,.24);
+    border:1px solid rgba(255,255,255,.48);font-size:.88rem;line-height:1;
+  }
+  .m-dim-label{min-width:0}
+  .m-row:nth-child(4) .m-num,.m-row:nth-child(5) .m-num,.m-row:nth-child(6) .m-num{
+    background:rgba(30,27,24,.09);border-color:rgba(30,27,24,.2);
+  }
+  .m-cell{
+    position:relative;display:flex;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:0 18px 0 22px;font-size:1.06rem;color:var(--ink);line-height:1.25;
+  }
+  .m-cell::before{
+    content:"";position:absolute;left:0;top:8px;bottom:8px;width:4px;border-radius:3px;
+    background:var(--row-tint);
+  }
+  .m-cell + .m-cell::after{
+    content:"";position:absolute;left:-9px;top:50%;transform:translateY(-50%);
+    width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;
+    border-left:6px solid var(--line);
+  }
+
+  /* rampa tonal por linha (identidade já dada pelo texto — cor só organiza) */
+  .m-row:nth-child(1){--row-tint:#8F3B15}
+  .m-row:nth-child(2){--row-tint:#A54A1B}
+  .m-row:nth-child(3){--row-tint:#C1541F}
+  .m-row:nth-child(4){--row-tint:#D97C42}
+  .m-row:nth-child(5){--row-tint:#E8A66E}
+  .m-row:nth-child(6){--row-tint:#F0C093}
+
+  .m-row:nth-child(1) .m-dim,.m-row:nth-child(2) .m-dim,.m-row:nth-child(3) .m-dim{
+    background:var(--row-tint);color:#FBF3E9;
+  }
+  .m-row:nth-child(4) .m-dim,.m-row:nth-child(5) .m-dim,.m-row:nth-child(6) .m-dim{
+    background:var(--row-tint);color:var(--ink);
+  }
+
+  /* ---------- Marcador de destaque (termos datados/curiosos) ---------- */
+  .hl{
+    background:var(--peach-lt);color:var(--orange-deep);
+    padding:1px 8px;border-radius:5px;font-weight:700;
+  }
+
+  /* ---------- Fonte (obrigatória em toda tela só de dados) ---------- */
+  .m-src{
+    margin-top:10px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Marcos de competências — UNESCO</div>
+    <h1 class="s-title">Padrões de competências TIC para professores da UNESCO [2008]</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="matrix">
+    <div class="matrix-cols">
+      <div class="group-h dimensions-h"><strong>6</strong> dimensões</div>
+      <div class="group-h stages-h"><strong>3</strong> estágios de progressão</div>
+      <div class="col-h spacer">dimensão</div>
+      <div class="col-h stage-h">Adquirir</div>
+      <div class="col-h stage-h">Aprofundar</div>
+      <div class="col-h stage-h">Criar</div>
+    </div>
+    <div class="matrix-rows">
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">1</span><span class="m-dim-label">Política e Visão</span></div>
+        <div class="m-cell"><span class="hl">Alfabetização em Tecnologia</span></div>
+        <div class="m-cell">Aprofundamento do Conhecimento</div>
+        <div class="m-cell">Criação de Conhecimentos</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">2</span><span class="m-dim-label">Currículo e Avaliação</span></div>
+        <div class="m-cell">Conhecimento Básico</div>
+        <div class="m-cell">Aplicação do Conhecimento</div>
+        <div class="m-cell">Habilidades do Século XXI</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">3</span><span class="m-dim-label">Pedagogia</span></div>
+        <div class="m-cell">Tecnologia Integrada</div>
+        <div class="m-cell">Solução de Problemas Complexos</div>
+        <div class="m-cell">Autogestão</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">4</span><span class="m-dim-label">TIC</span></div>
+        <div class="m-cell">Ferramentas Básicas</div>
+        <div class="m-cell">Ferramentas Complexas</div>
+        <div class="m-cell">Ferramentas Abrangentes</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">5</span><span class="m-dim-label">Organização e Administração</span></div>
+        <div class="m-cell"><span class="hl">Sala de Aula Padrão</span></div>
+        <div class="m-cell">Grupos Colaborativos</div>
+        <div class="m-cell">Organizações de Aprendizagem</div>
+      </div>
+      <div class="m-row">
+        <div class="m-dim"><span class="m-num">6</span><span class="m-dim-label">Desenvolvimento Profissional do Docente</span></div>
+        <div class="m-cell">Alfabetização Digital</div>
+        <div class="m-cell"><span class="hl">Gerência e Orientação</span></div>
+        <div class="m-cell">Professor como Aluno-Modelo</div>
+      </div>
+    </div>
+    <div class="m-src">Fonte: UNESCO. Padrões de competências em TIC para professores: módulos de padrão de competência. Paris: UNESCO, 2009. [Versão original: <em>ICT competency standards for teachers: competency standards modules</em>. Paris: UNESCO, 2008.] <a href="https://unesdoc.unesco.org/ark:/48223/pf0000156207_por" style="color:inherit">https://unesdoc.unesco.org/ark:/48223/pf0000156207_por</a></div>
+  </div>
+</div>
+
+</body>
+</html>

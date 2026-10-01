@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 23 — Temas da formação continuada</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18; --paper:#EFE3D1; --orange:#C1541F; --orange-deep:#8F3B15;
+    --orange-soft:#E8792F; --peach:#F3C7A4; --grid:#DCD1BF; --muted:#8A7F73;
+    /* dois grupos tematicos — paleta categorica validada (dataviz, surface #EFE3D1) */
+    --g1:#C0501A; --g2:#1F5FA8;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:34px 56px 28px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:6px}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:6px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:24px;height:2px;background:var(--orange-soft);display:inline-block}
+  .head-row{display:flex;align-items:flex-end;gap:26px}
+  .s-title{font-size:1.22rem;line-height:1.24;font-weight:700;color:var(--orange-deep);flex:1}
+  .s-note{
+    flex:0 0 246px;font-size:.8rem;line-height:1.35;color:var(--muted);
+    padding-left:20px;border-left:1px solid var(--grid);
+  }
+  .s-note b{color:var(--ink);font-weight:700}
+  .accent-rule{height:3px;width:100%;margin-top:9px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  .legend{display:flex;gap:30px;margin:12px 0 4px;padding-left:2px}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;color:var(--ink)}
+  .legend-sw{width:14px;height:14px;border-radius:3px;flex:none}
+  .legend-item span.sub{font-weight:500;color:var(--muted)}
+
+  .chart{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-height:0}
+
+  .axis-top{display:grid;grid-template-columns:540px 1fr;margin-bottom:2px}
+  .axis-top .ticks{position:relative;height:13px;font-size:.8rem;color:var(--muted);font-weight:600}
+  .axis-top .ticks span{position:absolute;transform:translateX(-50%)}
+
+  .row{display:grid;grid-template-columns:540px 1fr;align-items:center;
+    border-top:1px solid var(--grid);padding:4px 0}
+  .row:first-of-type{border-top:none}
+  .row.group-start{border-top:2px solid #C3B49C;margin-top:5px;padding-top:9px}
+  .row-label{font-size:.875rem;line-height:1.25;color:var(--ink);padding-right:20px;text-align:right}
+  .row-label b{font-weight:700}
+
+  .track{position:relative;height:21px;display:flex;align-items:center}
+  .bar{height:17px;border-radius:0 3px 3px 0}
+  .bar.g1{background:var(--g1)}
+  .bar.g2{background:var(--g2)}
+  .bar-val{position:absolute;font-size:.86rem;font-weight:800;color:var(--ink);
+    top:50%;transform:translateY(-50%);margin-left:10px}
+
+  /* enfase de um item: canais nao-cromaticos (fundo, peso, tamanho, marcador),
+     para a cor continuar codificando o grupo tematico e nao o destaque */
+  .row.hi{position:relative;background:#F7E3CF;border-radius:3px}
+  .row.hi::before{content:"";position:absolute;left:-10px;top:6px;bottom:6px;
+    width:3px;background:var(--orange);border-radius:2px}
+  .row.hi .row-label{font-weight:600}
+  .row.hi .bar{height:21px}
+  .row.hi .bar-val{font-size:1.02rem;color:var(--orange-deep)}
+  .row.hi .tag{display:inline-block;margin-left:8px;padding:1px 7px;border-radius:9px;
+    background:var(--orange);color:#fff;font-size:.8rem;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;vertical-align:2px}
+
+  .concl{
+    margin-top:12px;padding:11px 16px;border-left:3px solid var(--orange);
+    background:#FDF2E9;font-size:1remrem;line-height:1.45;color:var(--ink);
+  }
+  .concl .kicker{display:block;font-size:.8rem;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--orange);margin-bottom:5px}
+  .concl b{color:var(--orange-deep)}
+
+  .m-src{
+    margin-top:10px;padding-top:7px;border-top:1px solid var(--muted);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+  .m-src a{color:inherit}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Professores</div>
+    <div class="head-row">
+      <h1 class="s-title">Temas das atividades de formação continuada realizadas nos 12 meses anteriores à realização da pesquisa</h1>
+      <div class="s-note">Total de professores de escolas de Ensino Fundamental e Médio <b>que participaram de formação continuada</b> (%)</div>
+    </div>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-sw" style="background:var(--g1)"></span>Uso de ferramentas e plataformas</div>
+    <div class="legend-item"><span class="legend-sw" style="background:var(--g2)"></span>Demais temas <span class="sub">— uso crítico, cidadania digital, tecnologias emergentes</span></div>
+  </div>
+
+  <div class="chart">
+    <div class="axis-top">
+      <div></div>
+      <div class="ticks">
+        <span style="left:0%">0</span><span style="left:20%">20</span><span style="left:40%">40</span>
+        <span style="left:60%">60</span><span style="left:80%">80</span><span style="left:100%;transform:translateX(-100%)">100</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-label">Plataformas, programas de computador ou aplicativos de <b>criação de conteúdos</b> educacionais</div>
+      <div class="track"><div class="bar g1" style="width:82%"></div><div class="bar-val" style="left:82%">82</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label">Uso de tecnologias digitais para adaptar as atividades aos <b>ritmos de aprendizagem</b> dos estudantes</div>
+      <div class="track"><div class="bar g1" style="width:79%"></div><div class="bar-val" style="left:79%">79</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label">Uso de tecnologias na <b>avaliação de desempenho</b> dos alunos</div>
+      <div class="track"><div class="bar g1" style="width:75%"></div><div class="bar-val" style="left:75%">75</div></div>
+    </div>
+
+    <div class="row group-start">
+      <div class="row-label">Formas de orientar os alunos sobre o <b>uso seguro</b> do computador, do celular e da Internet</div>
+      <div class="track"><div class="bar g2" style="width:69%"></div><div class="bar-val" style="left:69%">69</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label"><b>Educação midiática</b> e uso crítico das mídias em sala de aula</div>
+      <div class="track"><div class="bar g2" style="width:68%"></div><div class="bar-val" style="left:68%">68</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label">Avaliação da <b>veracidade de informações</b> e notícias e compartilhamento responsável de conteúdos e opiniões na Internet</div>
+      <div class="track"><div class="bar g2" style="width:61%"></div><div class="bar-val" style="left:61%">61</div></div>
+    </div>
+    <div class="row hi">
+      <div class="row-label">Uso de <b>Inteligência Artificial</b> em atividades educacionais<span class="tag">Atenção</span></div>
+      <div class="track"><div class="bar g2" style="width:59%"></div><div class="bar-val" style="left:59%">59</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label">Proteção à <b>privacidade</b> e aos dados pessoais no uso da Internet</div>
+      <div class="track"><div class="bar g2" style="width:58%"></div><div class="bar-val" style="left:58%">58</div></div>
+    </div>
+    <div class="row">
+      <div class="row-label"><b>Computação, programação</b> ou <b>robótica</b> na educação</div>
+      <div class="track"><div class="bar g2" style="width:39%"></div><div class="bar-val" style="left:39%">39</div></div>
+    </div>
+  </div>
+
+  <div class="concl">
+    <span class="kicker">Conclusão</span>
+    Entre os professores que fizeram formação, os três temas mais citados são de <b>uso de ferramentas</b> (75% a 82%). Os de <b>leitura crítica</b> ficam abaixo: educação midiática 68%, veracidade da informação 61% e privacidade 58%. Sobre <b>Inteligência Artificial</b>, <b>59% desses professores</b> tiveram formação.
+  </div>
+
+  <div class="m-src">Fonte: Cetic.br/NIC.br, Pesquisa TIC Educação 2024. <a href="https://cetic.br/pt/pesquisa/educacao/">https://cetic.br/pt/pesquisa/educacao/</a></div>
+</div>
+
+</body>
+</html>

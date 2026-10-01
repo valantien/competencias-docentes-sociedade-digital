@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 13 — Nível de conectividade significativa no Brasil</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:10px}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-size:1.5rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+  .s-sub{font-size:.86rem;color:var(--muted);margin-top:6px;line-height:1.4}
+  .s-sub b{color:var(--orange-deep)}
+  .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  .body{flex:1;display:grid;grid-template-columns:1fr 240px;gap:26px;min-height:0}
+  .chart-col{position:relative;min-height:0;display:flex;flex-direction:column}
+  .chart-svg{width:100%;flex:1}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;padding-left:44px;margin-top:2px}
+  .legend-item{display:flex;align-items:center;gap:7px;font-size:.8rem;color:var(--ink);font-weight:600}
+  .legend-dot{width:10px;height:10px;border-radius:50%}
+
+  .side{display:flex;flex-direction:column;justify-content:center;gap:16px}
+  .stat{
+    background:var(--orange-deep);color:#fff;border-radius:14px;padding:20px 22px;text-align:center;
+  }
+  .stat .big{font-size:2.8rem;font-weight:800;line-height:1}
+  .stat .lbl{font-size:.82rem;margin-top:6px;line-height:1.4;opacity:.95}
+
+  .conclusion{
+    border-left:3px solid var(--orange);background:#FDF2E9;border-radius:0 12px 12px 0;
+    padding:14px 16px;font-size:.82rem;line-height:1.42;color:var(--ink);
+  }
+  .conclusion .kicker{
+    display:block;font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--orange-deep);margin-bottom:5px;
+  }
+  .conclusion b{color:var(--orange-deep)}
+
+  .m-src{
+    margin-top:10px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Conectividade significativa</div>
+    <h1 class="s-title">Conectividade significativa</h1>
+    <div class="s-sub">Conectividade <b>significativa</b> = pontuação de 7 a 9 (de 9 critérios: recurso financeiro, dispositivo, qualidade da conexão e ambiente de uso).</div>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="body">
+    <div class="chart-col">
+      <!-- escala: y = 480 - valor*10.5 (eixo e pontos pela mesma conta; corrigido e esticado em 2026-09-12) -->
+      <svg class="chart-svg" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet">
+        <line x1="60" y1="60" x2="840" y2="60" stroke="var(--line)" stroke-width="1"/>
+        <line x1="60" y1="270" x2="840" y2="270" stroke="var(--line)" stroke-width="1"/>
+        <line x1="60" y1="480" x2="840" y2="480" stroke="#C3BBA9" stroke-width="1.2"/>
+        <text x="44" y="66.5" text-anchor="end" font-size="13" fill="#8A7F73">40</text>
+        <text x="44" y="276.5" text-anchor="end" font-size="13" fill="#8A7F73">20</text>
+        <text x="44" y="486.5" text-anchor="end" font-size="13" fill="#8A7F73">0</text>
+
+        <g font-size="13" fill="#8A7F73" text-anchor="middle">
+          <text x="60" y="498">2021</text><text x="255" y="498">2022</text>
+          <text x="450" y="498">2023</text><text x="645" y="498">2024</text>
+          <text x="840" y="498">2025</text>
+        </g>
+
+        <!-- 0 a 2 pontos -->
+        <polyline fill="none" stroke="#D9873F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+          points="60,60 255,102 450,133.5 645,123 840,165"/>
+        <!-- 3 e 4 pontos -->
+        <polyline fill="none" stroke="#C85A1E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+          points="60,228 255,216.7 450,216.7 645,228 840,174.7"/>
+        <!-- 5 e 6 pontos -->
+        <polyline fill="none" stroke="#9B3A14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+          points="60,281.3 255,260.3 450,249 645,249 840,260.3"/>
+        <!-- 7 a 9 pontos -->
+        <polyline fill="none" stroke="#5A2208" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"
+          points="60,312 255,291 450,270 645,260.3 840,270"/>
+
+        <g font-size="13" font-weight="700" text-anchor="middle">
+          <g fill="#D9873F">
+            <circle cx="60" cy="60" r="4"/><text x="60" y="40.6">40</text>
+            <circle cx="255" cy="102" r="4"/><text x="255" y="82.6">36</text>
+            <circle cx="450" cy="133.5" r="4"/><text x="450" y="114.1">33</text>
+            <circle cx="645" cy="123" r="4"/><text x="645" y="103.6">34</text>
+            <circle cx="840" cy="165" r="4"/><text x="815" y="145.6">30</text>
+          </g>
+          <g fill="#C97C34">
+            <circle cx="60" cy="228" r="4"/><text x="60" y="208.6">24</text>
+            <circle cx="255" cy="216.7" r="4"/><text x="255" y="197.3">25</text>
+            <circle cx="450" cy="216.7" r="4"/><text x="450" y="197.3">25</text>
+            <circle cx="645" cy="228" r="4"/><text x="645" y="208.6">24</text>
+            <circle cx="840" cy="174.7" r="4"/><text x="815" y="200.5">29</text>
+          </g>
+          <g fill="#9B3A14">
+            <circle cx="60" cy="281.3" r="4"/><text x="60" y="310.4">19</text>
+            <circle cx="255" cy="260.3" r="4"/><text x="255" y="289.4">21</text>
+            <circle cx="450" cy="249" r="4"/><text x="450" y="236.1">22</text>
+            <circle cx="645" cy="249" r="4"/><text x="645" y="236.1">22</text>
+            <circle cx="840" cy="260.3" r="4"/><text x="815" y="289.4">21</text>
+          </g>
+          <g fill="#5A2208">
+            <circle cx="60" cy="312" r="4.2"/><text x="60" y="341.1">16</text>
+            <circle cx="255" cy="291" r="4.2"/><text x="255" y="320.1">18</text>
+            <circle cx="450" cy="270" r="4.2"/><text x="450" y="299.1">20</text>
+            <circle cx="645" cy="260.3" r="4.2"/><text x="645" y="291">21</text>
+            <circle cx="840" cy="270" r="4.2"/><text x="815" y="320.1">20</text>
+          </g>
+        </g>
+      </svg>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#D9873F"></span>0 a 2 pontos</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#C85A1E"></span>3 e 4 pontos</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#9B3A14"></span>5 e 6 pontos</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#5A2208"></span>7 a 9 pontos (significativa)</div>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="stat">
+        <div class="big">20%</div>
+        <div class="lbl">dos brasileiros com 10 anos ou mais têm conectividade significativa (2025)</div>
+      </div>
+      <div class="conclusion">
+        <span class="kicker">Conclusão</span>
+        Em 2025, 85% da população havia usado a Internet nos três meses anteriores, mas somente <b>20% estava na faixa mais alta de conectividade significativa</b>. Outros <b>59% estavam nas faixas de 0 a 4 pontos</b>.
+      </div>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: CGI.br (2025), Pesquisa TIC Domicílios 2025 — nível de conectividade significativa, total da população com 10 anos ou mais (%). <a href="https://www.cetic.br/media/analises/tic_domicilios_2025_principais_resultados.pdf" style="color:inherit">https://www.cetic.br/media/analises/tic_domicilios_2025_principais_resultados.pdf</a></div>
+</div>
+
+</body>
+</html>

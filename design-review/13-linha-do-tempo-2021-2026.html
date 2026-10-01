@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 7 — Linha do tempo 1984–2021</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:6px;position:relative;z-index:3}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-size:1.62rem;line-height:1.22;font-weight:700;color:var(--orange-deep)}
+  .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  .wm{position:absolute;font-family:var(--serif);font-weight:600;color:var(--orange-deep);
+    opacity:.06;line-height:1;pointer-events:none;user-select:none;z-index:0}
+  .wm.wm-start{left:52px;bottom:18px;font-size:9rem;opacity:.16}
+  .wm.wm-end{right:40px;bottom:18px;font-size:9rem;opacity:.16}
+
+  /* ---------- Percurso ---------- */
+  /* altura FIXA e igual ao viewBox do SVG (380px) — garante que os pontos
+     absolutamente posicionados coincidam exatamente com a curva (sem
+     distorção de escala do preserveAspectRatio="none") */
+  .tl-area{height:380px;flex:none;margin-top:110px;position:relative;z-index:5}
+  .tl-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+
+  .tl-dot{position:absolute;border-radius:50%;transform:translate(-50%,-50%);
+    border:3px solid var(--paper);z-index:3}
+
+  .tl-stem{position:absolute;width:2px;transform:translateX(-50%);z-index:2;
+    background:repeating-linear-gradient(180deg,var(--stem-c) 0 4px,transparent 4px 8px)}
+
+  .tl-flag{
+    position:absolute;transform:translate(-50%,-100%);border-radius:10px;
+    box-shadow:0 10px 24px rgba(30,27,24,.22);z-index:4;
+  }
+  .tl-flag .yr{font-family:var(--serif);font-weight:600;display:block;line-height:1}
+  .tl-flag .tt{font-weight:700;line-height:1.28;display:block;margin-top:3px}
+  .tl-flag .dd{line-height:1.32;display:block;margin-top:3px;opacity:.9}
+  .tl-flag.dark{color:#fff}
+  .tl-flag.light{color:var(--ink)}
+  .tl-flag.offset::after{display:none}
+  .tl-flag::after{
+    content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%) rotate(45deg);
+    width:12px;height:12px;background:inherit;border-radius:2px;
+  }
+
+  .pandemic-mark{
+    position:absolute;left:14px;top:0;bottom:0;width:0;
+    border-left:3px dashed #9C3B4E;z-index:1;
+  }
+  .pandemic-label{
+    position:absolute;left:0px;top:10px;transform:rotate(-90deg) translate(-100%,0);
+    transform-origin:left top;
+    font-size:.8rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+    color:#9C3B4E;background:transparent;white-space:nowrap;z-index:1;
+    padding:2px 4px;border-radius:4px;
+  }
+
+  .m-src{
+    position:relative;z-index:3;margin-top:auto;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="wm wm-start">2021</div>
+  <div class="wm wm-end">2026</div>
+
+  <div class="s-head">
+    <div class="eyebrow">Políticas públicas no Brasil</div>
+    <h1 class="s-title">Tecnologias digitais e políticas públicas — 2021 a 2026 (o divisor da pandemia)</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="tl-area">
+    <div class="pandemic-mark"></div>
+    <div class="pandemic-label">Pandemia<br>COVID-19</div>
+
+    <svg class="tl-svg" viewBox="0 0 1144 380" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="tlGrad2" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#F0C093"/>
+          <stop offset="45%" stop-color="#D97C42"/>
+          <stop offset="100%" stop-color="#6E2C0F"/>
+        </linearGradient>
+      </defs>
+      <path d="M30,340 C138.4,340 138.4,312 246.8,312 C355.2,312 355.2,277 463.6,277 C680.4,277 680.4,229 897.2,229 C1005.6,229 1005.6,150 1114,150"
+        fill="none" stroke="url(#tlGrad2)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+
+    <!-- 2021 — Lei 14.180 (continuidade) -->
+    <div class="tl-dot" style="left:30px;top:340px;width:12px;height:12px;background:#F0C093"></div>
+    <div class="tl-stem" style="left:30px;top:290px;height:34px;--stem-c:#F0C093"></div>
+    <div class="tl-flag light" style="left:30px;top:288px;transform:translate(-45%,-100%);background:#F0C093;width:187.5px;padding:11px 14px;font-size:1.03rem">
+      <span class="yr" style="font-size:1.25rem">2021</span><span class="tt" style="font-size:1.089rem">Lei nº 14.180/2021 — PIEC vira política de Estado</span>
+    </div>
+
+    <!-- 2022 — Computação na Educação Básica -->
+    <div class="tl-dot" style="left:246.8px;top:312px;width:13px;height:13px;background:#EDB183"></div>
+    <div class="tl-stem" style="left:246.8px;top:222px;height:86px;--stem-c:#EDB183"></div>
+    <div class="tl-flag light" style="left:246.8px;top:220px;background:#EDB183;width:250px;padding:12px 16px;font-size:1.059rem">
+      <span class="yr" style="font-size:1.375rem">2022</span><span class="tt" style="font-size:1.147rem">Resolução CNE/CEB nº 1/2022 + Parecer nº 2/2022</span>
+      <span class="dd" style="font-size:1rem">Computação na Educação Básica — complemento à BNCC, em 3 eixos: Pensamento Computacional, Mundo Digital, Cultura Digital</span>
+    </div>
+
+    <!-- 2023 — PNED / ENEC / Educação Midiática -->
+    <div class="tl-dot" style="left:463.6px;top:277px;width:15px;height:15px;background:#D06A3A"></div>
+    <div class="tl-stem" style="left:463.6px;top:120px;height:143px;--stem-c:#D06A3A"></div>
+    <div class="tl-flag dark" style="left:463.6px;top:118px;transform:translate(-44%,-100%);background:#C1541F;width:245px;padding:16px 19px;font-size:1.117rem">
+      <span class="yr" style="font-size:1.625rem">2023</span>
+      <span class="tt" style="font-size:1.206rem">PNED, ENEC e Educação Midiática</span>
+      <span class="dd" style="font-size:1.03rem">Lei nº 14.533/2023 (PNED) · Decreto nº 11.713/2023 (ENEC) · Estratégia Nac. de Educação Midiática</span>
+    </div>
+
+    <!-- 2025 — Celular nas escolas / Estatuto Digital -->
+    <div class="tl-dot" style="left:897.2px;top:229px;width:16px;height:16px;background:#A54A1B"></div>
+    <div class="tl-stem" style="left:897.2px;top:96px;height:118px;--stem-c:#A54A1B"></div>
+    <div class="tl-flag dark offset" style="left:830px;top:94px;transform:translate(-72%,-100%);background:#8F3B15;width:262.5px;padding:18px 20px;font-size:1.147rem">
+      <span class="yr" style="font-size:1.75rem">2025</span>
+      <span class="tt" style="font-size:1.265rem">Celular nas escolas e Estatuto Digital</span>
+      <span class="dd" style="font-size:1.059rem">Lei nº 15.100/2025 · Resolução CNE/CEB nº 2/2025 · Lei nº 15.211/2025 (ECA Digital)</span>
+    </div>
+
+    <!-- 2026 — Direitos digitais / IA / PNE -->
+    <div class="tl-dot" style="left:1114px;top:150px;width:17px;height:17px;background:#6E2C0F"></div>
+    <div class="tl-stem" style="left:1114px;top:128px;height:14px;--stem-c:#6E2C0F"></div>
+    <div class="tl-flag dark offset" style="left:1114px;top:128px;transform:translate(-71%,-100%);background:#6E2C0F;width:275px;padding:19px 21px;font-size:1.176rem">
+      <span class="yr" style="font-size:1.875rem">2026</span>
+      <span class="tt" style="font-size:1.324rem">Direitos digitais, IA e o novo PNE</span>
+      <span class="dd" style="font-size:1.089rem">Decreto nº 12.800/2026 · CNE/2026 (consulta IA) · Lei nº 15.388/2026 (PNE 2026–2036, +20 metas digitais)</span>
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: elaborado a partir de marcos históricos de políticas públicas de tecnologias digitais na educação no Brasil (2021–2026).</div>
+</div>
+
+</body>
+</html>

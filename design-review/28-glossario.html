@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 24c — Glossário</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:50px 68px 42px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:18px}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-family:var(--serif);font-weight:500;font-optical-sizing:auto;
+    font-size:1.9rem;line-height:1.2;color:var(--ink)}
+  .accent-rule{height:3px;width:100%;margin-top:14px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  .glossary{
+    flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;
+    grid-auto-rows:1fr;gap:12px;
+  }
+  .term{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:14px 20px;position:relative;display:flex;flex-direction:column;justify-content:center;gap:4px;
+  }
+  .term::before{
+    content:"";position:absolute;left:0;top:10px;bottom:10px;width:4px;border-radius:3px;
+    background:var(--orange-soft);
+  }
+  .term-name{font-size:1.05rem;font-weight:700;color:var(--orange-deep);letter-spacing:.01em}
+  .term-def{font-size:.86rem;line-height:1.42;color:var(--ink)}
+
+  .m-src{
+    margin-top:12px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Encerramento</div>
+    <h1 class="s-title">Glossário</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="glossary">
+    <div class="term">
+      <div class="term-name">Framework / diretrizes</div>
+      <div class="term-def">Documento de referência — internacional (UNESCO) ou nacional (MEC) — que organiza numa estrutura comum o que se espera de uma competência. Orienta, mas não tem força de lei.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">TIC</div>
+      <div class="term-def">Tecnologias da Informação e Comunicação — termo guarda-chuva para computador, internet e tecnologias digitais em geral, usado antes de o vocabulário migrar para "IA".</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Conectividade significativa</div>
+      <div class="term-def">Ter internet não basta: é o acesso medido em conjunto — recurso financeiro, dispositivo, qualidade da conexão e ambiente de uso. Sem isso, o acesso é frágil mesmo existindo "no papel".</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Inclusão digital crítica</div>
+      <div class="term-def">Não é só entregar tecnologia ao aluno — é educar para usá-la com discernimento: entender riscos, oportunidades e objetivos, não só operar a ferramenta.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Aplicação · Infusão · Transformação</div>
+      <div class="term-def">Três estágios de progressão de uma competência digital: uso pontual numa atividade → já integrada à prática do dia a dia → a tecnologia muda a própria forma de ensinar.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Agência</div>
+      <div class="term-def">Capacidade de uma pessoa fazer escolhas intencionais e agir a partir delas, sendo autora e responsável por suas ações e pelos efeitos que causam. Envolve intenção, planejamento e reflexão sobre o que se faz.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Mentalidade centrada no ser humano</div>
+      <div class="term-def">Abordagem de IA que prioriza valores e bem-estar humano, mantém o humano no centro das decisões, e é construída com ética desde o design — não como ajuste feito depois do problema aparecer.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Pensamento computacional</div>
+      <div class="term-def">Lógica de decompor um problema, reconhecer padrões e criar um passo a passo para resolvê-lo — com ou sem computador. Um dos três eixos que a Computação ganhou na BNCC em 2022 (com Mundo Digital e Cultura Digital).</div>
+    </div>
+  </div>
+
+  <div class="m-src">Definições próprias, com base nas fontes já citadas nesta apresentação — ver Referências.</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 21a — Destaque 64%</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18; --paper:#EFE3D1; --orange:#C1541F; --orange-deep:#8F3B15;
+    --orange-soft:#E8792F; --peach:#F3C7A4; --peach-lt:#FBE4CB;
+    --line:#E6DCD0; --muted:#8A7F73;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+  }
+  .circle-fill{
+    position:absolute;top:-160px;right:-140px;width:600px;height:600px;border-radius:50%;
+    background:radial-gradient(circle at 62% 68%, var(--peach-lt) 0%, var(--peach) 62%, #EFBB8E 100%);
+    z-index:0;
+  }
+  .circle-outline{
+    position:absolute;bottom:-200px;left:-100px;width:440px;height:440px;border-radius:50%;
+    border:3px solid var(--orange);opacity:.16;z-index:0;
+  }
+
+  .content{
+    position:relative;z-index:2;height:100%;padding:64px 96px 44px;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .eyebrow{
+    font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:34px;display:flex;align-items:center;gap:14px;
+  }
+  .eyebrow::before{content:"";width:30px;height:3px;background:var(--orange);display:inline-block}
+
+  .stat-row{display:flex;align-items:baseline;gap:30px;max-width:940px}
+  .stat-num{
+    font-family:var(--serif);font-weight:600;font-optical-sizing:auto;
+    font-size:9.5rem;line-height:.86;color:var(--orange-deep);letter-spacing:-.03em;
+    flex:0 0 auto;
+  }
+  .stat-num span{font-size:4rem;letter-spacing:0;margin-left:2px}
+  .stat-txt{
+    font-size:1.7rem;line-height:1.34;font-weight:600;color:var(--ink);
+  }
+  .stat-txt b{color:var(--orange-deep);font-weight:700}
+
+  .rule{height:3px;width:180px;margin:38px 0 26px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 55%,var(--peach) 100%)}
+
+  .sub{font-size:1.26rem;line-height:1.5;color:var(--ink)}
+  .sub em{font-style:normal;color:var(--orange-deep);font-weight:700}
+
+  .m-src{
+    position:absolute;left:96px;right:96px;bottom:34px;
+    padding-top:8px;border-top:1px solid var(--muted);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;z-index:2;
+  }
+  .m-src a{color:inherit}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="circle-fill"></div>
+  <div class="circle-outline"></div>
+
+  <div class="content">
+    <div class="eyebrow">Professores</div>
+
+    <div class="stat-row">
+      <div class="stat-num">64<span>%</span></div>
+      <div class="stat-txt">dos professores apoiaram alunos no enfrentamento de <b>situações sensíveis ocorridas na Internet</b></div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="sub">
+      Nos <em>12 meses anteriores à realização da pesquisa</em>. As situações vão de uso excessivo
+      de jogos e tecnologias a cyberbullying, discriminação, vazamento de imagens sem consentimento
+      e assédio — e mudam de peso conforme a etapa de ensino.
+    </div>
+  </div>
+
+  <div class="m-src">Fonte: Cetic.br/NIC.br, Pesquisa TIC Educação 2024. <a href="https://cetic.br/pt/pesquisa/educacao/">https://cetic.br/pt/pesquisa/educacao/</a></div>
+</div>
+
+</body>
+</html>

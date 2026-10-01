@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 17 — Escolas, espaços com internet</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B18;
+    --paper:#EFE3D1;
+    --orange:#C1541F;
+    --orange-deep:#8F3B15;
+    --orange-soft:#E8792F;
+    --peach:#F3C7A4;
+    --line:#E6DCD0;
+    --muted:#8A7F73;
+    /* paleta categorica validada (dataviz, --surface #EFE3D1, --pairs all: PASS) */
+    --s1:#C0501A; --s2:#1F5FA8; --s3:#0E7F63;
+    --card:#FFFFFF;
+    --sans:"Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#241B14}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+
+  .stage{
+    position:relative;width:1280px;height:720px;background:var(--paper);
+    overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border-radius:6px;
+    padding:40px 60px 34px;display:flex;flex-direction:column;
+  }
+  .s-head{margin-bottom:8px}
+  .eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--orange-soft);margin-bottom:6px;display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:24px;height:2px;background:var(--orange-soft);display:inline-block}
+  .s-title{font-size:1.28rem;line-height:1.24;font-weight:700;color:var(--orange-deep)}
+  .accent-rule{height:3px;width:100%;margin-top:12px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange-deep) 0%,var(--orange) 45%,var(--peach) 100%)}
+
+  .chart-col{flex:1;display:flex;flex-direction:column;min-height:0;position:relative}
+  .chart-svg{width:100%;flex:1}
+
+  .legend{display:flex;gap:28px;justify-content:center;margin-top:6px}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:.86rem;font-weight:700;color:var(--ink)}
+  .legend-dot{width:12px;height:12px;border-radius:50%}
+  .line-legend{display:flex;gap:24px;justify-content:center;margin-top:5px;color:var(--ink);font-size:.8rem}
+  .line-legend-item{display:flex;align-items:center;gap:8px}
+  .line-sample{width:32px;height:0;border-top:3px solid var(--orange-deep)}
+  .line-sample.dashed{border-top-style:dashed}
+
+  .m-src{
+    margin-top:10px;padding-top:8px;border-top:1px solid var(--muted);
+    font-size:.72rem;color:var(--muted);font-style:italic;line-height:1.35;
+  }
+  .m-src a{color:inherit}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="s-head">
+    <div class="eyebrow">Celular na escola</div>
+    <h1 class="s-title">Onde os alunos têm acesso à Internet na escola</h1>
+    <div class="accent-rule"></div>
+  </div>
+
+  <div class="chart-col">
+    <svg class="chart-svg" viewBox="0 0 1260 570" preserveAspectRatio="xMidYMid meet">
+      <!-- gridlines (escala compartilhada 0-100%): y = 490 - valor*4.3 — esticado em 2026-09-12 -->
+      <g stroke="var(--line)" stroke-width="1">
+        <line x1="90" y1="60" x2="1220" y2="60"/>
+        <line x1="90" y1="146" x2="1220" y2="146"/>
+        <line x1="90" y1="232" x2="1220" y2="232"/>
+        <line x1="90" y1="318" x2="1220" y2="318"/>
+        <line x1="90" y1="404" x2="1220" y2="404"/>
+        <line x1="90" y1="490" x2="1220" y2="490" stroke="#C3BBA9" stroke-width="1.2"/>
+      </g>
+      <g font-size="15" fill="#8A7F73" text-anchor="end">
+        <text x="80" y="66.7">100</text>
+        <text x="80" y="152.7">80</text>
+        <text x="80" y="238.7">60</text>
+        <text x="80" y="324.7">40</text>
+        <text x="80" y="410.7">20</text>
+        <text x="80" y="496.7">0</text>
+      </g>
+
+      <!-- divisórias entre painéis -->
+      <line x1="460" y1="19.7" x2="460" y2="490" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="850" y1="19.7" x2="850" y2="490" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 4"/>
+
+      <!-- títulos dos painéis -->
+      <g font-size="17" font-weight="700" fill="var(--ink)" text-anchor="middle">
+        <text x="265" y="20">Sala de aula</text>
+        <text x="655" y="20">Sala de recursos de robótica</text>
+        <text x="1045" y="20">Pátio ou área de recreação para os alunos</text>
+      </g>
+
+      <!-- ===== PAINEL 1: Sala de aula ===== -->
+      <g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="100" y1="189" x2="232" y2="232" stroke="var(--s3)" stroke-dasharray="7 7"/>
+        <polyline stroke="var(--s3)" points="232,232 298,244.9 364,266.4 430,253.5"/>
+        <line x1="100" y1="275" x2="232" y2="232" stroke="var(--s2)" stroke-dasharray="7 7"/>
+        <polyline stroke="var(--s2)" points="232,232 298,176.1 364,167.5 430,154.6"/>
+        <line x1="100" y1="305.1" x2="232" y2="232" stroke="var(--s1)" stroke-dasharray="7 7"/>
+        <polyline stroke="var(--s1)" points="232,232 298,219.1 364,223.4 430,227.7"/>
+      </g>
+
+      <g font-size="17" font-weight="700" text-anchor="middle">
+        <g fill="var(--s3)">
+          <circle cx="100" cy="189" r="4.5"/><text x="130" y="170.2">70</text>
+          <circle cx="364" cy="266.4" r="4.5"/><text x="364" y="293.8">52</text>
+          <circle cx="430" cy="253.5" r="4.5"/><text x="430" y="285.8">55</text>
+        </g>
+        <g fill="var(--s2)">
+          <circle cx="100" cy="275" r="4.5"/><text x="100" y="248.1">50</text>
+          <circle cx="298" cy="176.1" r="4.5"/><text x="298" y="154.1">73</text>
+          <circle cx="430" cy="154.6" r="4.5"/><text x="430" y="135.2">78</text>
+        </g>
+        <g fill="var(--s1)">
+          <circle cx="100" cy="305.1" r="4.5"/><text x="100" y="339.5">43</text>
+          <circle cx="298" cy="219.1" r="4.5"/><text x="298" y="197.1">63</text>
+          <circle cx="430" cy="227.7" r="4.5"/><text x="430" y="207.8">61</text>
+        </g>
+        <g fill="#B0A695">
+          <circle cx="232" cy="232" r="3.5"/>
+        </g>
+      </g>
+
+      <!-- ===== PAINEL 2: Sala de recursos de robótica ===== -->
+      <g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="490" y1="421.2" x2="622" y2="425.5" stroke="var(--s3)" stroke-dasharray="7 7"/>
+        <polyline stroke="var(--s3)" points="622,425.5 688,408.3 754,416.9 820,373.9"/>
+        <line x1="490" y1="472.8" x2="622" y2="451.3" stroke="var(--s2)" stroke-dasharray="7 7"/>
+        <polyline stroke="var(--s2)" points="622,451.3 688,451.3 754,455.6 820,429.8"/>
+        <line x1="490" y1="472.8" x2="622" y2="472.8" stroke="var(--s1)" stroke-dasharray="7 7"/>
+        <polyline stroke="var(--s1)" points="622,472.8 688,472.8 754,468.5 820,464.2"/>
+      </g>
+
+      <g font-size="17" font-weight="700" text-anchor="middle">
+        <g fill="var(--s3)">
+          <circle cx="490" cy="421.2" r="4.5"/><text x="490" y="395.9">16</text>
+          <circle cx="754" cy="416.9" r="4.5"/><text x="754" y="391.9">17</text>
+          <circle cx="820" cy="373.9" r="4.5"/><text x="820" y="348.9">27</text>
+        </g>
+        <g fill="var(--s2)">
+          <circle cx="490" cy="472.8" r="4.5"/><text x="464" y="477.9">4</text>
+          <circle cx="754" cy="455.6" r="4.5"/><text x="754" y="430.9">8</text>
+          <circle cx="820" cy="429.8" r="4.5"/><text x="820" y="405.3">14</text>
+        </g>
+        <g fill="var(--s1)">
+          <circle cx="490" cy="472.8" r="4.5"/><text x="516" y="477.9">4</text>
+          <circle cx="754" cy="468.5" r="4.5"/><text x="754" y="522.2">5</text>
+          <circle cx="820" cy="464.2" r="4.5"/><text x="820" y="518.2">6</text>
+        </g>
+      </g>
+
+      <!-- ===== PAINEL 3: Pátio / recreação ===== -->
+      <line x1="880" y1="266.4" x2="1210" y2="283.6" stroke="var(--s2)" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 7"/>
+      <line x1="880" y1="292.2" x2="1210" y2="365.3" stroke="var(--s3)" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 7"/>
+      <line x1="880" y1="309.4" x2="1210" y2="348.1" stroke="var(--s1)" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 7"/>
+
+      <g font-size="17" font-weight="700" text-anchor="middle">
+        <g fill="var(--s2)">
+          <circle cx="880" cy="266.4" r="4.5"/><text x="880" y="244.1">52</text>
+          <circle cx="1210" cy="283.6" r="4.5"/><text x="1210" y="261.6">48</text>
+        </g>
+        <g fill="var(--s3)">
+          <circle cx="880" cy="292.2" r="4.5"/><text x="856" y="296.5">46</text>
+          <circle cx="1210" cy="365.3" r="4.5"/><text x="1210" y="393.2">29</text>
+        </g>
+        <g fill="var(--s1)">
+          <circle cx="880" cy="309.4" r="4.5"/><text x="856" y="335.5">42</text>
+          <circle cx="1210" cy="348.1" r="4.5"/><text x="1210" y="326.1">33</text>
+        </g>
+      </g>
+
+      <!-- ===== Eixos de ano ===== -->
+      <g font-size="14" fill="#8A7F73" text-anchor="middle">
+        <text x="100" y="546.4">2020</text><text x="166" y="546.4">2021</text><text x="232" y="546.4">2022</text>
+        <text x="298" y="546.4">2023</text><text x="364" y="546.4">2024</text><text x="430" y="546.4">2025</text>
+
+        <text x="490" y="546.4">2020</text><text x="556" y="546.4">2021</text><text x="622" y="546.4">2022</text>
+        <text x="688" y="546.4">2023</text><text x="754" y="546.4">2024</text><text x="820" y="546.4">2025</text>
+
+        <text x="880" y="546.4">2020</text><text x="946" y="546.4">2021</text><text x="1012" y="546.4">2022</text>
+        <text x="1078" y="546.4">2023</text><text x="1144" y="546.4">2024</text><text x="1210" y="546.4">2025</text>
+      </g>
+    </svg>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--s1)"></span>Municipal</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--s2)"></span>Estadual</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--s3)"></span>Particular</div>
+    </div>
+    <div class="line-legend" aria-label="Tipos de linha">
+      <div class="line-legend-item"><span class="line-sample"></span><span>Dados anuais</span></div>
+      <div class="line-legend-item"><span class="line-sample dashed"></span><span>Intervalo sem observação anual</span></div>
+    </div>
+  </div>
+
+  <div class="m-src" style="padding-right:300px">Fonte: Cetic.br/NIC.br, TIC Educação 2025, indicador C1 — escolas com Internet (%). <a href="https://www.cetic.br/pt/tics/educacao/2025/escolas/C1/expandido/">https://www.cetic.br/pt/tics/educacao/2025/escolas/C1/expandido/</a></div>
+</div>
+
+</body>
+</html>
