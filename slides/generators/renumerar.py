@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Renomeia os arquivos de tela de design-review/ para a posição que têm no deck.
+"""Renomeia os arquivos de tela de slides/ para a posição que têm no deck.
 
 Nome novo = NN-<rótulo>.html, onde NN é a posição na lista ORDEM do build-index.py
 e <rótulo> é o rótulo da tela, sem acento. Telas fora do deck ganham o prefixo "fora-".
@@ -17,7 +17,7 @@ Rode de novo sempre que inserir, remover ou reordenar telas em ORDEM.
 import ast, os, re, sys, unicodedata
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-DR = os.path.dirname(AQUI)                                   # design-review/
+DR = os.path.dirname(AQUI)                                   # slides/
 RAIZ = os.path.abspath(os.path.join(DR, "..", "..", ".."))   # pasta do projeto
 BUILD = os.path.join(AQUI, "build-index.py")
 ALVOS_TEXTO = [BUILD] + [os.path.join(AQUI, f) for f in os.listdir(AQUI)

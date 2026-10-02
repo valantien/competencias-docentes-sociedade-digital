@@ -16,8 +16,8 @@ próprio arquivo).
 ## Como rodar
 
 ```bash
-python3 "palestra_01/apresentacao/design-review/generators/gen-capas-modulo5.py"
-python3 "palestra_01/apresentacao/design-review/generators/build-index.py"
+python3 "palestra_01/apresentacao/slides/generators/gen-capas-modulo5.py"
+python3 "palestra_01/apresentacao/slides/generators/build-index.py"
 ```
 
 Depois de regerar qualquer tela, rode o `build-index.py` para atualizar o deck.

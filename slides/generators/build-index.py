@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Funde as telas aprovadas do design-review num único index.html apresentável.
+"""Funde as telas aprovadas de slides/ num único index.html apresentável.
 
 Cada tela vira uma <section id="s-NN"> e TODO o CSS dela é reescrito com esse
 prefixo. Sem isso o deck quebra: 113 dos 152 seletores se repetem entre arquivos
@@ -120,7 +120,7 @@ for n, (arq, rotulo) in enumerate(ORDEM, start=1):
     # Scripts da tela são PRESERVADOS (a capa com globo depende do seu).
     # Cada um precisa ser autocontido (IIFE) e é validado com node --check abaixo.
     scripts_tela += [(arq, js) for js in re.findall(r"<script>(.*?)</script>", corpo, re.S)]
-    # As telas moram em design-review/ e apontam para ../assets/.
+    # As telas moram em slides/ e apontam para ../assets/.
     # O index.html mora um nível acima, então o caminho tem de virar assets/.
     corpo, n_img = re.subn(r'(src|href)="\.\./assets/', r'\1="assets/', corpo)
     imgs_reescritas.append(n_img)
