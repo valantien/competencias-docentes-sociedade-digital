@@ -40,7 +40,7 @@ RODAPE = [
 # omitido      -> orbe estático
 AULAS = [
  dict(n=1, arq="01-capa", data="2026-10-01", confirmada=True, fundo="globo",
-      titulo="Sociedade digital,<br>docência em transformação",   # 2026-09-30: tese do usuário, a sociedade já é digital; antes "Da conectividade à cidadania digital" e "Do acesso à docência digital"
+      titulo="Competências Docentes para a Sociedade Digital", titulo_classe="title-long",
       sub="O que se espera dos professores numa educação mediada por tecnologias digitais e inteligência artificial?",
       profs=["Prof. Me. Krysamon D. B. Cavalcante"], data_rodape="Outubro/2026",
       logos_dados=("../assets/logos.png", "UNESCO · Cetic.br · NIC.br · CGI.br")),   # fontes dos dados, rotuladas
@@ -123,6 +123,7 @@ for a in AULAS:
         # sem "Aula N de M": removido a pedido do usuário (2026-09-12)
         .replace("{{EYEBROW}}", EVENTO["rotulo"])
         .replace("{{TITULO}}", a["titulo"])
+        .replace("{{TITLE_CLASS}}", a.get("titulo_classe", ""))
         .replace("{{SUB}}", a["sub"])
         .replace("{{QUEM}}", quem)
         .replace("{{RODAPE}}", bloco_rodape(a))

@@ -29,7 +29,7 @@ if FONTE_TESTE:
 
 ORDEM = [
  ("01-capa",                         "Capa"),
- ("02-disclaimer",                  "Disclaimer"),
+ ("02-disclaimer",                  "Esclarecimento inicial"),
  ("03-para-iniciar-a-conversa",                     "Para iniciar a conversa"),
  ("04-para-refletir",                     "Para refletir"),
  ("05-unesco-2008-fonte",                 "UNESCO 2008 — fonte"),
@@ -248,7 +248,7 @@ html = f"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sociedade digital, docência em transformação — Módulo 5</title>
+<title>Competências Docentes para a Sociedade Digital — Módulo 5</title>
 <!-- fontes embutidas (Fraunces + Roboto Condensed): o deck funciona sem internet -->
 <link href="assets/fonts/fonts.css" rel="stylesheet">
 {FONTE_EXTRA}

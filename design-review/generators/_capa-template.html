@@ -56,6 +56,7 @@
     font-size:4.4rem;line-height:1.02;color:var(--orange-deep);
     letter-spacing:-.022em;text-wrap:balance;
   }
+  .title.title-long{font-size:2.7rem;letter-spacing:-.03em;white-space:nowrap}
   .subtitle{
     margin-top:24px;font-size:1.72rem;line-height:1.3;font-weight:300;
     color:var(--ink);max-width:680px;  /* em px: medida em ch encolhe com fonte condensada */
@@ -139,7 +140,7 @@
     <div class="eyebrow">{{EYEBROW}}</div>
 
     <div class="title-block">
-      <h1 class="title">{{TITULO}}</h1>
+      <h1 class="title {{TITLE_CLASS}}">{{TITULO}}</h1>
       <p class="subtitle">{{SUB}}</p>
     </div>
 
